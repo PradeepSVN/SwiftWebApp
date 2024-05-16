@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+
+# Build Output
+build/
+dist/
+
+# Editor Configs
+.vscode/
+.idea/
+
+# Temporary Files
+.cache/
+.eslintcache
+
+# Testing Frameworks
+coverage/
+
+# NPM Lock Files
+package-lock.json
+
+# Yarn Lock File
+yarn.lock
+
+# OS Specific Files
+.DS_Store
+
+# IDE Specific Files
+*.sublime-project
+*.sublime-workspace
+
+# Environment Variables
+.env.local
+.env.development
+.env.production
+
+# Log Files
+*.log
+
+# IDE Specific Backups
+*.swp
+*.swo
+
+# React Developer Tools Extension
+!**/node_modules/react-devtools-core/.*
+!**/node_modules/react-devtools-extension/.*
