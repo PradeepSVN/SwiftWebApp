@@ -8,6 +8,7 @@ import AddUser from '../pages/user/AddUser'
 import BatchAdd from '../pages/user/BatchAdd';
 import UserRoles from '../pages/user/Roles';
 import UserMaintenance from '../pages/user/UserMaintenance';
+import { useNavigate } from "react-router-dom"
 
 
 const options = [
@@ -20,23 +21,35 @@ const navLinks = [
     { type:'button', path: 'BatchAdd', title: 'User Batch Add', isActive:false },
     { type:'button', path: 'UserRoles', title: 'User Roles', isActive:false },
     { type:'button', path: 'UserMaintenance', title: 'User Maintenance', isActive:false },    
-    // { type:'DropdownButton', path: 'UserMaintenance', title: 'User Maintenance', options: options },
+    { type:'button', path: 'Logout', title: 'Logout', isActive:false },    
+   // { type:'DropdownButton', path: 'UserMaintenance', title: 'User Maintenance', options: options },
   ];
 
   
 
 
 const Layout = ({navPathTo}) => {
+  const navigate = useNavigate()
   const [contentPage, setContentPage] = useState(navPathTo);
   const changeNavLinkPath = (linkpath) => {
-    setContentPage(linkpath);
+    if(linkpath == "Logout")
+      {
+        navigate("/login");
+      }
+      else
+      {
+        setContentPage(linkpath);
+      }
+   
   };
+
+
   return (
    
       <Container  fluid className="p-0">
         <Row >
         <Logo />
-        <NavBar navLinks={navLinks} changeNavLinkPath={changeNavLinkPath}/>
+        <NavBar navLinks={navLinks}  changeNavLinkPath={changeNavLinkPath}/>
         </Row>
 
         <Row className='p-4'>
@@ -45,6 +58,7 @@ const Layout = ({navPathTo}) => {
         {contentPage == "BatchAdd"?<BatchAdd />:null}
         {contentPage == "UserRoles"?<UserRoles />:null}
         {contentPage == "UserMaintenance"?<UserMaintenance />:null}   
+      
        
         </Row>
         

@@ -37,3 +37,9 @@
     font-weight: 600;
     color: rgb(34, 34, 34);
   }
+
+  .error-message {
+    text-align: center;
+    color: red;
+    font-size: medium;
+  }

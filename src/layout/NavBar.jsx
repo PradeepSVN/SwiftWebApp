@@ -53,21 +53,22 @@ const NavBar = ({ navLinks,changeNavLinkPath }) => {
     console.log(`Selected: ${eventKey}`); // Handle selection logic here
   };
 
-  const renderNavLinks = () => {  
+  const renderNavLinks = () => {
+    
     return navLinks.map((link) => (
       
-     link.type === "button"? <button className={`p-2 navBtn ${link.isActive ? 'btnFocus' : ''}`} onClick={() => handleNavigation(link.path)}>{link.title}</button>: 
+     link.type === "button"? <button className={`p-2 navBtn ${link.isActive && link.path !="Logout" ? 'btnFocus' : ''}`} onClick={() => handleNavigation(link.path)}>{link.title}</button>: 
           <DropdownButton 
-          id="dropdown-basic-button"
+          //id="dropdown-basic-button"
           title={link.title}
           onSelect={handleSelect}
          
         >
-          {link.options.map((option) => (
+          {/* {link.options.map((option) => (
             <Dropdown.Item key={option.key} eventKey={option.key}>
               {option.value}
             </Dropdown.Item>
-          ))}
+          ))} */}
         </DropdownButton> 
         
           
