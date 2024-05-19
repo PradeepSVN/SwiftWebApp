@@ -30,3 +30,32 @@
  .ml3{
     margin-left: 13px;
  }
+
+
+.custom-multiselectcontrol {
+  /* Your custom styles for the control element */
+  background-color: white;
+  border:none;
+  /*border: 1px solid #ccc;*/
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+ 
+}
+
+.searchWrapper {
+   /* border: 1px solid #ccc; */
+   /* border-radius: 4px; */
+   background-color: white;
+   min-height: 22px;
+   padding: 5px;
+   position: relative;
+   width: 350px;
+}
+
+.multiSelectContainer {
+   position: relative;
+   text-align: left; 
+   width: 370px!important;
+   
+}

@@ -1,27 +1,137 @@
-import React, { useState } from "react"
+import React, { useState,useEffect } from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
-import { Form, Button, Container } from "react-bootstrap"
+import { Form, Button, Container,InputGroup,FormControl } from "react-bootstrap"
 import "../../styles/AddUser.css";
 import { Spinner } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import {APIS} from '../../utils/apiList';
-import {postData} from '../../services/rest-services';
+import {getData, postData} from '../../services/rest-services';
 import {isEmptyObject} from '../../utils/utils';
 import { API_RESPONSE_CODES, API_REQ_TYPE, ROUTES } from "../../utils/constants"
+import { getOriginalNode } from "typescript";
+import Multiselect from 'multiselect-react-dropdown';
+import { addUserAPIRequestData } from "../../utils/apiRequestData";
+
 
 const AddUser = () => {
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
-  const [payload, setPayload] = useState({user_Change_Password:false,user_Temp_Disable:false,user_Active:false,user_Note:'',user_Fax:'',user_Phone_Extn:'',user_Phone:'', user_UserName:'',user_First_Name:'',user_Last_Name:'',user_Title:''})
+  const [payload, setPayload] = useState(addUserAPIRequestData)
+  const [userRoles, setUserRoles] = useState([]);
+  const [entities, setEntities] = useState([]);
+  const [tinList, setTinList] = useState([]);
+  const [entityOptions, setEntityOptions] = useState([]);
+  const [tinOptions, setTinOptions] = useState([]);
+  const [entitySelectedOptions, setEntitySelectedOptions] = useState([]);
+  const [tinSelectedOptions, setTinSelectedOptions] = useState([]);
+  const [entityId, setEntityId] = useState("");
   const [formError, setFormError] = useState("")
   const [loading, setLoading] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
 
-  const handleSubmit = event => {
-    event.preventDefault()
-    //onSubmit(username, password);
+  useEffect(() => {
+    getAllRole();
+    getAllEnties();
+    //localStorage.removeItem("token")
+    //clearLocalStorage();
+  }, [])
+
+
+  const getAllRole = async () => {
+    setLoading(true);
+    clearTimeout(timer);
+    console.log("======addUserRole==Start=====");
+    const res = await getData(APIS.GETUSERROLE);
+    console.log("======res=======",res);
+    if(res)
+      {
+        setUserRoles(res);     
+      }
+      else
+      {
+        setLoading(false);      
+      }
+   
   }
 
+  const getAllEnties = async () => {
+    setLoading(true);
+    clearTimeout(timer);
+    console.log("======addUserRole==Start=====");
+    const res = await getData(APIS.GETALLENTITIES);
+    console.log("======res=======",res);
+    if(res)
+      {
+        setEntities(res);   
+        let options = [];
+        res.forEach((item) => (options.push({name: item.entity_Name,id:item.entity_ID })));
+        setEntityOptions(options);
+        
+       // setEntities([...entities, res]);       
+        
+      }
+      else
+      {
+        setLoading(false);      
+      }
+   
+  }
+
+  const getTinByEntityId = async (_entityId) => {
+    setLoading(true);
+    clearTimeout(timer);
+    console.log("======getTinByEntityId==entityId=====",_entityId);
+    const res = await getData(`${APIS.GETTINBYENTITYID}?entity_ID=${_entityId}`);
+    console.log("======res=======",res);
+    if(res)
+      {
+        let options = [];
+        res.forEach((item) => (options.push({name: item.tiN_Name,id:item.tiN_ID })));
+        const combinedArray = [...tinOptions, ...options];
+        setTinOptions(combinedArray);   
+      }
+      else
+      {
+        setLoading(false);      
+      }
+   
+  }
+
+  const onSelect = (selectedList, selectedItem) => {
+    setEntitySelectedOptions([...entitySelectedOptions, selectedItem]);
+    console.log("===onSelect====entitySelectedOptions========",entitySelectedOptions);
+    console.log(selectedItem);
+    setEntityId(selectedItem.id);
+    getTinByEntityId(selectedItem.id);
+}
+
+const onRemove = (selectedList, selectedItem) => {
+  const updatedItems = entitySelectedOptions.filter((item) => item.id !== selectedItem.id);
+  setEntitySelectedOptions(updatedItems);
+  console.log("===onRemove====entitySelectedOptions========",entitySelectedOptions);
+  console.log(selectedItem);
+  setTinSelectedOptions([]);
+
+}
+
+const onTinSelect = (selectedList, selectedItem) => {
+  console.log("===onSelect====selectedList========",selectedItem.id);
+  console.log(selectedItem);
+  setTinSelectedOptions([...tinSelectedOptions, selectedItem]);
+  
+}
+
+const onTinRemove = (selectedList, selectedItem) => {
+  const updatedItems = tinSelectedOptions.filter((item) => item.id !== selectedItem.id);
+  setTinSelectedOptions(updatedItems);
+  console.log("===onRemove====selectedList========");
+  console.log(selectedItem);
+}
+
+const handleSearchQuery = (serachValue) => {
+  console.log("======setSearchQuery=",serachValue);
+}
+
   const handleChange = (e) => {
+    console.log("===handleChange====entitySelectedOptions========",entitySelectedOptions);
     const target = e.target
     setPayload((_payload) => ({ ..._payload, [target.id]: target.value }))
     console.log("===payload==",payload);
@@ -32,6 +142,11 @@ const AddUser = () => {
     console.log("=======target======",target + e.target.id);
     setPayload((_payload) => ({ ..._payload, [e.target.id]: target }))
   }
+
+  const handleSelectOptions = (newValue) => {
+    console.log("==handleSelectOptions=",newValue);
+    setEntitySelectedOptions(newValue);
+  };
 
   const navigate = useNavigate()
 
@@ -49,8 +164,16 @@ const AddUser = () => {
   const addUser = async () => {
     setLoading(true);
     clearTimeout(timer);
-    console.log("======addUserRole==Start=====");
-    const res = await postData(APIS.ADDUSERROLE,payload);
+    setPayload((_payload) => ({ ..._payload, ["entities"]: entitySelectedOptions.map((item) => item.id).join(', ') }))
+    setPayload((_payload) => ({ ..._payload, ["tiNs"]: tinSelectedOptions.map((item) => item.id).join(', ') }))
+    let requestBody = payload;
+    requestBody.entities = entitySelectedOptions.map((item) => item.id).join(', ');
+    requestBody.tiNs = tinSelectedOptions.map((item) => item.id).join(', ');
+    requestBody.user_Password = 'qw4r#@$$';
+    requestBody.created_By_User_UID = '34D1E1FB-5DC7-49B4-A2D1-351638909C93';
+    
+    console.log("======addUserRole==Start=====",requestBody);
+    const res = await postData(APIS.ADDUSER, requestBody);
     console.log("======res=======",res);
     if(res.status == API_RESPONSE_CODES.SUCCESS)
       {
@@ -143,7 +266,7 @@ const AddUser = () => {
                 </Form.Group>
                 <Form.Group controlId="user_Title">
                   <Form.Label>
-                    Titil <span className="error">*</span>
+                    Title <span className="error">*</span>
                   </Form.Label>
                   <Form.Control
                     className="w-50"
@@ -224,32 +347,31 @@ const AddUser = () => {
                     Please provide a valid fax.
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group controlId="AssginedRole">
+                <Form.Group controlId="role_UID">
                   <Form.Label>
                     Assgined Role <span className="error">*</span>
                   </Form.Label>
                   <Form.Select
                     className="w-50"
                     aria-label="Default select example"
-                    
+                    onChange={handleChange}
+                    name="role_UID"
                   >
                     <option>Open this select Role</option>
-                    <option value="1">PA </option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    {userRoles.map((role) => <option value={role.role_UID}>{role.role_Name} </option>)}
+                   
                   </Form.Select>
                 </Form.Group>
 
-                <Form.Group controlId="Note">
+                <Form.Group controlId="user_Note">
                   <Form.Label>
                     Note <span className="error">*</span>
                   </Form.Label>
                   <Form.Control
                     className="w-50"
-                    name="Note"
-                    as="textarea"
-                    // value={formData.Address}
-                    // onChange={handleChange}
+                    name="user_Note"
+                    as="textarea"  
+                    onChange={handleChange}
                     rows={2}
                   />
                   {/* <span className="error">{errors.address}</span> */}
@@ -272,90 +394,119 @@ const AddUser = () => {
             <div className="col-md-6">
               <div className="col-md-12">
                 <div style={{ display: "flex" }}>
-                  <Form.Group controlId="Active">
+                  <Form.Group controlId="user_Active">
                     <Form.Check
                       className="mr-2"
                       aria-label="option 1"
                       label="Active"
+                      name="user_Active"
+                      onChange={handleChecked}
                     />
                   </Form.Group>
-                  <Form.Group controlId="Disaible">
+                  <Form.Group controlId="user_Temp_Disable">
                     <Form.Check
                       className="ml"
                       aria-label="option 1"
                       label="Disaible"
+                      name="user_Activeuser_Temp_Disable"
+                      onChange={handleChecked}
                     />
                   </Form.Group>
                 </div>
                 <div style={{ display: "flex" }}>
-                  <Form.Group controlId="Terminated">
-                    <Form.Check aria-label="option 1" label="Terminated" />
+                  <Form.Group controlId="user_Terminated">
+                    <Form.Check
+                    aria-label="option 1" 
+                    label="Terminated" 
+                    name="user_Terminated"
+                    onChange={handleChecked}/>
                   </Form.Group>
-                  <Form.Group controlId="date">
-                    <Form.Control
-                      className="w-50 ml2"
-                      type="text"
-                      //value={formData.firstName}
-                      // onChange={handleChange}
-                      name="date"
+                  <Form.Group controlId="user_Terminated_Date">
+                 
+                    <FormControl
+                     className="ml"
+                     aria-label="option 1"
+                      type="date"
+                      placeholder="Select a date"
+                      name="user_Terminated_Date"
+                      onChange={handleChange}
+                      //onChange={(event) => setSelectedDate(new Date(event.target.value))}
+                      // value={selectedDate.toISOString().slice(0, 10)} // Format for date input
                     />
+                 
+                    
                     {/* <span className="error">{errors.outletname}</span> */}
                   </Form.Group>
                 </div>
-                <Form.Group controlId="cpass">
+                <Form.Group controlId="user_Change_Password">
                   <Form.Check
                     aria-label="option 1"
                     label="Change Password on Login"
+                    name="user_Change_Password"
+                    onChange={handleChecked}
                   />
                 </Form.Group>
                 <Form.Group controlId="AssignedEntities">
                   <Form.Label>
                     Assigned Entities <span className="error">*</span>
                   </Form.Label>
-                  <Form.Control
-                    className="w-50"
-                    type="text"
-                    //value={formData.firstName}
-                    // onChange={handleChange}
-                    name="AssignedEntities"
-                  />
-                  {/* <span className="error">{errors.outletname}</span> */}
+                  <Multiselect                  
+                   className="custom-multiselectcontrol"
+                   aria-label="Default select example"
+                    options={entityOptions} // Options to display in the dropdown
+                    selectedValues={entitySelectedOptions} // Preselected value to persist in dropdown
+                    onSelect={onSelect} // Function will trigger on select event
+                    onRemove={onRemove} // Function will trigger on remove event
+                    displayValue="name" // Property name to display in the dropdown options
+                    placeholder="Select Entities"
+                    />
                   <Form.Control.Feedback type="invalid">
                     Please provide a valid AssignedEntities.
                   </Form.Control.Feedback>
                 </Form.Group>
-                <Form.Group>
+                {/* <Form.Group>
                   <div className=" mx-auto w-50">
                     <Button className="my-3 w-40">Add Entities</Button>
                   </div>
-                </Form.Group>
-                <Form.Group controlId="AssignedTins">
+                </Form.Group> */}
+                <Form.Group>
                   <Form.Label>
                     Assigned Tins <span className="error">*</span>
                   </Form.Label>
-                  <Form.Control
-                    className="w-50"
-                    type="text"
-                    //value={formData.firstName}
-                    // onChange={handleChange}
-                    name="AssignedTins"
-                  />
+                  {/* <Form.Control
+                      className="w-50 ml2"
+                      type="text"
+                    placeholder="Search options"
+                    //value={searchQuery}
+                    onChange={handleSearchQuery}
+                  /> */}
+                  <Multiselect                  
+                   className="custom-multiselectcontrol w-50"
+                   aria-label="Default select example"
+                    options={tinOptions} // Options to display in the dropdown
+                    selectedValues={tinSelectedOptions} // Preselected value to persist in dropdown
+                    onSelect={onTinSelect} // Function will trigger on select event
+                    onRemove={onTinRemove} // Function will trigger on remove event
+                    displayValue="name" // Property name to display in the dropdown options
+                    placeholder="Select Tin"
+                    />
+                
                   {/* <span className="error">{errors.outletname}</span> */}
                   <Form.Control.Feedback type="invalid">
                     Please provide a valid AssignedTins.
                   </Form.Control.Feedback>
                 </Form.Group>
 
-                <div className=" mx-auto w-50">
+                {/* <div className=" mx-auto w-50">
                   <Button className="my-3 w-40">Add Tins</Button>
-                </div>
+                </div> */}
                 <Form.Group controlId="cpass">
                   <Form.Check
                     aria-label="option 1"
                     label="Display new user info to send manually"
                   />
                 </Form.Group>
-                <Form.Group controlId="cpass">
+                <Form.Group controlId="cpass">               
                   <Form.Check aria-label="option 1" label="Email user" />
                 </Form.Group>
               </div>

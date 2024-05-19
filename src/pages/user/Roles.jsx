@@ -1,4 +1,4 @@
-import { useState,React,useEffect } from "react"
+import { useState,React,useEffect,useRef  } from "react"
 import { Form, Button, Container, Table } from "react-bootstrap"
 import { BsCheckCircle } from "react-icons/bs"
 import "../../styles/UserRole.css"
@@ -8,15 +8,19 @@ import { useNavigate } from "react-router-dom"
 import {APIS} from '../../utils/apiList';
 import {postData} from '../../services/rest-services';
 import {isEmptyObject} from '../../utils/utils';
+import { apiRequestData } from "../../utils/apiRequestData";
 
 const Roles = () => {
-  const [payload, setPayload] = useState({ role_ID: "", role_Name: "", prac_Admin_Assignable:false,role_Type:0})
+  const [payload, setPayload] = useState(apiRequestData);
   const [formError, setFormError] = useState("")
   const [loading, setLoading] = useState(false);
+  const forceUpdateRef = useRef(null);
   const handleSubmit = event => {
     event.preventDefault()
     //onSubmit(username, password);
   }
+
+ 
 
   const handleChange = (e) => {
     const target = e.target
@@ -31,10 +35,18 @@ const Roles = () => {
     setPayload((_payload) => ({ ..._payload, [e.target.id]: target }))
   }
 
+  const handleRowClick = (rowId) => {    
+    console.log("=======rowId======",rowId); 
+    console.log("=======payload======",payload[rowId]);
+        
+    setPayload((_payload) => ({ ..._payload, [rowId]: !payload[rowId] }))
+  }
+
   const navigate = useNavigate()
 
   const handleClick = (event) => {
     event.preventDefault();
+    setFormError("");
     if(isEmptyObject(payload))
       {
         setFormError("Please fill the required fields");
@@ -52,7 +64,14 @@ const Roles = () => {
     console.log("======res=======",res);
     if(res)
       {
-       
+        alert("User role is created successfully")
+        setLoading(false);
+        setPayload((_payload) => ({ ..._payload, ["role_ID"]: '' }))
+        setPayload((_payload) => ({ ..._payload, ["role_Name"]: '' }))
+        if (forceUpdateRef.current) {
+          console.log("====forceUpdateRef======")
+          forceUpdateRef.current();
+        }
         //navigate("/");
       }
       else
@@ -62,6 +81,16 @@ const Roles = () => {
       }
     //isObject(res) && props.LoginUserDetails({ userInfo: res })
   }
+
+  const resetForm = () => {
+    console.log("====resetForm======")
+    setPayload(null);
+    setPayload(apiRequestData);
+    setPayload((_payload) => ({ ..._payload, ["role_ID"]: '' }))
+    setPayload((_payload) => ({ ..._payload, ["role_Name"]: '' }))
+    //setPayload({ ...payload, apiRequestData });
+    console.log("====setPayload======",payload);
+  };
 
   const timer = setTimeout(() => {
     setLoading(false);
@@ -79,7 +108,7 @@ const Roles = () => {
         <Form onSubmit={handleSubmit}>
           <div className="col-md-5 offset-md-2">
             <div className="col-md-12">
-              <Form.Group controlId="RoleID">
+              <Form.Group >
                 <Form.Label>
                  Role ID <span className="error">*</span>
                 </Form.Label>
@@ -97,7 +126,7 @@ const Roles = () => {
                 </Form.Control.Feedback>
               </Form.Group>
 
-              <Form.Group controlId="RoleName">
+              <Form.Group >
                 <Form.Label>
                   Role Name <span className="error">*</span>
                 </Form.Label>
@@ -113,7 +142,7 @@ const Roles = () => {
                   Please provide a valid Role Name.
                 </Form.Control.Feedback>
               </Form.Group>
-              <Form.Group controlId="PracticeAdmin">
+              <Form.Group >
                 <Form.Check
                   className="ml1"
                   aria-label="option 1"
@@ -141,63 +170,65 @@ const Roles = () => {
                 <tr>
                   <td>Membership</td>
                   <td></td>
-                  <td>
-                    <BsCheckCircle />
+                  <td key="memb_View" onClick={() => handleRowClick("memb_View")}>
+                  {payload["memb_View"]?<BsCheckCircle />:null} 
                   </td>
-                  <td>
-                    <BsCheckCircle />
+                  <td key="memb_Submit" onClick={() => handleRowClick("memb_Submit")}>
+                  {payload["memb_Submit"]?<BsCheckCircle />:null} 
                   </td>
-                  <td>
-                    <BsCheckCircle />
+                  <td key="memb_Reports" onClick={() => handleRowClick("memb_Reports")}>
+                  {payload["memb_Reports"]?<BsCheckCircle />:null} 
                   </td>
                 </tr>
                 <tr>
                   <td>Utilization management</td>
                   <td></td>
-                  <td>
-                    <BsCheckCircle />
+                  <td key="auth_View" onClick={() => handleRowClick("auth_View")}>
+                  {payload["auth_View"]?<BsCheckCircle />:null} 
                   </td>
-                  <td>
-                    <BsCheckCircle />
+                  <td key="auth_Submit" onClick={() => handleRowClick("auth_Submit")}>
+                  {payload["auth_Submit"]?<BsCheckCircle />:null} 
                   </td>
-                  <td>
-                    <BsCheckCircle />
+                  <td key="auth_Reports" onClick={() => handleRowClick("auth_Reports")}>
+                  {payload["auth_Reports"]?<BsCheckCircle />:null} 
                   </td>
                 </tr>
 
                 <tr>
                   <td>Claims</td>
                   <td></td>
-                  <td>
-                    <BsCheckCircle />
+                  <td key="claim_View" onClick={() => handleRowClick("claim_View")}>
+                  {payload["claim_View"]?<BsCheckCircle />:null} 
                   </td>
-                  <td>
-                    <BsCheckCircle />
+                  <td key="claim_Submit" onClick={() => handleRowClick("claim_Submit")}>
+                  {payload["claim_Submit"]?<BsCheckCircle />:null} 
                   </td>
-                  <td>
-                    <BsCheckCircle />
+                  <td key="claim_Reports" onClick={() => handleRowClick("claim_Reports")}>
+                  {payload["claim_Reports"]?<BsCheckCircle />:null} 
                   </td>
                 </tr>
                 <tr>
                   <td>Providers</td>
                   <td></td>
-                  <td>
-                    <BsCheckCircle />
+                  <td key="prov_View" onClick={() => handleRowClick("prov_View")}>
+                  {payload["prov_View"]?<BsCheckCircle />:null} 
                   </td>
-                  <td></td>
-                  <td>
-                    <BsCheckCircle />
+                  <td key="prov_Submit" onClick={() => handleRowClick("prov_Submit")}>
+                  {payload["prov_Submit"]?<BsCheckCircle />:null} 
+                  </td>
+                  <td key="prov_Reports" onClick={() => handleRowClick("prov_Reports")}>
+                  {payload["prov_Reports"]?<BsCheckCircle />:null} 
                   </td>
                 </tr>
                 <tr>
                   <td>Finance</td>
                   <td></td>
-                  <td>
-                    <BsCheckCircle />
+                  <td key="fin_View" onClick={() => handleRowClick("fin_View")}>
+                  {payload["fin_View"]?<BsCheckCircle />:null} 
                   </td>
                   <td></td>
-                  <td>
-                    <BsCheckCircle />
+                  <td key="fin_Reports" onClick={() => handleRowClick("fin_Reports")}>
+                  {payload["fin_Reports"]?<BsCheckCircle />:null} 
                   </td>
                 </tr>
               </tbody>
