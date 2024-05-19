@@ -1,9 +1,10 @@
 import { useState,React,useEffect } from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./Login.css"
+import "../../global.css";
 import { useNavigate } from "react-router-dom"
 import {APIS} from '../../utils/apiList';
-import {testmethod, postData} from '../../services/rest-services';
+import { postData} from '../../services/rest-services';
 import { clearLocalStorage } from "../../utils/utils"
 import AlertPopup from "../../shared/Alert";  //
 import { Spinner } from "react-bootstrap"

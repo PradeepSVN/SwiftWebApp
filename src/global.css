@@ -5,3 +5,9 @@
     --text-color: #212529;
     /* Add other global colors as needed */
   }
+
+  .error-message {
+    text-align: center;
+    color: red;
+    font-size: medium;
+  }

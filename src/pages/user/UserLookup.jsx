@@ -1,12 +1,7 @@
-import React, { useState } from 'react';
+import React from "react"
 
-interface UserLookupProps {
-   
-  }
+const UserLookup = () => {
+  return <></>
+}
 
-  const UserLookup: React.FC<UserLookupProps> = () => {
-
-    return (<></>);
-  };
-
-  export default UserLookup; 
+export default UserLookup

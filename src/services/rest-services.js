@@ -67,8 +67,8 @@ export const postData = (url, body, isBaseURL = false) => {
   //headers.Authorization = localStorage.getItem(TOKEN_KEY)
   return axios
     .post(`${isBaseURL ? authBasePath : basePath}${url}`, body)
-    .then((res) => handleSuccessResponse(res))
-    .catch((err) => handleErrorResponse(err), { type: API_REQ_TYPE.POST, url, body, isBaseURL })
+    .then((res) => res) // handleSuccessResponse(res))
+    .catch((err) => err, { type: API_REQ_TYPE.POST, url, body, isBaseURL }) // handleErrorResponse(err), { type: API_REQ_TYPE.POST, url, body, isBaseURL })
 }
 
 export const postDataAPI = (url, body, isBaseURL = false) => {

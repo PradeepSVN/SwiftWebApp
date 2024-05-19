@@ -1,6 +1,7 @@
 export const APIS = {
-  BASEURL:"https://localhost:44337/", //http://localhost:5099/swagger/index.html
+  BASEURL:process.env.REACT_APP_API_URL, //http://localhost:5099/swagger/index.html
   LOGIN: "Login/Login",
+  ADDUSERROLE: "Role/AddRole",
   USER: "Admin/GetUser",
   CLIENT_LIST: "Admin/GetClientList",
   CREATE_CLIENT: "Admin/CreateClient",

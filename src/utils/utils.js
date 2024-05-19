@@ -65,3 +65,12 @@ export const scrollToBottom = (className) => {
   let messageBody = document.querySelector(className);
   messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
 }
+
+export const isEmptyObject = (obj) => {
+  for (const key in obj) {
+    if (obj[key] !== null && obj[key] !== undefined && obj[key] !== '') {
+      return false;
+    }
+  }
+  return true;
+};
