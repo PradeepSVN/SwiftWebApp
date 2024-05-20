@@ -9,18 +9,22 @@ import {APIS} from '../../utils/apiList';
 import {postData} from '../../services/rest-services';
 import {isEmptyObject} from '../../utils/utils';
 import { apiRequestData } from "../../utils/apiRequestData";
+import { LocalStorageKey } from "../../utils/constants";
+
 
 const Roles = () => {
   const [payload, setPayload] = useState(apiRequestData);
   const [formError, setFormError] = useState("")
   const [loading, setLoading] = useState(false);
-  const forceUpdateRef = useRef(null);
+  const formRef  = useRef(null);
   const handleSubmit = event => {
     event.preventDefault()
     //onSubmit(username, password);
   }
 
- 
+  useEffect(() => {
+    setPayload((_payload) => ({ ..._payload, ["created_By_User_UID"]: localStorage.getItem(LocalStorageKey.userId) }));
+  },[]);
 
   const handleChange = (e) => {
     const target = e.target
@@ -66,12 +70,9 @@ const Roles = () => {
       {
         alert("User role is created successfully")
         setLoading(false);
-        setPayload((_payload) => ({ ..._payload, ["role_ID"]: '' }))
-        setPayload((_payload) => ({ ..._payload, ["role_Name"]: '' }))
-        if (forceUpdateRef.current) {
-          console.log("====forceUpdateRef======")
-          forceUpdateRef.current();
-        }
+        //setPayload((_payload) => ({ ..._payload, ["role_ID"]: '' }))
+        //setPayload((_payload) => ({ ..._payload, ["role_Name"]: '' }))
+        formRef.current.reset();
         //navigate("/");
       }
       else
@@ -105,7 +106,7 @@ const Roles = () => {
           {/* <span className="error">{isDuplicate?'Email ID already exists to some other user.':''}</span> */}
         </div>
         <div></div>
-        <Form onSubmit={handleSubmit}>
+        <Form ref={formRef}>
           <div className="col-md-5 offset-md-2">
             <div className="col-md-12">
               <Form.Group >

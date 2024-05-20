@@ -7,7 +7,9 @@ import {APIS} from '../../utils/apiList';
 import { postData} from '../../services/rest-services';
 import { clearLocalStorage } from "../../utils/utils"
 import AlertPopup from "../../shared/Alert";  //
-import { Spinner } from "react-bootstrap"
+import { Spinner } from "react-bootstrap";
+import { LocalStorageKey } from "../../utils/constants";
+
 
 const Login = ({ onSubmit }) => {
   const [alertMsgData, setAlertMsgData] = useState({variant:'success',message:'test data'})
@@ -17,6 +19,7 @@ const Login = ({ onSubmit }) => {
 
 
   useEffect(() => {
+    //console.log("===process env===",baseurl)
     //localStorage.removeItem("token")
     clearLocalStorage();
   }, [])
@@ -49,7 +52,8 @@ const Login = ({ onSubmit }) => {
     if(res.token)
       {
         console.log("======token=======",res.token);
-        localStorage.setItem("token", res.token);       
+        localStorage.setItem(LocalStorageKey.token, res.token); 
+        localStorage.setItem(LocalStorageKey.userId,res.userid);      
         navigate("/");
       }
       else

@@ -1,4 +1,4 @@
-import {React,useState} from 'react';
+import {React,useState,useEffect} from 'react';
 //import './styles.css'; // Import your CSS file
 import Logo from './Logo';
 import NavBar from './NavBar';
@@ -9,6 +9,7 @@ import BatchAdd from '../pages/user/BatchAdd';
 import UserRoles from '../pages/user/Roles';
 import UserMaintenance from '../pages/user/UserMaintenance';
 import { useNavigate } from "react-router-dom"
+import { LocalStorageKey } from '../utils/constants';
 
 
 const options = [
@@ -29,11 +30,26 @@ const navLinks = [
 
 
 const Layout = ({navPathTo}) => {
+
   const navigate = useNavigate()
+  useEffect(() => {
+    const token = localStorage.getItem(LocalStorageKey.token);
+    console.log("====token=====",token);
+    if(!token || token == null || token == "")
+      {
+        navigate("/login");
+      }
+    
+  }, [])
+
+
+  
+
   const [contentPage, setContentPage] = useState(navPathTo);
   const changeNavLinkPath = (linkpath) => {
     if(linkpath == "Logout")
       {
+        localStorage.removeItem(LocalStorageKey.token);        
         navigate("/login");
       }
       else

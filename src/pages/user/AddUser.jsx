@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react"
+import React, { useState,useEffect,useRef } from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { Form, Button, Container,InputGroup,FormControl } from "react-bootstrap"
 import "../../styles/AddUser.css";
@@ -11,6 +11,7 @@ import { API_RESPONSE_CODES, API_REQ_TYPE, ROUTES } from "../../utils/constants"
 import { getOriginalNode } from "typescript";
 import Multiselect from 'multiselect-react-dropdown';
 import { addUserAPIRequestData } from "../../utils/apiRequestData";
+import { LocalStorageKey } from "../../utils/constants";
 
 
 const AddUser = () => {
@@ -18,6 +19,7 @@ const AddUser = () => {
   const [userRoles, setUserRoles] = useState([]);
   const [entities, setEntities] = useState([]);
   const [tinList, setTinList] = useState([]);
+  const [allEntityOptions, setAllEntityOptions] = useState([]);
   const [entityOptions, setEntityOptions] = useState([]);
   const [tinOptions, setTinOptions] = useState([]);
   const [entitySelectedOptions, setEntitySelectedOptions] = useState([]);
@@ -26,8 +28,11 @@ const AddUser = () => {
   const [formError, setFormError] = useState("")
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+  const formRef = useRef(null);
+
 
   useEffect(() => {
+    setPayload((_payload) => ({ ..._payload, ["created_By_User_UID"]: localStorage.getItem(LocalStorageKey.userId) }));
     getAllRole();
     getAllEnties();
     //localStorage.removeItem("token")
@@ -64,6 +69,7 @@ const AddUser = () => {
         let options = [];
         res.forEach((item) => (options.push({name: item.entity_Name,id:item.entity_ID })));
         setEntityOptions(options);
+        setAllEntityOptions(options);
         
        // setEntities([...entities, res]);       
         
@@ -170,15 +176,24 @@ const handleSearchQuery = (serachValue) => {
     requestBody.entities = entitySelectedOptions.map((item) => item.id).join(', ');
     requestBody.tiNs = tinSelectedOptions.map((item) => item.id).join(', ');
     requestBody.user_Password = 'qw4r#@$$';
-    requestBody.created_By_User_UID = '34D1E1FB-5DC7-49B4-A2D1-351638909C93';
-    
+    //requestBody.created_By_User_UID = localStorage.getItem(LocalStorageKey.userId);
+    setTimeout(() => {
+      setEntitySelectedOptions([]);
+      setTinSelectedOptions([]);
+      setEntityOptions([]);
+      setTinOptions([]);
+      getAllEnties();
+      //setEntityOptions(allEntityOptions);
+    }, 3000); // Hide spinner after 3 seconds
+  
     console.log("======addUserRole==Start=====",requestBody);
     const res = await postData(APIS.ADDUSER, requestBody);
     console.log("======res=======",res);
-    if(res.status == API_RESPONSE_CODES.SUCCESS)
+    if(res)
       {
+        alert("User created successfully");
         setLoading(false);
-        navigate("/");
+        formRef.current.reset();
       }
       else
       {
@@ -200,7 +215,7 @@ const handleSearchQuery = (serachValue) => {
           {/* <span className="error">{isDuplicate?'Email ID already exists to some other user.':''}</span> */}
         </div>
         <div></div>
-        <Form>
+        <Form  ref={formRef}>
           <div style={{ display: "flex" }}>
             <div className="col-md-5 offset-md-2">
               <div className="col-md-12">
@@ -381,7 +396,7 @@ const handleSearchQuery = (serachValue) => {
                 </Form.Group>
 
                 <div className=" mx-auto w-50">
-                  <Button className="my-3 w-50" type="button" onClick={handleClick}>
+                  <Button className="my-3 w-50" type="button" onClick={handleClick} disabled={loading}>
                   {loading ? (
                     <Spinner animation="border" role="status" size="sm">          
                     </Spinner>

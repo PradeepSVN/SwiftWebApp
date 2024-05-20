@@ -3,6 +3,12 @@ export const COLORS = {
     accent: "#F4564E",
   }
 
+  export const LocalStorageKey = {
+       userId: "userid",
+       token: "token",
+       createdByUserId: "created_By_User_UID"
+  }
+
   export const API_RESPONSE_CODES = {
     SUCCESS: 200,
     SUCCESS_CREATE: 201,
