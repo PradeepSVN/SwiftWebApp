@@ -10,6 +10,9 @@ import UserRoles from '../pages/user/Roles';
 import UserMaintenance from '../pages/user/UserMaintenance';
 import { useNavigate } from "react-router-dom"
 import { LocalStorageKey } from '../utils/constants';
+import Header from '../layout/Header';
+import GlobalStyles from '../theme/GlobalStyles';
+import COLORS from '../utils/constants';
 
 
 const options = [
@@ -37,7 +40,7 @@ const Layout = ({navPathTo}) => {
     console.log("====token=====",token);
     if(!token || token == null || token == "")
       {
-        navigate("/login");
+        //navigate("/login");
       }
     
   }, [])
@@ -61,14 +64,17 @@ const Layout = ({navPathTo}) => {
 
 
   return (
-   
+     <div>
+      <GlobalStyles/>
+      <Header navLinks={navLinks}  changeNavLinkPath={changeNavLinkPath}></Header>
       <Container  fluid className="p-0">
-        <Row >
+       
+        {/* <Row >
         <Logo />
         <NavBar navLinks={navLinks}  changeNavLinkPath={changeNavLinkPath}/>
-        </Row>
+        </Row> */}
 
-        <Row className='p-4'>
+         {/* <Row className='p-4'> */}
         {contentPage == undefined?<AddUser />:null}
         {contentPage == "AddUser"?<AddUser />:null}
         {contentPage == "BatchAdd"?<BatchAdd />:null}
@@ -76,10 +82,10 @@ const Layout = ({navPathTo}) => {
         {contentPage == "UserMaintenance"?<UserMaintenance />:null}   
       
        
-        </Row>
+        {/* </Row>  */}
         
       </Container>
-     
+      </div>
    
   );
 };

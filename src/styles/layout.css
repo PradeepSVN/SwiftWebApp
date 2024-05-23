@@ -81,9 +81,13 @@ border-color:black;
   }
 
   .btnFocus {
-    background-color:#000000;
-    color: white;
+    background-color: transparent!important;
+    color: white!important;
+    color:var(--primary-info)!important;
+    font-weight:bold!important;
   }
+
+
 
 .gfg-div {
     width: 400px;

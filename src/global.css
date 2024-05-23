@@ -1,4 +1,11 @@
 :root {
+    --half-blue:#DEF2F1;
+    --primary-info:#084c81;
+    --navbar-color:#6B94B3;
+    --headings-text-color:#6A6A5A;
+    --main-text-color:#545454;
+    --black-color:#000000;
+    --background-color:#FFFFFF;
     --primary-background-color:#d0e4fd;
     --primary-color: #007bff;
     --secondary-color: #ffc107;
@@ -9,5 +16,117 @@
   .error-message {
     text-align: center;
     color: red;
-    font-size: medium;
+    /* font-size: medium; */
+     /* font-family:'DMSans',sans-serif;    */
+     font-size: 30px; 
+  }
+  
+
+  .main-headings {
+    font-size: 32px;
+    font-weight: bold;
+  }
+
+  .sub-headings {
+    font-size: 30px;
+    font-weight: bold;
+  }
+
+  .buttons {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+ .forgot-password {
+    font-size: 20px;
+  }
+
+  .nav-bar-menu {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .user-info {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .search-bar {
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  .link-btn {
+    border-style: none!important;
+    border: none!important;
+    color:var(--navbar-color)!important;
+    font-weight: 200!important;
+   
+  }
+
+  .link-btn:hover {
+    border-style: none!important;
+    border: none!important;
+    color:var(--primary-info)!important;
+    font-weight:bold!important;
+    background-color: transparent;
+  }
+
+  .link-btn:focus {
+    border-style: none!important;
+    border: none!important;
+    color:var(--primary-info)!important;
+    font-weight:bold!important;
+    background-color: transparent;
+    font-variant: normal;
+  }
+
+  .link-btn-Focus {
+    background-color: transparent!important;
+    color:var(--primary-info)!important;
+    font-weight:bold!important;
+    background-color: transparent;
+    font-variant: normal;
+  }
+
+  .text-field-container input::placeholder {
+    position: absolute; /* Make it absolute within the container */
+    top: 10!important;/* Position at the top */
+    left: 0px!important; /* Adjust horizontal position as needed */
+    color: black!important;/* Optional: Set the placeholder text color */
+   
+  }
+
+  .css-1hb7zxy-IndicatorsContainer {
+    display: none!important;
+    padding-top: -20px!important;
+  }
+
+ /* .css-1qvyehy-Placeholder {
+    display: none!important;
+  }
+
+  .css-1fdsijx-ValueContainer {
+     padding-top: -5px!important;
+     border: none!important;
+     border-radius: none!important;
+  }
+
+  .css-1atbqx3-control:hover {
+    border-color: transparent!important;
+  }*/
+
+  .input-line-style {
+    border: none!important;
+    outline: none!important;
+    background-color: transparent!important;
+    padding: 5px!important;
+    font-size: 16px!important;
+    border-bottom: 1px solid #ccc!important;
+    display: block!important;
+    width: 200px!important;
+  
+    &::placeholder {
+      color: #aaa!important;
+    }
   }

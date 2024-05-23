@@ -14,7 +14,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AddUser from './pages/user/AddUser';
 const App = () => {
   return (
-    <div  style={{ width: '100%', backgroundColor: '#d0e4fd'}}>
+    <div  style={{ width: '100%'}}>
     <BrowserRouter>     
         <Routes>  {/* Replaced Switch with Routes in React Router v6 */}
         <Route path="/" element={ <Layout navPathTo='AddUser' />} />  

@@ -1,6 +1,17 @@
 export const COLORS = {
-    backgroundcolor: "#d0e4fd",
+    backgroundcolor: "#DFE2F1",
     accent: "#F4564E",
+    HeadingLight:'#DFE2F1',
+    HeadingHeighlight:'#084C81',
+    TextColorNavBar:'#6B94B3',
+    TextColorPlaceholder:'#6A6A6A',
+    TextColorMainText:'#545454',
+    BlackColor:'#000000',
+    
+  }
+
+  export const borderStyles = {
+    searchBoxBorder:'2px solid'+COLORS.TextColorNavBar,
   }
 
   export const LocalStorageKey = {

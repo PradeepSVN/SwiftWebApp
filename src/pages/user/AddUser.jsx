@@ -7,12 +7,17 @@ import { useNavigate } from "react-router-dom"
 import {APIS} from '../../utils/apiList';
 import {getData, postData} from '../../services/rest-services';
 import {isEmptyObject} from '../../utils/utils';
-import { API_RESPONSE_CODES, API_REQ_TYPE, ROUTES } from "../../utils/constants"
+import { API_RESPONSE_CODES, API_REQ_TYPE, ROUTES, borderStyles } from "../../utils/constants"
 import { getOriginalNode } from "typescript";
 import Multiselect from 'multiselect-react-dropdown';
-import { addUserAPIRequestData } from "../../utils/apiRequestData";
+import { addUserAPIRequestData, apiRequestData } from "../../utils/apiRequestData";
 import { LocalStorageKey } from "../../utils/constants";
-
+import TextField from '@mui/material/TextField';
+import '../../global.css'
+import styled from 'styled-components';
+import Grid from '@mui/material/Grid';
+import Select from 'react-select';
+import { BorderColor } from "@mui/icons-material";
 
 const AddUser = () => {
   const [payload, setPayload] = useState(addUserAPIRequestData)
@@ -29,12 +34,92 @@ const AddUser = () => {
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const formRef = useRef(null);
+  const [selectedValue, setSelectedValue] = useState(null);
 
+  const CustomTextField = styled.input`
+  border: none;
+  outline: none;
+  background-color: transparent;
+  padding: 5px;
+  font-size: 16px;
+  border-bottom: 1px solid #ccc;
+  display: block;
+  width: 200px;
+
+  &::placeholder {
+    color: #aaa;
+  }
+`;
+
+const customStyles = {
+  control: (styles) => ({
+    ...styles,
+    border: 'none',
+    outline: 'none',
+    backgroundColor: 'transparent',
+    padding: '0px',
+    fontSize: '16px',
+    borderBottom: '1px solid #ccc',
+    display: 'inline-block',
+    width: '100%',
+    cursor: 'pointer',
+    boxShadow: 'none', // state.isFocused ? 'none' : '0px 0px 0px rgba(0, 0, 0, 0.1)', // Remove focus shadow
+  }),
+  placeholder: (styles) => ({
+    color: '#aaa',
+  }),
+  option: (styles, { isSelected }) => ({
+    ...styles,
+    color: isSelected ? '#000' : '#333',
+    backgroundColor: isSelected ? '#eee' : 'transparent',
+  }),
+};
+
+const CustomSelect = styled.select`
+border: none;
+outline: none;
+background-color: transparent;
+padding: 5px;
+font-size: 16px;
+border-bottom: 1px solid #ccc;
+display: inline-block;
+width: 100%;
+cursor: pointer;
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+
+&::placeholder {
+  color: #aaa;
+}
+
+/* Optional: Style the arrow icon */
+&::after {
+  content: "\u25BC";
+  font-size: 12px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ccc;
+}
+`;
+
+const options = [
+  { value: 1, label: 'test' },
+  { value: 2, label: 'vae' },
+  { value: 3, label: 'zzz' },
+];
 
   useEffect(() => {
-    setPayload((_payload) => ({ ..._payload, ["created_By_User_UID"]: localStorage.getItem(LocalStorageKey.userId) }));
-    getAllRole();
-    getAllEnties();
+    /*setPayload((_payload) => ({ ..._payload, ["created_By_User_UID"]: localStorage.getItem(LocalStorageKey.userId) }));
+    try{
+      getAllRole();
+      getAllEnties();
+    }catch (error) {
+      console.log("==Add User Component Error=",error);
+    }*/
+   
     //localStorage.removeItem("token")
     //clearLocalStorage();
   }, [])
@@ -137,7 +222,8 @@ const handleSearchQuery = (serachValue) => {
 }
 
   const handleChange = (e) => {
-    console.log("===handleChange====entitySelectedOptions========",entitySelectedOptions);
+    console.log("===handleChange====target.id========", e.target.id);
+    console.log("===handleChange====e.target========",e.target.value);
     const target = e.target
     setPayload((_payload) => ({ ..._payload, [target.id]: target.value }))
     console.log("===payload==",payload);
@@ -167,7 +253,31 @@ const handleSearchQuery = (serachValue) => {
     //navigate("/")
   }
 
+  const hasRequiredKeys = () => {
+    setFormError("");
+    let errors = "Please fill the fields "
+    let fields = "";
+    const requiredKeys = ['user_UserName', 'user_First_Name', 'user_Last_Name', 'user_Title', 'role_UID']; // Replace with your required keys
+    requiredKeys.forEach(key => 
+      {        
+        if(payload[key] == "" || payload[key] == null || payload[key] == undefined)
+          {
+            fields =fields+", "+key.replace("user_","");
+          }
+      });
+      setFormError(errors + fields);
+      return fields == ""?false:true;
+  };
+
   const addUser = async () => {
+    if(hasRequiredKeys())
+      {
+        return;
+      }
+      else
+      {
+        setFormError("");
+      }
     setLoading(true);
     clearTimeout(timer);
     setPayload((_payload) => ({ ..._payload, ["entities"]: entitySelectedOptions.map((item) => item.id).join(', ') }))
@@ -183,6 +293,7 @@ const handleSearchQuery = (serachValue) => {
       setEntityOptions([]);
       setTinOptions([]);
       getAllEnties();
+      payload(addUserAPIRequestData);
       //setEntityOptions(allEntityOptions);
     }, 3000); // Hide spinner after 3 seconds
   
@@ -207,329 +318,112 @@ const handleSearchQuery = (serachValue) => {
     setLoading(false);
   }, 4000); // Hide spinner after 3 seconds
 
-  return (
-    <div className="justify-content-center align-items-center vh-100">
-      <Container className="px-4 py-3 my-2 center">
+  return (    
+      <Container style={{margin:'35px'}}>
         {/* <h2 className="text-center p-3" >Add Single User</h2> */}
         <div className="text-center">
-          {/* <span className="error">{isDuplicate?'Email ID already exists to some other user.':''}</span> */}
+         <span className="error">{formError}</span> 
         </div>
         <div></div>
-        <Form  ref={formRef}>
-          <div style={{ display: "flex" }}>
-            <div className="col-md-5 offset-md-2">
-              <div className="col-md-12">
-                <Form.Group controlId="user_UserName">
-                  <Form.Label>
-                    User Name <span className="error">*</span>
-                  </Form.Label>
-                  <Form.Control
-                    className="w-50"
-                    type="text"
-                    // value={formData.UserName}
-                    onChange={handleChange}
-                    name="user_UserName"
-                  />
-                  {/* <span className="error">{errors.name}</span> */}
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid name.
-                  </Form.Control.Feedback>
-                </Form.Group>
+        <h1 >Add User</h1>
+        <Form  ref={formRef} style={{marginTop:'65px'}}>
+        <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
+          <Grid item xs={3}>
+            <Form.Group controlId="user_UserName">
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>User Name</label>
+            <input  className="input-line-style" placeholder="Enter your text" type="text" name="user_UserName" id="user_UserName" onChange={handleChange} />
+            </Form.Group>
+          </Grid>
+          <Grid item xs={3}>
+            <Form.Group controlId="user_First_Name">
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>First Name</label>
+            <CustomTextField placeholder="First Name" name="user_First_Name" onChange={handleChange} />
+            </Form.Group>
+          </Grid>
+          <Grid item xs={3}>
+            <Form.Group controlId="user_First_Name">
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Last Name</label>
+            <CustomTextField placeholder="Last Name" name="user_First_Name" onChange={handleChange} />
+            </Form.Group>
+          </Grid>
+          <Grid item xs={3}>
+            <Form.Group controlId="user_Title">
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Title</label>
+            <CustomTextField placeholder="Enter Title" name="user_Title" onChange={handleChange} />
+            </Form.Group>
+          </Grid>
+        </Grid>
 
-               
-                <div style={{ display: "flex" }}>
-                  <Form.Group controlId="user_First_Name">
-                    <Form.Label>
-                      First Name <span className="error">*</span>
-                    </Form.Label>
-                    <Form.Control
-                      type="text"
-                      //value={formData.firstName}
-                      onChange={handleChange}
-                      name="user_First_Name"
-                    />
-                    {/* <span className="error">{errors.outletname}</span> */}
-                    <Form.Control.Feedback type="invalid">
-                      Please provide a valid firstName.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group controlId="user_Prac_Admin">
-                    <Form.Check
-                      className="ml1"
-                      aria-label="option 1"
-                      label="Practice Admin"
-                      name="user_Prac_Admin"
-                      onChange={handleChecked}
-                    />
-                  </Form.Group>
-                </div>
-                <Form.Group controlId="user_Last_Name">
-                  <Form.Label>
-                    Last Name <span className="error">*</span>
-                  </Form.Label>
-                  <Form.Control
-                    className="w-50"
-                    type="text"
-                    //value={formData.firstName}
-                    onChange={handleChange}
-                    name="user_Last_Name"
-                  />
-                  {/* <span className="error">{errors.outletname}</span> */}
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid lastName.
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group controlId="user_Title">
-                  <Form.Label>
-                    Title <span className="error">*</span>
-                  </Form.Label>
-                  <Form.Control
-                    className="w-50"
-                    type="text"
-                    //value={formData.firstName}
-                    onChange={handleChange}
-                    name="user_Title"
-                  />
-                  {/* <span className="error">{errors.outletname}</span> */}
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid titil.
-                  </Form.Control.Feedback>
-                </Form.Group>
+        <Grid container rowSpacing={1}   columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
+          <Grid item xs={3}>
+            <Form.Group controlId="user_Email">
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Email</label>
+            <CustomTextField placeholder="Enter your text"  onChange={handleChange} name="user_Email" />
+            </Form.Group>
+          </Grid>
+          <Grid item xs={3}>
+            <Form.Group controlId="user_Phone">
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Phone</label>
+            <CustomTextField placeholder="Enter your text" name="user_Phone" onChange={handleChange} />
+            </Form.Group>
+          </Grid>
+          <Grid item xs={3}>
+            <Form.Group controlId="user_Phone_Extn">
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Extn </label>
+            <CustomTextField placeholder="Enter Extension" name="user_Phone_Extn" onChange={handleChange} />
+            </Form.Group>
+          </Grid>
+          <Grid item xs={3}>
+          <Form.Group controlId="user_Phone_Extn">
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Assign Roles </label>
+            <Select
+        value={selectedValue}
+        onChange={setSelectedValue}
+        options={options}
+        placeholder="Search or select an option"
+        styles={customStyles}
+        isSearchable
+      />
+            {/* <CustomSelect placeholder="Select an option">
+            {options.map((option) => (
+            <option value={option.key}>{option.value}</option>))}
+           </CustomSelect> */}
+            </Form.Group>
+         
+          </Grid>
+        </Grid>
 
-                <Form.Group controlId="user_Email">
-                  <Form.Label>
-                    Email <span className="error">*</span>
-                  </Form.Label>
-                  <Form.Control
-                    className="w-50"
-                    type="email"
-                    // value={formData.Email}
-                    onChange={handleChange}
-                    name="user_Email"
-                  />
-                  {/* <span className="error">{errors.email}</span> */}
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid email.
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <div style={{ display: "flex" }}>
-                  <Form.Group controlId="user_Phone">
-                    <Form.Label>
-                      Phone <span className="error">*</span>
-                    </Form.Label>
-                    <Form.Control
-                      className="w-97"
-                      type="number"
-                      //value={formData.MobileNumber}
-                      onChange={handleChange}
-                      name="user_Phone"
-                    />
-                    {/* <span className="error">{errors.mobile}</span> */}
-                    <Form.Control.Feedback type="invalid">
-                      Please provide a valid phone.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                  <Form.Group controlId="user_Phone_Extn" className="ml3">
-                    <Form.Label>
-                      Extn <span className="error">*</span>
-                    </Form.Label>
-                    <Form.Control
-                      className="w-50"
-                      type="number"
-                      //value={formData.MobileNumber}
-                      onChange={handleChange}
-                      name="user_Phone_Extn"
-                    />
-                    {/* <span className="error">{errors.mobile}</span> */}
-                    <Form.Control.Feedback type="invalid">
-                      Please provide a valid Extn.
-                    </Form.Control.Feedback>
-                  </Form.Group>
-                </div>
-                <Form.Group controlId="user_Fax">
-                  <Form.Label>
-                    Fax <span className="error">*</span>
-                  </Form.Label>
-                  <Form.Control
-                    className="w-50"
-                    type="text"
-                    //value={formData.firstName}
-                    onChange={handleChange}
-                    name="user_Fax"
-                  />
-                  {/* <span className="error">{errors.outletname}</span> */}
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid fax.
-                  </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group controlId="role_UID">
-                  <Form.Label>
-                    Assgined Role <span className="error">*</span>
-                  </Form.Label>
-                  <Form.Select
-                    className="w-50"
-                    aria-label="Default select example"
-                    onChange={handleChange}
-                    name="role_UID"
-                  >
-                    <option>Open this select Role</option>
-                    {userRoles.map((role) => <option value={role.role_UID}>{role.role_Name} </option>)}
-                   
-                  </Form.Select>
-                </Form.Group>
+        <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
+          <Grid item xs={3}>
+            <Form.Group controlId="user_UserName">
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>User Name</label>
+            <CustomTextField placeholder="Enter your text" name="user_UserName" onChange={handleChange} />
+            </Form.Group>
+          </Grid>
+          <Grid item xs={3}>
+            <Form.Group controlId="user_First_Name">
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>First Name</label>
+            <CustomTextField placeholder="First Name" name="user_First_Name" onChange={handleChange} />
+            </Form.Group>
+          </Grid>
+          <Grid item xs={3}>
+            <Form.Group controlId="user_First_Name">
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Last Name</label>
+            <CustomTextField placeholder="Last Name" name="user_First_Name" onChange={handleChange} />
+            </Form.Group>
+          </Grid>
+          <Grid item xs={3}>
+            <Form.Group controlId="user_Title">
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Title</label>
+            <CustomTextField placeholder="Enter Title" name="user_Title" onChange={handleChange} />
+            </Form.Group>
+          </Grid>
+        </Grid>
 
-                <Form.Group controlId="user_Note">
-                  <Form.Label>
-                    Note <span className="error">*</span>
-                  </Form.Label>
-                  <Form.Control
-                    className="w-50"
-                    name="user_Note"
-                    as="textarea"  
-                    onChange={handleChange}
-                    rows={2}
-                  />
-                  {/* <span className="error">{errors.address}</span> */}
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid note.
-                  </Form.Control.Feedback>
-                </Form.Group>
+      
 
-                <div className=" mx-auto w-50">
-                  <Button className="my-3 w-50" type="button" onClick={handleClick} disabled={loading}>
-                  {loading ? (
-                    <Spinner animation="border" role="status" size="sm">          
-                    </Spinner>
-                  ):null}
-                    Create User
-                  </Button>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="col-md-12">
-                <div style={{ display: "flex" }}>
-                  <Form.Group controlId="user_Active">
-                    <Form.Check
-                      className="mr-2"
-                      aria-label="option 1"
-                      label="Active"
-                      name="user_Active"
-                      onChange={handleChecked}
-                    />
-                  </Form.Group>
-                  <Form.Group controlId="user_Temp_Disable">
-                    <Form.Check
-                      className="ml"
-                      aria-label="option 1"
-                      label="Disaible"
-                      name="user_Activeuser_Temp_Disable"
-                      onChange={handleChecked}
-                    />
-                  </Form.Group>
-                </div>
-                <div style={{ display: "flex" }}>
-                  <Form.Group controlId="user_Terminated">
-                    <Form.Check
-                    aria-label="option 1" 
-                    label="Terminated" 
-                    name="user_Terminated"
-                    onChange={handleChecked}/>
-                  </Form.Group>
-                  <Form.Group controlId="user_Terminated_Date">
-                 
-                    <FormControl
-                     className="ml"
-                     aria-label="option 1"
-                      type="date"
-                      placeholder="Select a date"
-                      name="user_Terminated_Date"
-                      onChange={handleChange}
-                      //onChange={(event) => setSelectedDate(new Date(event.target.value))}
-                      // value={selectedDate.toISOString().slice(0, 10)} // Format for date input
-                    />
-                 
-                    
-                    {/* <span className="error">{errors.outletname}</span> */}
-                  </Form.Group>
-                </div>
-                <Form.Group controlId="user_Change_Password">
-                  <Form.Check
-                    aria-label="option 1"
-                    label="Change Password on Login"
-                    name="user_Change_Password"
-                    onChange={handleChecked}
-                  />
-                </Form.Group>
-                <Form.Group controlId="AssignedEntities">
-                  <Form.Label>
-                    Assigned Entities <span className="error">*</span>
-                  </Form.Label>
-                  <Multiselect                  
-                   className="custom-multiselectcontrol"
-                   aria-label="Default select example"
-                    options={entityOptions} // Options to display in the dropdown
-                    selectedValues={entitySelectedOptions} // Preselected value to persist in dropdown
-                    onSelect={onSelect} // Function will trigger on select event
-                    onRemove={onRemove} // Function will trigger on remove event
-                    displayValue="name" // Property name to display in the dropdown options
-                    placeholder="Select Entities"
-                    />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid AssignedEntities.
-                  </Form.Control.Feedback>
-                </Form.Group>
-                {/* <Form.Group>
-                  <div className=" mx-auto w-50">
-                    <Button className="my-3 w-40">Add Entities</Button>
-                  </div>
-                </Form.Group> */}
-                <Form.Group>
-                  <Form.Label>
-                    Assigned Tins <span className="error">*</span>
-                  </Form.Label>
-                  {/* <Form.Control
-                      className="w-50 ml2"
-                      type="text"
-                    placeholder="Search options"
-                    //value={searchQuery}
-                    onChange={handleSearchQuery}
-                  /> */}
-                  <Multiselect                  
-                   className="custom-multiselectcontrol w-50"
-                   aria-label="Default select example"
-                    options={tinOptions} // Options to display in the dropdown
-                    selectedValues={tinSelectedOptions} // Preselected value to persist in dropdown
-                    onSelect={onTinSelect} // Function will trigger on select event
-                    onRemove={onTinRemove} // Function will trigger on remove event
-                    displayValue="name" // Property name to display in the dropdown options
-                    placeholder="Select Tin"
-                    />
-                
-                  {/* <span className="error">{errors.outletname}</span> */}
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid AssignedTins.
-                  </Form.Control.Feedback>
-                </Form.Group>
-
-                {/* <div className=" mx-auto w-50">
-                  <Button className="my-3 w-40">Add Tins</Button>
-                </div> */}
-                <Form.Group controlId="cpass">
-                  <Form.Check
-                    aria-label="option 1"
-                    label="Display new user info to send manually"
-                  />
-                </Form.Group>
-                <Form.Group controlId="cpass">               
-                  <Form.Check aria-label="option 1" label="Email user" />
-                </Form.Group>
-              </div>
-            </div>
-          </div>
         </Form>
-      </Container>
-    </div>
+      </Container>  
   )
 }
 
