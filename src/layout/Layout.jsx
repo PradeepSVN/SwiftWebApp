@@ -1,4 +1,4 @@
-import {React,useState,useEffect} from 'react';
+import {React,useState,useEffect,useContext} from 'react';
 //import './styles.css'; // Import your CSS file
 import Logo from './Logo';
 import NavBar from './NavBar';
@@ -15,10 +15,12 @@ import GlobalStyles from '../theme/GlobalStyles';
 import COLORS from '../utils/constants';
 
 
+
 const options = [
-  { key: 1, value: 'Option 1' },
-  { key: 2, value: 'Option 2' },
-  { key: 3, value: 'Option 4' },
+  { key: 1, value: 'Single User' },
+  { key: 2, value: 'Batch Add' },
+  { key: 3, value: 'User Role' },
+  { key: 3, value: 'User Maintenance' },
 ];
 const navLinks = [   
     { type:'button', path: 'AddUser', title: 'Single User', isActive:true },
@@ -26,17 +28,18 @@ const navLinks = [
     { type:'button', path: 'UserRoles', title: 'User Roles', isActive:false },
     { type:'button', path: 'UserMaintenance', title: 'User Maintenance', isActive:false },    
     { type:'button', path: 'Logout', title: 'Logout', isActive:false },    
-   // { type:'DropdownButton', path: 'UserMaintenance', title: 'User Maintenance', options: options },
+    //{ type:'DropdownButton', path: 'UserMaintenance', title: 'User Maintenance', options: options },
   ];
 
   
 
 
 const Layout = ({navPathTo}) => {
-
+  
   const navigate = useNavigate()
   useEffect(() => {
     const token = localStorage.getItem(LocalStorageKey.token);
+    //console.log("====contextData=====",contextData);
     console.log("====token=====",token);
     if(!token || token == null || token == "")
       {

@@ -13,6 +13,10 @@
     /* Add other global colors as needed */
   }
 
+  body{
+    font-family:'DMSans',sans-serif; 
+  }
+
   .error-message {
     text-align: center;
     color: red;
@@ -102,8 +106,8 @@
     padding-top: -20px!important;
   }
 
- /* .css-1qvyehy-Placeholder {
-    display: none!important;
+  .css-1qvyehy-Placeholder {    
+    margin-top: -30px!important;
   }
 
   .css-1fdsijx-ValueContainer {
@@ -114,7 +118,7 @@
 
   .css-1atbqx3-control:hover {
     border-color: transparent!important;
-  }*/
+  }
 
   .input-line-style {
     border: none!important;
@@ -130,3 +134,170 @@
       color: #aaa!important;
     }
   }
+
+  .textarea-line-style {
+    border: none!important;
+    outline: none!important;
+    background-color: transparent!important;
+    padding: 5px!important;
+    font-size: 16px!important;
+    border-bottom: 1px solid #ccc!important;
+    display: block!important;    
+  
+    &::placeholder {
+      color: #aaa!important;
+    }
+  }
+
+  .page-center-loading {
+    position: fixed; /* Ensures it stays centered on the page */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex; /* Use Flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    background-color: rgba(0, 0, 0, 0.3); /* Optional background overlay */
+    z-index: 999; /* Ensure it's displayed above other elements */
+  }
+
+  .form-check{
+    margin-top: 41px!important;
+    margin-left:-18px!important;
+  }
+
+  .form-date{
+    margin-top: 0px!important;
+    margin-left:0px!important;
+  }
+
+ #user_Terminated_Date {
+    margin-left: -10px!important;
+    margin-top:-10px!important;
+    width: 70% !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none!important;
+    border-bottom: 1px solid #ccc;
+    line-height: 3!important;
+}
+
+.grid-container {
+  position: relative!important; /* Makes positioning relative to itself */
+  display: flex!important; /*Enables flexbox layout */
+  justify-content: flex-end!important; /* Align content horizontally to the right */
+  align-items: flex-end!important;; /* Align content vertically to the bottom */
+}
+
+.user-info-lable{ 
+  font-family: "DM Sans", sans-serif!important;
+  font-size: small!important;
+  font-weight:400!important; 
+  /* font-weight: bold!important; */
+}
+
+.user-info-value{
+  font-family: "DM Sans", sans-serif!important;
+  font-size: medium!important;
+ font-weight:500!important; 
+}
+
+.user-info-box {
+  
+  border:2px solid #084c81!important;
+  box-shadow: -3px 3px 3px 3px gray!important;
+  border-radius: 8px;
+}
+
+.page-title{
+  font-family: "DM Sans", sans-serif!important; 
+  color:var(--primary-info)
+}
+
+
+.cust-dropdown {
+  position: relative; /* Needed for proper menu positioning */
+  display: inline-block; /* Maintain inline behavior for the button */
+}
+
+.cust-dropdown-button {
+  /* Style your button here (background, border, etc.) */
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.cust-dropdown-menu {
+  position: absolute; /* Position the menu below the button */
+  top: 100%; /* Offset from button bottom */
+  left: 0; /* Align to button left edge */
+  background-color: lightgray; /* Menu background color */
+  list-style: none; /* Remove default list styling */
+  padding: 0;
+  /* Add box-shadow or border for visual separation (optional) */
+  /*display: none;  Initially hide the menu */
+}
+
+.cust-dropdown-menu.open { /* Style for open state */
+  display: block;
+}
+
+.dropdown-link-menu { 
+    justify-content: center;
+    align-items: center;
+    margin-left: 0;
+    width: 200;
+    width: 160px;
+    padding-left: 40px;   
+
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-button {
+  background-color: #f0f0f0; /* Button background color */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  padding: 10px 15px 10px 20px; /* Adjust padding for icon */
+  cursor: pointer;
+  position: relative;
+}
+
+.dropdown-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Adjust icon positioning */
+  transform: translateY(-50%);
+  color: #333; /* Icon color */
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  list-style: none;
+  padding: 0;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  display: none;
+}
+
+.dropdown-menu.open {
+  display: block;
+}
+
+.dropdown-item {
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out; /* Smooth hover effect */
+}
+
+.dropdown-item:hover,
+.dropdown-item.selected {
+  background-color: #eee; 
+}
+
+

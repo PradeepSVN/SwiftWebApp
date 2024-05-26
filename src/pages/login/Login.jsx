@@ -22,6 +22,11 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import logojpg from '../../assets/images/logo.jpg';
 import { grey } from "@mui/material/colors";
+import {showToast,ToastMessageType} from '../../utils/toastMessage';
+import { ToastContainer, toast } from "react-toastify";
+import Loader from '../../components/LoaderComponent'
+import {isObject} from '../../utils/utils'
+
 
 
 
@@ -36,6 +41,7 @@ const Login = ({ onSubmit }) => {
     //console.log("===process env===",baseurl)
     //localStorage.removeItem("token")
     clearLocalStorage();
+    
   }, [])
 
   const handleSubmit = event => {
@@ -43,7 +49,7 @@ const Login = ({ onSubmit }) => {
     //onSubmit(username, password)
   }
 
-  const handleChange = (e) => {
+  const handleChange = (e) => {   
     const target = e.target
     setCredentials((cre) => ({ ...cre, [target.id]: target.value }))
   }
@@ -52,6 +58,16 @@ const Login = ({ onSubmit }) => {
 
   const handleClick = (event) => {
     event.preventDefault();
+    if(credentials.username == undefined || credentials.username == '' || credentials.username == null)
+      {
+        showToast("Please enter username", ToastMessageType.Error);
+        return;
+      }
+    if(credentials.password == undefined || credentials.password == '' || credentials.password == null)
+      {
+        showToast("Please enter password", ToastMessageType.Error);
+        return;
+      }
     getUserInfo();
     //localStorage.setItem("token", "23rasdfqwrwqerwqaerfq")
     //navigate("/")
@@ -63,32 +79,40 @@ const Login = ({ onSubmit }) => {
     console.log("======getUserInfo==Start=====");
     const res = await postData(APIS.LOGIN,credentials);
     console.log("======res=======",res);
-    if(res.token)
+    if(res &&  isObject(res.data) && isObject(res.data.result))
       {
-        console.log("======token=======",res.token);
-        localStorage.setItem(LocalStorageKey.token, res.token); 
-        localStorage.setItem(LocalStorageKey.userId,res.userid);      
+        setLoading(false);
+        console.log("======token=======",res.data.result.token);
+        localStorage.setItem(LocalStorageKey.token, res.data.result.token); 
+        localStorage.setItem(LocalStorageKey.userId,res.data.result.userid);  
+        showToast("The user has logged in successfully.",ToastMessageType.Success);    
         navigate("/");
       }
       else
       {
+
         setLoading(false);
-        setLoginError("Invalid credentials");
+        showToast("Invalid credentials",ToastMessageType.Error);
+        //setLoginError("Invalid credentials");
       }
     //isObject(res) && props.LoginUserDetails({ userInfo: res })
   }
 
   const timer = setTimeout(() => {
     setLoading(false);
-  }, 4000); // Hide spinner after 3 seconds
+  }, 14000); // Hide spinner after 3 seconds
 
 
  
   const defaultTheme = createTheme();
   return (
     <ThemeProvider theme={defaultTheme}>
-    <Grid container component="main" mx={0} sx={{ height: '100vh' }}>
+     
+        <Grid container component="main" sx={{ height: '100vh' }}>
       <CssBaseline />
+      {
+        loading ? <div  className="page-center-loading"> <Loader size={55} color='#6E3177' margin='0 auto' /></div> : 
+        <>
       <Grid  borderRadius={5}
         item
         justifyContent="center"
@@ -122,14 +146,14 @@ const Login = ({ onSubmit }) => {
           Log in to continue
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-        <TextField
-          id="filled-password-input"
+        <TextField          
           label="User Name"
           type="text"
           autoComplete="current-password"
           variant="outlined" 
           margin="normal"
           fullWidth
+          onChange={handleChange} id="username"
           InputProps={{ disableUnderline: true, style: { backgroundColor: '#f2f2f2', borderRadius: '26px',fontFamily:'DM Sans' } }}         
           sx={{            
              '& .MuiOutlinedInput-root': {
@@ -141,14 +165,14 @@ const Login = ({ onSubmit }) => {
             },
           }}
         />
-           <TextField
-          id="filled-password-input"
+           <TextField          
           label="Password"
           type="password"
           autoComplete="current-password"
           variant="outlined" 
           margin="normal"
           fullWidth
+          onChange={handleChange} id="password"
           InputProps={{ disableUnderline: true, style: { backgroundColor: '#f2f2f2', borderRadius: '26px',fontFamily:'DM Sans' } }}         
           sx={{            
             '& .MuiOutlinedInput-root': {
@@ -173,7 +197,8 @@ const Login = ({ onSubmit }) => {
               variant="contained"
               className="login-btn"
               fontFamily={'DM Sans'}
-              
+              onClick={handleClick}
+              disabled={loading}
               sx={{  mt: 3, mb: 2, backgroundColor:'#084c81',textTransform:'none', fontWeight:'bold', fontSize:'15px'}}
             >
               Log In
@@ -193,7 +218,12 @@ const Login = ({ onSubmit }) => {
           </Box>
         </Box>
       </Grid>
+      </>
+      }    
     </Grid>
+       
+    
+    <ToastContainer />
   </ThemeProvider>
     
   )

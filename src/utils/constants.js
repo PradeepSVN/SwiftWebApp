@@ -26,6 +26,8 @@ export const COLORS = {
     SUCCESS_NO_CONTENT: 204,
     UNAUTHORISED: 401,
     NOT_FOUND: 404,
+    BATREQUEST: 400,
+    INTERNALSERVERERROR:500
   }
 
   export const PATTERN = {

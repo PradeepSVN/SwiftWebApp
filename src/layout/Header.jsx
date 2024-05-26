@@ -20,6 +20,7 @@ import {Stack, Col,DropdownButton, Dropdown } from 'react-bootstrap';
 import '../../src/global.css';
 import '../styles/layout.css';
 import {COLORS,borderStyles} from '../utils/constants';
+import CustomDropdown from '../components/DropdownComponent';
 // Import other components as needed (e.g., IconButton)
 function Header({ navLinks,changeNavLinkPath }) {
     const pages = ['Products', 'Pricing', 'Blog'];
@@ -118,18 +119,18 @@ function Header({ navLinks,changeNavLinkPath }) {
         
        link.type === "button"? <Button className={`p-2 link-btn ${link.isActive && link.path !="Logout" ? 'link-btn-Focus' : ''}`} onClick={() => handleNavigation(link.path)}
       sx={{ my: 2,  display: 'block', textTransform:'none', fontSize:'18px',marginRight:'45px',whiteSpace:'nowrap',overflow:'hidden'  }}>{link.title}</Button>: 
-            <DropdownButton 
+            <CustomDropdown            
             //id="dropdown-basic-button"
-            title={link.title}
+            planText={link.title}
             onSelect={handleSelect}
            
           >
-            {/* {link.options.map((option) => (
+           {/* {link.options.map((option) => (
               <Dropdown.Item key={option.key} eventKey={option.key}>
                 {option.value}
               </Dropdown.Item>
-            ))} */}
-          </DropdownButton> 
+            ))}  */}
+          </CustomDropdown> 
           
             
        ));

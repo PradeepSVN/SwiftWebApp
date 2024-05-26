@@ -3,6 +3,7 @@ export const APIS = {
   LOGIN: "Login/Login",
   ADDUSERROLE: "Role/AddRole",
   GETUSERROLE:"Role/GetAllRoleDetails",
+  GETUSERLIST:"User/GetAllUserDetails",
   GETALLENTITIES:"Master/GetEntityDetails",
   GETTINBYENTITYID:"Master/GetTinDetails",
   ADDUSER:"User/AddUser",

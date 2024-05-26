@@ -21,6 +21,10 @@
   height: 4em;
 }
 
+.login-btn:hover {
+  background-color: var(--primary-color)!important;
+}
+
 .login-link{
   margin-left:250px!important;
   color: black!important; 

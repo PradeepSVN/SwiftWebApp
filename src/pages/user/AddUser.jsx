@@ -1,6 +1,7 @@
 import React, { useState,useEffect,useRef } from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
-import { Form, Button, Container,InputGroup,FormControl } from "react-bootstrap"
+import { Form, Container,InputGroup,FormControl } from "react-bootstrap"
+import Button from '@mui/material/Button';
 import "../../styles/AddUser.css";
 import { Spinner } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
@@ -10,7 +11,7 @@ import {isEmptyObject} from '../../utils/utils';
 import { API_RESPONSE_CODES, API_REQ_TYPE, ROUTES, borderStyles } from "../../utils/constants"
 import { getOriginalNode } from "typescript";
 import Multiselect from 'multiselect-react-dropdown';
-import { addUserAPIRequestData, apiRequestData } from "../../utils/apiRequestData";
+import { addUserAPIRequestData, apiRequestData, addUserRequiredData } from "../../utils/apiRequestData";
 import { LocalStorageKey } from "../../utils/constants";
 import TextField from '@mui/material/TextField';
 import '../../global.css'
@@ -18,10 +19,15 @@ import styled from 'styled-components';
 import Grid from '@mui/material/Grid';
 import Select from 'react-select';
 import { BorderColor } from "@mui/icons-material";
+import {isObject} from '../../utils/utils';
+import {showToast,ToastMessageType} from '../../utils/toastMessage';
+import { ToastContainer, toast } from "react-toastify";
 
 const AddUser = () => {
   const [payload, setPayload] = useState(addUserAPIRequestData)
   const [userRoles, setUserRoles] = useState([]);
+  const [roleSelectedValue, setRoleSelectedValue] = useState(null);
+  const [roleOptions, setRoleOptions] = useState([]);
   const [entities, setEntities] = useState([]);
   const [tinList, setTinList] = useState([]);
   const [allEntityOptions, setAllEntityOptions] = useState([]);
@@ -34,7 +40,7 @@ const AddUser = () => {
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const formRef = useRef(null);
-  const [selectedValue, setSelectedValue] = useState(null);
+
 
   const CustomTextField = styled.input`
   border: none;
@@ -112,13 +118,15 @@ const options = [
 ];
 
   useEffect(() => {
-    /*setPayload((_payload) => ({ ..._payload, ["created_By_User_UID"]: localStorage.getItem(LocalStorageKey.userId) }));
+    setLoading(false);
+    setPayload((_payload) => ({ ..._payload, ["created_By_User_UID"]: localStorage.getItem(LocalStorageKey.userId) }));
     try{
       getAllRole();
       getAllEnties();
+      setLoading(false);
     }catch (error) {
       console.log("==Add User Component Error=",error);
-    }*/
+    }
    
     //localStorage.removeItem("token")
     //clearLocalStorage();
@@ -131,9 +139,12 @@ const options = [
     console.log("======addUserRole==Start=====");
     const res = await getData(APIS.GETUSERROLE);
     console.log("======res=======",res);
-    if(res)
+    if(res && isObject(res.data) && res.data.result)
       {
-        setUserRoles(res);     
+        setUserRoles(res.data.result);  
+        let options = [];
+        res.data.result.forEach((item) => (options.push({label: item.role_Name,value:item.role_UID })));
+        setRoleOptions(options);    
       }
       else
       {
@@ -148,17 +159,15 @@ const options = [
     console.log("======addUserRole==Start=====");
     const res = await getData(APIS.GETALLENTITIES);
     console.log("======res=======",res);
-    if(res)
+    if(res && isObject(res.data) && res.data.result)
       {
-        setEntities(res);   
+        setLoading(false);
+        setEntities(res.data.result);   
         let options = [];
-        res.forEach((item) => (options.push({name: item.entity_Name,id:item.entity_ID })));
-        setEntityOptions(options);
-        setAllEntityOptions(options);
-        
-       // setEntities([...entities, res]);       
-        
-      }
+        res.data.result.forEach((item) => (options.push({label: item.entity_Name,value:item.entity_ID })));
+        setEntityOptions(options); //{ value: 1, label: 'test' },
+        setAllEntityOptions(options);  
+      } 
       else
       {
         setLoading(false);      
@@ -172,10 +181,11 @@ const options = [
     console.log("======getTinByEntityId==entityId=====",_entityId);
     const res = await getData(`${APIS.GETTINBYENTITYID}?entity_ID=${_entityId}`);
     console.log("======res=======",res);
-    if(res)
+    if(res && isObject(res.data) && res.data.result)
       {
+        setLoading(false);
         let options = [];
-        res.forEach((item) => (options.push({name: item.tiN_Name,id:item.tiN_ID })));
+        res.data.result.forEach((item) => (options.push({label: item.tiN_Name,value:item.tiN_ID })));
         const combinedArray = [...tinOptions, ...options];
         setTinOptions(combinedArray);   
       }
@@ -235,9 +245,21 @@ const handleSearchQuery = (serachValue) => {
     setPayload((_payload) => ({ ..._payload, [e.target.id]: target }))
   }
 
-  const handleSelectOptions = (newValue) => {
+  const handleRoleSelectOptions = (newValue) => {
     console.log("==handleSelectOptions=",newValue);
-    setEntitySelectedOptions(newValue);
+    setRoleSelectedValue(newValue);
+  };
+
+  const handleEntitySelectOptions = (newValue) => {
+    console.log("==handleSelectOptions=",newValue);
+    setEntitySelectedOptions(newValue);    
+    setEntityId(newValue[newValue.length-1].value);
+    getTinByEntityId(newValue[newValue.length-1].value);
+  };
+
+  const handleTinSelectOptions = (newValue) => {
+    console.log("==handleSelectOptions=",newValue);
+    setTinSelectedOptions(newValue);
   };
 
   const navigate = useNavigate()
@@ -262,6 +284,7 @@ const handleSearchQuery = (serachValue) => {
       {        
         if(payload[key] == "" || payload[key] == null || payload[key] == undefined)
           {
+            showToast(errors + key.replace("user_",""), ToastMessageType.Error);
             fields =fields+", "+key.replace("user_","");
           }
       });
@@ -270,24 +293,26 @@ const handleSearchQuery = (serachValue) => {
   };
 
   const addUser = async () => {
+    console.log("entity selected options=",entitySelectedOptions);
+    console.log("tin selected options=",tinSelectedOptions);
     if(hasRequiredKeys())
       {
-        return;
+       return;
       }
       else
       {
         setFormError("");
       }
-    setLoading(true);
+     setLoading(true);
     clearTimeout(timer);
-    setPayload((_payload) => ({ ..._payload, ["entities"]: entitySelectedOptions.map((item) => item.id).join(', ') }))
-    setPayload((_payload) => ({ ..._payload, ["tiNs"]: tinSelectedOptions.map((item) => item.id).join(', ') }))
+    setPayload((_payload) => ({ ..._payload, ["entities"]: entitySelectedOptions.map((item) => item.value).join(', ') }))
+    setPayload((_payload) => ({ ..._payload, ["tiNs"]: tinSelectedOptions.map((item) => item.value).join(', ') }))
     let requestBody = payload;
-    requestBody.entities = entitySelectedOptions.map((item) => item.id).join(', ');
-    requestBody.tiNs = tinSelectedOptions.map((item) => item.id).join(', ');
+    requestBody.entities = entitySelectedOptions.map((item) => item.value).join(', ');
+    requestBody.tiNs = tinSelectedOptions.map((item) => item.value).join(', ');
     requestBody.user_Password = 'qw4r#@$$';
-    //requestBody.created_By_User_UID = localStorage.getItem(LocalStorageKey.userId);
-    setTimeout(() => {
+    requestBody.created_By_User_UID = localStorage.getItem(LocalStorageKey.userId);
+    /*setTimeout(() => {
       setEntitySelectedOptions([]);
       setTinSelectedOptions([]);
       setEntityOptions([]);
@@ -295,27 +320,27 @@ const handleSearchQuery = (serachValue) => {
       getAllEnties();
       payload(addUserAPIRequestData);
       //setEntityOptions(allEntityOptions);
-    }, 3000); // Hide spinner after 3 seconds
+    }, 3000); // Hide spinner after 3 seconds*/
   
-    console.log("======addUserRole==Start=====",requestBody);
+    console.log("======addUserRole==Start=====",requestBody); 
     const res = await postData(APIS.ADDUSER, requestBody);
     console.log("======res=======",res);
     if(res)
       {
-        alert("User created successfully");
+        showToast("User created successfully",ToastMessageType.Success);
         setLoading(false);
         formRef.current.reset();
       }
       else
       {
         setLoading(false);
-        setFormError("Sorry, something went wrong there. Try again.");
+        // setFormError("Sorry, something went wrong there. Try again.");
       }
     //isObject(res) && props.LoginUserDetails({ userInfo: res })
   }
 
   const timer = setTimeout(() => {
-    setLoading(false);
+    //setLoading(false);
   }, 4000); // Hide spinner after 3 seconds
 
   return (    
@@ -329,60 +354,63 @@ const handleSearchQuery = (serachValue) => {
         <Form  ref={formRef} style={{marginTop:'65px'}}>
         <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
           <Grid item xs={3}>
-            <Form.Group controlId="user_UserName">
+            <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>User Name</label>
             <input  className="input-line-style" placeholder="Enter your text" type="text" name="user_UserName" id="user_UserName" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
-            <Form.Group controlId="user_First_Name">
+            <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>First Name</label>
-            <CustomTextField placeholder="First Name" name="user_First_Name" onChange={handleChange} />
+            <input  className="input-line-style" placeholder="First Name" name="user_First_Name" id="user_First_Name" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
-            <Form.Group controlId="user_First_Name">
+            <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Last Name</label>
-            <CustomTextField placeholder="Last Name" name="user_First_Name" onChange={handleChange} />
+            <input  className="input-line-style" placeholder="Last Name" id="user_Last_Name" name="user_Last_Name" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
-            <Form.Group controlId="user_Title">
+            <Form.Group>
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Title</label>
-            <CustomTextField placeholder="Enter Title" name="user_Title" onChange={handleChange} />
+            <input  className="input-line-style" placeholder="Enter Title" id="user_Title" name="user_Title" onChange={handleChange} />
             </Form.Group>
           </Grid>
         </Grid>
 
         <Grid container rowSpacing={1}   columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
           <Grid item xs={3}>
-            <Form.Group controlId="user_Email">
+            <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Email</label>
-            <CustomTextField placeholder="Enter your text"  onChange={handleChange} name="user_Email" />
+            <input  className="input-line-style" placeholder="Enter your text"  id="user_Email"  onChange={handleChange} name="user_Email" />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
-            <Form.Group controlId="user_Phone">
+            <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Phone</label>
-            <CustomTextField placeholder="Enter your text" name="user_Phone" onChange={handleChange} />
+            <input  className="input-line-style" placeholder="Enter your text" id="user_Phone" name="user_Phone" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
-            <Form.Group controlId="user_Phone_Extn">
+            <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Extn </label>
-            <CustomTextField placeholder="Enter Extension" name="user_Phone_Extn" onChange={handleChange} />
+            <input  className="input-line-style" placeholder="Enter Extension" id="user_Phone_Extn" name="user_Phone_Extn" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
-          <Form.Group controlId="user_Phone_Extn">
+          <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Assign Roles </label>
             <Select
-        value={selectedValue}
-        onChange={setSelectedValue}
-        options={options}
-        placeholder="Search or select an option"
+            
+        value={roleSelectedValue}
+        onChange={handleRoleSelectOptions}
+        options={roleOptions}
+        placeholder="Select Entity"
         styles={customStyles}
         isSearchable
+        id="user_role"
+        name="user_role"
       />
             {/* <CustomSelect placeholder="Select an option">
             {options.map((option) => (
@@ -395,34 +423,137 @@ const handleSearchQuery = (serachValue) => {
 
         <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
           <Grid item xs={3}>
-            <Form.Group controlId="user_UserName">
-            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>User Name</label>
-            <CustomTextField placeholder="Enter your text" name="user_UserName" onChange={handleChange} />
+          <Form.Group >
+                  <Form.Check
+                    aria-label="option 1"
+                    label="Change Password on Login"
+                    name="user_Change_Password"
+                    id="user_Change_Password"
+                    onChange={handleChecked}
+                  />
+          </Form.Group>
+           
+          </Grid>
+          <Grid item xs={3}>
+            <Form.Group  className="form-check">
+           
+            <Form.Check                     
+                      aria-label="option 1"
+                      label="Active"
+                      name="user_Active"
+                      id="user_Active"
+                      onChange={handleChecked}
+                    />
+            </Form.Group>
+          </Grid >
+          <Grid item xs={3}>
+          <Form.Group >
+                    <Form.Check
+                      className="ml"
+                      aria-label="option 1"
+                      label="Disaible"
+                      name="user_Activeuser_Temp_Disable"
+                      id="user_Activeuser_Temp_Disable"
+                      onChange={handleChecked}
+                    />
+                  </Form.Group>
+          </Grid>
+          <Grid item xs={3}>
+          <Form.Group controlId="user_Terminated">
+                    <Form.Check
+                    aria-label="option 1" 
+                    label="Terminated" 
+                    name="user_Terminated"
+                    id="user_Terminated"
+                    onChange={handleChecked}/>
+                  </Form.Group>
+          </Grid>        
+        </Grid>
+
+        <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
+        <Grid item xs={3}>
+          <Form.Group  className="form-date">
+                 <label>Terminated Date</label>
+                 <TextField
+                  // className="input-line-style"
+                  aria-label="option 1"
+                   type="date"
+                   placeholder="Select a date"
+                   name="user_Terminated_Date"
+                   id="user_Terminated_Date"
+                   onChange={handleChange}
+                   sx={{
+                    "& fieldset": { border: 'none',padding:'5px',width:'200px' },
+                  }}
+                   //onChange={(event) => setSelectedDate(new Date(event.target.value))}
+                   // value={selectedDate.toISOString().slice(0, 10)} // Format for date input
+                 />
+              
+                 
+                 {/* <span className="error">{errors.outletname}</span> */}
+               </Form.Group>
+          </Grid>
+         
+          <Grid item xs={3}>
+            <Form.Group>
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Entity</label>
+            <Select
+            isMulti
+        value={entitySelectedOptions}
+        onChange={handleEntitySelectOptions}
+        options={entityOptions}
+        placeholder="Select Entity"
+        styles={customStyles}
+        isSearchable
+        id="user_entity"
+        name="user_entity"
+      />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
-            <Form.Group controlId="user_First_Name">
-            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>First Name</label>
-            <CustomTextField placeholder="First Name" name="user_First_Name" onChange={handleChange} />
-            </Form.Group>
-          </Grid>
-          <Grid item xs={3}>
-            <Form.Group controlId="user_First_Name">
-            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Last Name</label>
-            <CustomTextField placeholder="Last Name" name="user_First_Name" onChange={handleChange} />
-            </Form.Group>
-          </Grid>
-          <Grid item xs={3}>
-            <Form.Group controlId="user_Title">
-            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Title</label>
-            <CustomTextField placeholder="Enter Title" name="user_Title" onChange={handleChange} />
+            <Form.Group>
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Tin</label>
+            <Select
+            isMulti
+        value={tinSelectedOptions}
+        onChange={handleTinSelectOptions}
+        options={tinOptions}
+        placeholder="Select Tin"
+        styles={customStyles}
+        isSearchable
+        id="user_tin"
+        name="user_tin"
+      />
             </Form.Group>
           </Grid>
         </Grid>
 
+        <Grid container rowSpacing={10}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
+          <Grid item xs={12}>
+          <Form.Group >
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Note</label>
+            <textarea rows="3" cols="30" style={{width:'600px'}} className="textarea-line-style"  multiple placeholder="Enter Note" id="user_Note" name="user_Note" onChange={handleChange} />
+            </Form.Group>
+          </Grid>
+        </Grid>
+
+        <Grid container rowSpacing={10}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5} >
+        <Grid item xs={12} className="grid-container" >
+        <Button  type="button" onClick={handleClick} disabled={loading} 
+        className="login-btn" sx={{  mt: 3, mb: 2, backgroundColor:'#084c81',textTransform:'none',color:'white', fontWeight:'bold', fontSize:'15px', width:'450px'}}>
+                  {loading ? (
+                    <Spinner animation="border" role="status" size="sm" color="white">          
+                    </Spinner>
+                  ):null}
+                    Create User
+                  </Button>
+        </Grid>
+        </Grid>
       
+        
 
         </Form>
+        <ToastContainer/>
       </Container>  
   )
 }

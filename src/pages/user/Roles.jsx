@@ -2,7 +2,7 @@ import { useState,React,useEffect,useRef  } from "react"
 import { Form, Button, Container, Table } from "react-bootstrap"
 import { BsCheckCircle } from "react-icons/bs"
 import "../../styles/UserRole.css"
-import "../../global.css";
+// import "../../global.css";
 import { Spinner } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import {APIS} from '../../utils/apiList';
@@ -168,7 +168,7 @@ const Roles = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr className='table-row'>
                   <td>Membership</td>
                   <td></td>
                   <td key="memb_View" onClick={() => handleRowClick("memb_View")}>
@@ -181,16 +181,16 @@ const Roles = () => {
                   {payload["memb_Reports"]?<BsCheckCircle />:null} 
                   </td>
                 </tr>
-                <tr>
+                <tr className='table-row'>
                   <td>Utilization management</td>
                   <td></td>
-                  <td key="auth_View" onClick={() => handleRowClick("auth_View")}>
+                  <td key="auth_View" onClick={() => handleRowClick("auth_View")} className='table-td'>
                   {payload["auth_View"]?<BsCheckCircle />:null} 
                   </td>
-                  <td key="auth_Submit" onClick={() => handleRowClick("auth_Submit")}>
+                  <td key="auth_Submit" onClick={() => handleRowClick("auth_Submit")} className='table-td'>
                   {payload["auth_Submit"]?<BsCheckCircle />:null} 
                   </td>
-                  <td key="auth_Reports" onClick={() => handleRowClick("auth_Reports")}>
+                  <td key="auth_Reports" onClick={() => handleRowClick("auth_Reports")} className='table-td'>
                   {payload["auth_Reports"]?<BsCheckCircle />:null} 
                   </td>
                 </tr>

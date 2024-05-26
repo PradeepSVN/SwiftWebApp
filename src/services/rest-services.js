@@ -2,7 +2,8 @@ import axios from "axios"
 import { API_RESPONSE_CODES, API_REQ_TYPE, ROUTES } from "../utils/constants"
 import { APIS } from "../utils/apiList"
 import { isObject, removeLocalStorageItem, setLocalStorageItem, clearLocalStorage } from "../utils/utils"
-import { NOTIFICATIONS } from "../utils/messages"
+import { NOTIFICATIONS } from "../utils/messages";
+import {apiResponseObject} from '../utils/apiRequestData'
 
 const basePath = APIS.BASEURL;  //process?.env?.REACT_APP_BASE_API_URL
 // authBasePath is for authentication purpose only
@@ -45,6 +46,22 @@ const handleSuccessResponse = (res) => {
   return {}
 }
 
+const handleAPIResponse = (res) => {
+  const { SUCCESS, SUCCESS_CREATE, SUCCESS_NO_CONTENT,INTERNALSERVERERROR,BATREQUEST } = API_RESPONSE_CODES
+  if(res && res.statusCode)
+    {
+        if(res.statusCode == SUCCESS)
+          {
+
+          }
+    }
+    else
+    {
+
+    }
+
+}
+
 const handleSuccessRes = (res) => {
   const { SUCCESS, SUCCESS_CREATE, SUCCESS_NO_CONTENT } = API_RESPONSE_CODES
   if (res.status === SUCCESS) {
@@ -59,16 +76,16 @@ export const getData = (url) => {
   //headers.Authorization = localStorage.getItem(TOKEN_KEY)
   return axios
     .get(`${basePath}${url}`, { headers: headers })
-    .then((res) => handleSuccessResponse(res))
-    .catch((err) => handleErrorResponse(err, { type: API_REQ_TYPE.GET, url }))
+    .then((res) => res)
+    .catch((err) => null)
 }
 
 export const postData = (url, body, isBaseURL = false) => {
   //headers.Authorization = localStorage.getItem(TOKEN_KEY)
   return axios
     .post(`${isBaseURL ? authBasePath : basePath}${url}`, body)
-    .then((res) => handleSuccessResponse(res))
-    .catch((err) => err, { type: API_REQ_TYPE.POST, url, body, isBaseURL }) // handleErrorResponse(err), { type: API_REQ_TYPE.POST, url, body, isBaseURL })
+    .then((res) => res)
+    .catch((err) => null) // handleErrorResponse(err), { type: API_REQ_TYPE.POST, url, body, isBaseURL })
 }
 
 export const postDataAPI = (url, body, isBaseURL = false) => {
