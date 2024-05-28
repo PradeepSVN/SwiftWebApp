@@ -35,6 +35,17 @@ export const sortArrayOnNumericKey = (list, key) => {
     return a[key] - b[key]
   })
 }
+
+export function isLocalStorageValueExists(key)
+{
+    let value = localStorage.getItem(key);
+    if(!value || value == "" || value == undefined)
+      {
+        return false;
+      }
+      return true;
+}
+
 export function isArray(arrayElement) {
   return arrayElement && Array.isArray(arrayElement) && arrayElement.length > 0
 }

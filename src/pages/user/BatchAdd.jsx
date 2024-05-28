@@ -5,17 +5,21 @@ import {APIS} from '../../utils/apiList';
 import {getData, postData} from '../../services/rest-services';
 import '../../../src/global.css'
 import GlobalStyles from '../../theme/GlobalStyles';
-import {isObject} from '../../utils/utils'
+import {isObject} from '../../utils/utils';
+import { useMediaQuery } from 'react-responsive';
 
-const BatchAdd = ({data}) => {
-  const [APIRes, setAPIRes] = useState({})
-  const [entities, setEntities] = useState([]);
-  const [tinList, setTinList] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const formRef = useRef(null);
+const BatchAdd = () => {
+  const isDesktopOrLaptop = useMediaQuery({
+    query: '(min-width: 1224px)'
+  })
+  const isBigScreen = useMediaQuery({ query: '(min-width: 1824px)' })
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
+  const isPortrait = useMediaQuery({ query: '(orientation: portrait)' })
+  const isRetina = useMediaQuery({ query: '(min-resolution: 2dppx)' })
+  const [loading,setLoading] = useState(false);
 
   useEffect(() => {
-    console.log("=======userinfo page=",data);
+    console.log("=======BatchAdd page=");
     setLoading(true);
    
     try{
@@ -49,18 +53,14 @@ const BatchAdd = ({data}) => {
   }
 
   return (
-    <>
-     <Container  style={{margin:'15px', maxWidth:'75%', width:'100%'}}>
-      <GlobalStyles />
-        {/* <h2 className="text-center p-3" >Add Single User</h2> */}
-      
-        <div></div>
-        <h1 className="page-title"></h1>
-        {/* <Form  ref={formRef} style={{marginTop:'65px'}}> */}
-        
-        {/* </Form> */}
-      </Container>  
-    </>
+    <div>
+      {/* <h1>Device Test!</h1>
+      {isDesktopOrLaptop && <p>You are a desktop or laptop</p>}
+      {isBigScreen && <p>You have a huge screen</p>}
+      {isTabletOrMobile && <p>You are a tablet or mobile phone</p>}
+      <p>Your are in {isPortrait ? 'portrait' : 'landscape'} orientation</p>
+      {isRetina && <p>You are retina</p>} */}
+    </div>
   )
 }
 

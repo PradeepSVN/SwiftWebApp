@@ -2,12 +2,12 @@ import React, { useState,useEffect,useRef } from "react"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { Form, Container,InputGroup,FormControl } from "react-bootstrap"
 import Button from '@mui/material/Button';
+import { useNavigate } from "react-router-dom"
 import "../../styles/AddUser.css";
 import { Spinner } from "react-bootstrap"
-import { useNavigate } from "react-router-dom"
 import {APIS} from '../../utils/apiList';
 import {getData, postData} from '../../services/rest-services';
-import {isEmptyObject} from '../../utils/utils';
+import {isEmptyObject,isLocalStorageValueExists} from '../../utils/utils';
 import { API_RESPONSE_CODES, API_REQ_TYPE, ROUTES, borderStyles } from "../../utils/constants"
 import { getOriginalNode } from "typescript";
 import Multiselect from 'multiselect-react-dropdown';
@@ -40,7 +40,7 @@ const AddUser = () => {
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const formRef = useRef(null);
-
+  const navigate = useNavigate();
 
   const CustomTextField = styled.input`
   border: none;
@@ -117,8 +117,15 @@ const options = [
   { value: 3, label: 'zzz' },
 ];
 
+
+
   useEffect(() => {
     setLoading(false);
+    console.log("=====Add User====",isLocalStorageValueExists(LocalStorageKey.token))
+    if(!isLocalStorageValueExists(LocalStorageKey.token))
+      {
+         navigate("/login");
+      }
     setPayload((_payload) => ({ ..._payload, ["created_By_User_UID"]: localStorage.getItem(LocalStorageKey.userId) }));
     try{
       getAllRole();
@@ -131,6 +138,7 @@ const options = [
     //localStorage.removeItem("token")
     //clearLocalStorage();
   }, [])
+
 
 
   const getAllRole = async () => {
@@ -248,6 +256,7 @@ const handleSearchQuery = (serachValue) => {
   const handleRoleSelectOptions = (newValue) => {
     console.log("==handleSelectOptions=",newValue);
     setRoleSelectedValue(newValue);
+    setPayload((_payload) => ({ ..._payload, ["role_UID"]: newValue.value }))
   };
 
   const handleEntitySelectOptions = (newValue) => {
@@ -262,7 +271,6 @@ const handleSearchQuery = (serachValue) => {
     setTinSelectedOptions(newValue);
   };
 
-  const navigate = useNavigate()
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -280,19 +288,23 @@ const handleSearchQuery = (serachValue) => {
     let errors = "Please fill the fields "
     let fields = "";
     const requiredKeys = ['user_UserName', 'user_First_Name', 'user_Last_Name', 'user_Title', 'role_UID']; // Replace with your required keys
-    requiredKeys.forEach(key => 
-      {        
+    addUserRequiredData.find(item => 
+      {  
+        let key = Object.keys(item)[0];
+        console.log("==item==",item[key]);      
         if(payload[key] == "" || payload[key] == null || payload[key] == undefined)
           {
-            showToast(errors + key.replace("user_",""), ToastMessageType.Error);
-            fields =fields+", "+key.replace("user_","");
+            showToast(item[key], ToastMessageType.Error);            
+            return true;
+            //fields =fields+", "+key.replace("user_","");
           }
       });
-      setFormError(errors + fields);
-      return fields == ""?false:true;
+      //setFormError(errors + fields);
+      return true;
   };
 
   const addUser = async () => {
+    
     console.log("entity selected options=",entitySelectedOptions);
     console.log("tin selected options=",tinSelectedOptions);
     if(hasRequiredKeys())
@@ -303,8 +315,9 @@ const handleSearchQuery = (serachValue) => {
       {
         setFormError("");
       }
+     
      setLoading(true);
-    clearTimeout(timer);
+    clearTimeout(timer);    
     setPayload((_payload) => ({ ..._payload, ["entities"]: entitySelectedOptions.map((item) => item.value).join(', ') }))
     setPayload((_payload) => ({ ..._payload, ["tiNs"]: tinSelectedOptions.map((item) => item.value).join(', ') }))
     let requestBody = payload;
@@ -323,13 +336,21 @@ const handleSearchQuery = (serachValue) => {
     }, 3000); // Hide spinner after 3 seconds*/
   
     console.log("======addUserRole==Start=====",requestBody); 
+    
     const res = await postData(APIS.ADDUSER, requestBody);
     console.log("======res=======",res);
-    if(res)
-      {
-        showToast("User created successfully",ToastMessageType.Success);
-        setLoading(false);
-        formRef.current.reset();
+    if(res &&  isObject(res.data) && res.data.statusCode == 200)
+      {        
+        setLoading(false);  
+        if(res.data.status == "Failed")
+          {
+            showToast(res.data.message,ToastMessageType.Error);
+          }
+          else
+          {
+            showToast("User created successfully",ToastMessageType.Success);
+            formRef.current.reset();
+          }
       }
       else
       {
@@ -399,26 +420,12 @@ const handleSearchQuery = (serachValue) => {
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
-          <Form.Group >
-            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Assign Roles </label>
-            <Select
-            
-        value={roleSelectedValue}
-        onChange={handleRoleSelectOptions}
-        options={roleOptions}
-        placeholder="Select Entity"
-        styles={customStyles}
-        isSearchable
-        id="user_role"
-        name="user_role"
-      />
-            {/* <CustomSelect placeholder="Select an option">
-            {options.map((option) => (
-            <option value={option.key}>{option.value}</option>))}
-           </CustomSelect> */}
+            <Form.Group >
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Fax </label>
+            <input  className="input-line-style" placeholder="Enter Extension" id="user_Fax" name="user_Fax" onChange={handleChange} />
             </Form.Group>
-         
           </Grid>
+        
         </Grid>
 
         <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
@@ -492,6 +499,28 @@ const handleSearchQuery = (serachValue) => {
                  
                  {/* <span className="error">{errors.outletname}</span> */}
                </Form.Group>
+          </Grid>
+
+          <Grid item xs={3}>
+          <Form.Group >
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Assign Roles </label>
+            <Select
+            
+        value={roleSelectedValue}
+        onChange={handleRoleSelectOptions}
+        options={roleOptions}
+        placeholder="Select Entity"
+        styles={customStyles}
+        isSearchable
+        id="user_role"
+        name="user_role"
+      />
+            {/* <CustomSelect placeholder="Select an option">
+            {options.map((option) => (
+            <option value={option.key}>{option.value}</option>))}
+           </CustomSelect> */}
+            </Form.Group>
+         
           </Grid>
          
           <Grid item xs={3}>

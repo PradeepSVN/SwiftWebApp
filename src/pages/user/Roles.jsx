@@ -7,9 +7,14 @@ import { Spinner } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import {APIS} from '../../utils/apiList';
 import {postData} from '../../services/rest-services';
-import {isEmptyObject} from '../../utils/utils';
+import {isEmptyObject,isObject} from '../../utils/utils';
 import { apiRequestData } from "../../utils/apiRequestData";
 import { LocalStorageKey } from "../../utils/constants";
+import {Checkbox} from '@mui/material'
+import {showToast,ToastMessageType} from '../../utils/toastMessage';
+import { ToastContainer, toast } from "react-toastify";
+
+
 
 
 const Roles = () => {
@@ -66,13 +71,22 @@ const Roles = () => {
     console.log("======addUserRole==Start=====");
     const res = await postData(APIS.ADDUSERROLE,payload);
     console.log("======res=======",res);
-    if(res)
+    if(res &&  isObject(res.data) && res.data.statusCode == 200)
       {
-        alert("User role is created successfully")
+        
         setLoading(false);
+        if(res.data.status == "Failed")
+          {
+            showToast(res.data.message,ToastMessageType.Error);
+          }
+          else
+          {
+            showToast("User created successfully!",ToastMessageType.Success);
+            formRef.current.reset();
+          }
         //setPayload((_payload) => ({ ..._payload, ["role_ID"]: '' }))
         //setPayload((_payload) => ({ ..._payload, ["role_Name"]: '' }))
-        formRef.current.reset();
+       
         //navigate("/");
       }
       else
@@ -171,65 +185,163 @@ const Roles = () => {
                 <tr className='table-row'>
                   <td>Membership</td>
                   <td></td>
-                  <td key="memb_View" onClick={() => handleRowClick("memb_View")}>
-                  {payload["memb_View"]?<BsCheckCircle />:null} 
+                  <td key="memb_View" >
+                  <Form.Group >
+                    <Checkbox                     
+                      aria-label="option 1"                      
+                      id="memb_View"
+                      name ="memb_View"
+                      onChange={handleChecked}
+                    />
+                 </Form.Group>
                   </td>
-                  <td key="memb_Submit" onClick={() => handleRowClick("memb_Submit")}>
-                  {payload["memb_Submit"]?<BsCheckCircle />:null} 
+                  <td key="memb_Submit" >
+                  <Form.Group >
+                    <Checkbox                    
+                      aria-label="option 1"                      
+                      id="memb_Submit"
+                      name ="memb_Submit"
+                      onChange={handleChecked}
+                    />
+                 </Form.Group>
                   </td>
-                  <td key="memb_Reports" onClick={() => handleRowClick("memb_Reports")}>
-                  {payload["memb_Reports"]?<BsCheckCircle />:null} 
+                  <td key="memb_Reports" >
+                  <Form.Group >
+                    <Checkbox                    
+                      aria-label="option 1"                      
+                      id="memb_Reports"
+                      name ="memb_Reports"
+                      onChange={handleChecked}
+                    />
+                     </Form.Group>
                   </td>
                 </tr>
                 <tr className='table-row'>
                   <td>Utilization management</td>
                   <td></td>
-                  <td key="auth_View" onClick={() => handleRowClick("auth_View")} className='table-td'>
-                  {payload["auth_View"]?<BsCheckCircle />:null} 
+                  <td key="auth_View" className='table-td'>
+                  <Form.Group >
+                    <Checkbox                    
+                      aria-label="option 1"                      
+                      id="auth_View"
+                      name ="auth_View"
+                      onChange={handleChecked}
+                    />
+                     </Form.Group>
                   </td>
-                  <td key="auth_Submit" onClick={() => handleRowClick("auth_Submit")} className='table-td'>
-                  {payload["auth_Submit"]?<BsCheckCircle />:null} 
+                  <td key="auth_Submit"  className='table-td'>
+                  <Form.Group >
+                    <Checkbox                    
+                      aria-label="option 1"                      
+                      id="auth_Submit"
+                      name ="auth_Submit"
+                      onChange={handleChecked}
+                    />
+                     </Form.Group>
                   </td>
-                  <td key="auth_Reports" onClick={() => handleRowClick("auth_Reports")} className='table-td'>
-                  {payload["auth_Reports"]?<BsCheckCircle />:null} 
+                  <td key="auth_Reports"  className='table-td'>
+                  <Form.Group >
+                    <Checkbox                    
+                      aria-label="option 1"                      
+                      id="auth_Reports"
+                      name ="auth_Reports"
+                      onChange={handleChecked}
+                    />
+                     </Form.Group>
                   </td>
                 </tr>
 
                 <tr>
                   <td>Claims</td>
                   <td></td>
-                  <td key="claim_View" onClick={() => handleRowClick("claim_View")}>
-                  {payload["claim_View"]?<BsCheckCircle />:null} 
+                  <td key="claim_View" >
+                  <Form.Group >
+                    <Checkbox                    
+                      aria-label="option 1"                      
+                      id="claim_View"
+                      name ="claim_View"
+                      onChange={handleChecked}
+                    />
+                     </Form.Group>
                   </td>
-                  <td key="claim_Submit" onClick={() => handleRowClick("claim_Submit")}>
-                  {payload["claim_Submit"]?<BsCheckCircle />:null} 
+                  <td key="claim_Submit" >
+                  <Form.Group >
+                    <Checkbox                 
+                      aria-label="option 1"                      
+                      id="claim_Submit"
+                      name ="claim_Submit"
+                      onChange={handleChecked}
+                    />
+                     </Form.Group>
                   </td>
-                  <td key="claim_Reports" onClick={() => handleRowClick("claim_Reports")}>
-                  {payload["claim_Reports"]?<BsCheckCircle />:null} 
+                  <td key="claim_Reports" >
+                  <Form.Group >
+                    <Checkbox                   
+                      aria-label="option 1"                      
+                      id="claim_Reports"
+                      name ="claim_Reports"
+                      onChange={handleChecked}
+                    />
+                     </Form.Group>
                   </td>
                 </tr>
                 <tr>
                   <td>Providers</td>
                   <td></td>
-                  <td key="prov_View" onClick={() => handleRowClick("prov_View")}>
-                  {payload["prov_View"]?<BsCheckCircle />:null} 
+                  <td key="prov_View" >
+                  <Form.Group >
+                    <Checkbox                      
+                      aria-label="option 1"                      
+                      id="prov_View"
+                      name ="prov_View"
+                      onChange={handleChecked}
+                    />
+                     </Form.Group>
                   </td>
-                  <td key="prov_Submit" onClick={() => handleRowClick("prov_Submit")}>
-                  {payload["prov_Submit"]?<BsCheckCircle />:null} 
+                  <td key="prov_Submit" >
+                  <Form.Group >
+                    <Checkbox                  
+                      aria-label="option 1"                      
+                      id="prov_Submit"
+                      name ="prov_Submit"
+                      onChange={handleChecked}
+                    />
+                     </Form.Group>
                   </td>
-                  <td key="prov_Reports" onClick={() => handleRowClick("prov_Reports")}>
-                  {payload["prov_Reports"]?<BsCheckCircle />:null} 
+                  <td key="prov_Reports" >
+                  <Form.Group >
+                    <Checkbox                   
+                      aria-label="option 1"                      
+                      id="prov_Reports"
+                      name ="prov_Reports"
+                      onChange={handleChecked}
+                    />
+                     </Form.Group>
                   </td>
                 </tr>
                 <tr>
                   <td>Finance</td>
                   <td></td>
-                  <td key="fin_View" onClick={() => handleRowClick("fin_View")}>
-                  {payload["fin_View"]?<BsCheckCircle />:null} 
+                  <td key="fin_View" >
+                  <Form.Group >
+                    <Checkbox                     
+                      aria-label="option 1"                      
+                      id="fin_View"
+                      name ="fin_View"
+                      onChange={handleChecked}
+                    />
+                     </Form.Group>
                   </td>
                   <td></td>
-                  <td key="fin_Reports" onClick={() => handleRowClick("fin_Reports")}>
-                  {payload["fin_Reports"]?<BsCheckCircle />:null} 
+                  <td key="fin_Reports" >
+                  <Form.Group >
+                    <Checkbox                   
+                      aria-label="option 1"                      
+                      id="fin_Reports"
+                      name ="fin_Reports"
+                      onChange={handleChecked}
+                    />
+                     </Form.Group>
                   </td>
                 </tr>
               </tbody>
@@ -243,7 +355,9 @@ const Roles = () => {
               Create Role
             </Button>
           </div>
+          <ToastContainer/>
         </Form>
+       
       </Container>
     </div>
   )

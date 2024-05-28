@@ -4,6 +4,8 @@ export const APIS = {
   ADDUSERROLE: "Role/AddRole",
   GETUSERROLE:"Role/GetAllRoleDetails",
   GETUSERLIST:"User/GetAllUserDetails",
+  GETUSERENTITIES:"User/GetUserEntityDetails",
+  GETUSERTINDETAILS:"User/GetUserTinDetails",
   GETALLENTITIES:"Master/GetEntityDetails",
   GETTINBYENTITYID:"Master/GetTinDetails",
   ADDUSER:"User/AddUser",

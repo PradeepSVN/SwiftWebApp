@@ -26,11 +26,12 @@ import {showToast,ToastMessageType} from '../../utils/toastMessage';
 import { ToastContainer, toast } from "react-toastify";
 import Loader from '../../components/LoaderComponent'
 import {isObject} from '../../utils/utils'
+import {Form} from "react-bootstrap"
 
 
 
 
-const Login = ({ onSubmit }) => {
+const Login = () => {
   const [alertMsgData, setAlertMsgData] = useState({variant:'success',message:'test data'})
   const [credentials, setCredentials] = useState({ username: "", password: ""})
   const [loginError, setLoginError] = useState("")
@@ -44,10 +45,7 @@ const Login = ({ onSubmit }) => {
     
   }, [])
 
-  const handleSubmit = event => {
-    event.preventDefault()
-    //onSubmit(username, password)
-  }
+
 
   const handleChange = (e) => {   
     const target = e.target
@@ -58,6 +56,23 @@ const Login = ({ onSubmit }) => {
 
   const handleClick = (event) => {
     event.preventDefault();
+    /*if(credentials.username == undefined || credentials.username == '' || credentials.username == null)
+      {
+        showToast("Please enter username", ToastMessageType.Error);
+        return;
+      }
+    if(credentials.password == undefined || credentials.password == '' || credentials.password == null)
+      {
+        showToast("Please enter password", ToastMessageType.Error);
+        return;
+      }*/
+    getUserInfo();
+    //localStorage.setItem("token", "23rasdfqwrwqerwqaerfq")
+    //navigate("/")
+  }
+
+  const getUserInfo = async () => {
+    setLoading(true);
     if(credentials.username == undefined || credentials.username == '' || credentials.username == null)
       {
         showToast("Please enter username", ToastMessageType.Error);
@@ -68,14 +83,6 @@ const Login = ({ onSubmit }) => {
         showToast("Please enter password", ToastMessageType.Error);
         return;
       }
-    getUserInfo();
-    //localStorage.setItem("token", "23rasdfqwrwqerwqaerfq")
-    //navigate("/")
-  }
-
-  const getUserInfo = async () => {
-    setLoading(true);
-    clearTimeout(timer);
     console.log("======getUserInfo==Start=====");
     const res = await postData(APIS.LOGIN,credentials);
     console.log("======res=======",res);
@@ -107,8 +114,8 @@ const Login = ({ onSubmit }) => {
   const defaultTheme = createTheme();
   return (
     <ThemeProvider theme={defaultTheme}>
-     
-        <Grid container component="main" sx={{ height: '100vh' }}>
+
+        <Grid container component="main" sx={{ height: '100vh',minWidth:'100%' }}>
       <CssBaseline />
       {
         loading ? <div  className="page-center-loading"> <Loader size={55} color='#6E3177' margin='0 auto' /></div> : 
@@ -118,7 +125,7 @@ const Login = ({ onSubmit }) => {
         justifyContent="center"
         alignItems="center"
         xs={false}
-        sm={4}
+        sm={12}
         md={6}       
         style={{backgroundColor:'#d0e4fd'}}
       >
@@ -145,16 +152,18 @@ const Login = ({ onSubmit }) => {
         <Typography variant="h6" fontFamily={'DM Sans'}>
           Log in to continue
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+        
+        <Box component="form" noValidate sx={{ mt: 1 }}>
         <TextField          
           label="User Name"
           type="text"
+          value={credentials.username}
           autoComplete="current-password"
           variant="outlined" 
           margin="normal"
           fullWidth
           onChange={handleChange} id="username"
-          InputProps={{ disableUnderline: true, style: { backgroundColor: '#f2f2f2', borderRadius: '26px',fontFamily:'DM Sans' } }}         
+         style= {{ backgroundColor: '#f2f2f2', borderRadius: '26px',fontFamily:'DM Sans' }}      
           sx={{            
              '& .MuiOutlinedInput-root': {
               '& fieldset': {
@@ -173,7 +182,7 @@ const Login = ({ onSubmit }) => {
           margin="normal"
           fullWidth
           onChange={handleChange} id="password"
-          InputProps={{ disableUnderline: true, style: { backgroundColor: '#f2f2f2', borderRadius: '26px',fontFamily:'DM Sans' } }}         
+          style= {{ backgroundColor: '#f2f2f2', borderRadius: '26px',fontFamily:'DM Sans' }}        
           sx={{            
             '& .MuiOutlinedInput-root': {
               '& fieldset': {
@@ -192,7 +201,7 @@ const Login = ({ onSubmit }) => {
               label="Remember me"
             /> */}
             <Button
-              type="submit"
+              type="button"
               fullWidth
               variant="contained"
               className="login-btn"
@@ -216,6 +225,7 @@ const Login = ({ onSubmit }) => {
               </Grid>
             </Grid>            */}
           </Box>
+          
         </Box>
       </Grid>
       </>
@@ -224,7 +234,9 @@ const Login = ({ onSubmit }) => {
        
     
     <ToastContainer />
+    
   </ThemeProvider>
+  
     
   )
 }

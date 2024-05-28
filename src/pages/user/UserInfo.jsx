@@ -1,11 +1,14 @@
 import React, { useState,useEffect,useRef } from "react"
-import {Grid,Box,Table, TableBody, TableRow, TableCell} from '@mui/material';
+import {Grid,Box,Table, TableBody, TableRow, TableCell, List,ListItem,ListItemText} from '@mui/material';
 import { Form, Container,InputGroup,FormControl } from "react-bootstrap"
 import {APIS} from '../../utils/apiList';
 import {getData, postData} from '../../services/rest-services';
 import '../../../src/global.css'
 import GlobalStyles from '../../theme/GlobalStyles';
 import {isObject} from '../../utils/utils';
+import moment from 'moment';
+
+
 
 
 const UserInfo = ({data}) => {
@@ -20,8 +23,8 @@ const UserInfo = ({data}) => {
     setLoading(true);
    
     try{
-      //getAllRole();
-      //getAllEnties();
+      getUserEntityDetails();
+      getUserTinDetails();
     }catch (error) {
       console.log("==Add User Component Error=",error);
     }
@@ -29,15 +32,35 @@ const UserInfo = ({data}) => {
    
   }, [])
 
-  const getUserDetails = async () => {
+  const getUserEntityDetails = async () => {
     setLoading(true);
     //clearTimeout(timer);
     console.log("======addUserRole==Start=====");
-    const res = await getData(APIS.GETUSERROLE);
+    const res = await getData(APIS.GETUSERENTITIES+"/?user_UID="+data.user_UID);
     console.log("======res=======",res);
     if(res && isObject(res.data) && res.data.result)
       {
-        //setUserRoles(res.data.result);  
+        setEntities(res.data.result);  
+        //let options = [];
+        //res.data.result.forEach((item) => (options.push({label: item.role_Name,value:item.role_UID })));
+        //setRoleOptions(options);    
+      }
+      else
+      {
+        setLoading(false);      
+      }
+   
+  }
+
+  const getUserTinDetails = async () => {
+    setLoading(true);
+    //clearTimeout(timer);
+    console.log("======addUserRole==Start=====");
+    const res = await getData(APIS.GETUSERTINDETAILS+"/?user_UID="+data.user_UID);
+    console.log("======res=======",res);
+    if(res && isObject(res.data) && res.data.result)
+      {
+        setTinList(res.data.result);  
         //let options = [];
         //res.data.result.forEach((item) => (options.push({label: item.role_Name,value:item.role_UID })));
         //setRoleOptions(options);    
@@ -86,7 +109,7 @@ const UserInfo = ({data}) => {
                 <TableCell className="user-info-lable" sx={{border:'none'}}>TITLE</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{data.user_Title}</TableCell>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>PRACTICE ADMIN</TableCell>
-                <TableCell className="user-info-value" sx={{border:'none'}}>N/A</TableCell>
+                <TableCell className="user-info-value" sx={{border:'none'}}>{data.user_Prac_Admin?'Yes':'No'}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>EMAIL</TableCell>
@@ -102,15 +125,15 @@ const UserInfo = ({data}) => {
              <TableBody sx={{border:'none'}}>
               <TableRow sx={{border:'none'}}>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>CREATED</TableCell>
-                <TableCell className="user-info-value" sx={{border:'none'}}>Lakshman Kumar Mamidisetti Podalada Razole</TableCell>
+                <TableCell className="user-info-value" sx={{border:'none'}}>{moment(data.created_Date).format("MM-DD-YYYY HH:mm:ss")}</TableCell>
               </TableRow>
               <TableRow sx={{border:'none'}}>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>LAST LOGIN</TableCell>
-                <TableCell className="user-info-value" sx={{border:'none'}}>JOHN</TableCell>
+                <TableCell className="user-info-value" sx={{border:'none'}}>{moment(data.created_Date).format("MM-DD-YYYY HH:mm:ss")}</TableCell>
               </TableRow>              
               <TableRow>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>PASSWORD LAST CHANGED</TableCell>
-                <TableCell className="user-info-value" sx={{border:'none'}}>Value</TableCell>
+                <TableCell className="user-info-value" sx={{border:'none'}}>{moment(data.updated_Date).format("MM-DD-YYYY HH:mm:ss")}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>PASSWORD EXPIRING</TableCell>
@@ -124,15 +147,47 @@ const UserInfo = ({data}) => {
          <Grid  style={{ margin:'35px', }} container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 8 }} paddingBottom={5}>
              <Grid item xs={6}>
               <label className="user-info-value">ASSIGNED ENTITIES</label>
-              <Box className="user-info-box" sx={{height:'200px'}}>
-
+              <Box className="user-info-box" sx={{height:'200px',display: "flex",
+                      flexDirection: "column",
+                      //height: 700,
+                      overflow: "hidden",
+                      overflowY: "scroll",}}>
+               <List sx={{ width: '100%', marginLeft:'20px',padding:'0px', listStyleType: 'disc', pl: 2,
+                        '& .MuiListItem-root': {
+                          display: 'list-item',
+                        }, }}>
+                {entities && entities.length>0?entities.map((item) => (
+                  <ListItem
+                    key={item.entity_ID}
+                    disableGutters                  
+                  >
+                    <ListItemText primary={item.entity_Name} />
+                  </ListItem>
+                )):null}
+              </List>               
               </Box>
               
              </Grid>
              <Grid item xs={6}>
              <label className="user-info-value">ASSIGNED TINS</label>
-             <Box className="user-info-box" sx={{height:'200px'}}>
-
+             <Box className="user-info-box" sx={{height:'200px',display: "flex",
+                      flexDirection: "column",
+                      //height: 700,
+                      overflow: "hidden",
+                      overflowY: "scroll",}}>
+             <List sx={{ width: '100%', marginLeft:'20px',padding:'0px', listStyleType: 'disc', pl: 2,
+                        '& .MuiListItem-root': {
+                          display: 'list-item',
+                        }, }}>
+                {tinList && tinList.length>0?tinList.map((item) => (
+                  <ListItem
+                    key={item.tiN_ID}
+                    disableGutters                  
+                  >
+                    <ListItemText primary={item.tiN_Name} />
+                  </ListItem>
+                )):null}
+              </List>                       
              </Box>
              </Grid>
          </Grid>
