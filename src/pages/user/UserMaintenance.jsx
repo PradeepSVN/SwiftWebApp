@@ -8,21 +8,35 @@ import {isObject} from '../../utils/utils'
 import { userListAPIResponse } from "../../utils/apiRequestData";
 import UserInfo from '../user/UserInfo';
 import Layout from '../../layout/Layout';
-import { ArrowBack } from '@mui/icons-material';
-import { Button } from '@mui/material';
+import { ArrowBack, Padding } from '@mui/icons-material';
+import { Button, TextField,Grid } from '@mui/material';
+import '../../../src/global.css';
+import {searchRequestObject} from '../../utils/apiRequestData'
+import { Form } from "react-bootstrap"
+import Select from 'react-select';
+
 
 const UserMaintenance = () => {
   const [loading, setLoading] = useState(true);
   const [userList, setUserList] = useState([]);
   const [userInfo, setUserInfo] = useState({});
   const [isUserInfo, setIsUserInfo] = useState(false);
+  const [searchPayload, setSearchPayload] = useState(searchRequestObject);
+  const [userRoles, setUserRoles] = useState([]);
+  const [roleOptions, setRoleOptions] = useState([]);
+  const [roleSelectedValue, setRoleSelectedValue] = useState(null);
   const [contextData, setContextData] = useState({});
   const pageContext = createContext({}); // Default value
+
+
+  
+
   let apiResponse = [];
   useEffect(() => {
     setLoading(true);
-    setContextData({pagePath:'UserMaintenance', isUserInfo:false});
+    //setContextData({pagePath:'UserMaintenance', isUserInfo:false});
     try{
+      getAllRole();
       getUserList();
       //getAllEnties();
     }catch (error) {
@@ -32,13 +46,33 @@ const UserMaintenance = () => {
    
   }, [])
 
+  const getAllRole = async () => {
+    setLoading(true);
+    //clearTimeout(timer);
+    console.log("======addUserRole==Start=====");
+    const res = await getData(APIS.GETUSERROLE);
+    console.log("======res=======",res);
+    if(res && isObject(res.data) && res.data.result)
+      {
+        setUserRoles(res.data.result);  
+        let options = [];
+        res.data.result.forEach((item) => (options.push({label: item.role_Name,value:item.role_UID })));
+        setRoleOptions(options);    
+      }
+      else
+      {
+        setLoading(false);      
+      }
+   
+  }
+
   const getUserList = async () => {
     setLoading(true);
     //clearTimeout(timer);
     console.log("======addUserRole==Start=====");
     const res = await getData(APIS.GETUSERLIST);
     console.log("======res=======",res);
-    if(res && isObject(res.data) && res.data.result)
+    if(res &&  isObject(res.data) && res.data.statusCode == 200)
       {
         setLoading(false);    
         setUserList(res.data.result);  
@@ -65,11 +99,58 @@ const UserMaintenance = () => {
     setIsUserInfo(status);
   }
 
+  const handleRoleSelectOptions = (newValue) => {
+    console.log("==handleSelectOptions=",newValue);
+    setRoleSelectedValue(newValue);
+    setSearchPayload((_payload) => ({ ..._payload, ["role"]: newValue.value }))
+  };
+
   const handleBackBtn = () => {   
     setIsUserInfo(false); 
 };
 
+
+const handleChange = (e) => {
+  console.log("===handleChange====target.id========", e.target.id);
+  console.log("===handleChange====e.target========",e.target.value);
+  const target = e.target
+  setSearchPayload((_payload) => ({ ..._payload, [target.id]: target.value }))
+  console.log("===payload==",searchPayload);
+}
+
+const handleClick = (event) => {
+  event.preventDefault();
+  
+  getFilteredUserList();
+  //localStorage.setItem("token", "23rasdfqwrwqerwqaerfq")
+  //navigate("/")
+}
+
+const getFilteredUserList = async () => {
+  setLoading(true);
+  //clearTimeout(timer);
+  console.log("======addUserRole==Start=====");
+  const res = await postData(APIS.GETALLUSERDETAILSBYSEARCH,searchPayload);
+  console.log("======res=======",res);
+  if(res &&  isObject(res.data) && res.data.statusCode == 200)
+    {
+      setLoading(false);    
+      setUserList(res.data.result);  
+      apiResponse = res.data.result;
+      console.log("====API Res Userlist====",apiResponse);
+      //let options = [];
+      //res.data.result.forEach((item) => (options.push({label: item.role_Name,value:item.role_UID })));
+      //setRoleOptions(options);    
+    }
+    else
+    {
+      setLoading(false);      
+    }
+ 
+}
+
   return (
+    <>
     <div className="justify-content-center align-items-center vh-100" style={{margin:'30px'}}>
       {/* <Container className="px-4 py-3 my-2 center"> */}
         {/* <div className="col-md-10 offset-md-1"> */}
@@ -81,59 +162,55 @@ const UserMaintenance = () => {
       >
         Back
       </Button>:null}
-         { !isUserInfo && userList && userList.length>0 ? <CustomTable rows={userList} handleUserInfo={handleUserInfo} ></CustomTable> : null } 
+         { !isUserInfo ?
+           <div>
+            <Form>
+           <Grid>
+            <Grid item xs={8} style={{marginLeft:'100px', display:'flex'}}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'10px' }}>
+            <label >User Name</label>
+            <TextField placeholder="User Name" id="user_UserName" className="search-text" onChange={handleChange} />
+            </Form.Group>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'10px'  }}>
+            <label >First Name</label>
+            <TextField placeholder="First Name" id="user_First_Name" className="search-text" onChange={handleChange} />
+            </Form.Group>
+            <Form.Group style={{display: 'flex', flexDirection: 'column' ,margin:'10px' }}>
+            <label>Last Name</label>
+            <TextField placeholder="Last Name" id="user_Last_Name" className="search-text"  onChange={handleChange} />
+            </Form.Group>
+            <Form.Group style={{display: 'flex', flexDirection: 'column' ,margin:'10px' }}>
+            <label>Role Name</label>
+            <Select            
+              value={roleSelectedValue}
+              onChange={handleRoleSelectOptions}
+              options={roleOptions}
+              placeholder="Select Entity"            
+              isSearchable
+              id="role"
+              name="role"              
+              className="search-role-select"
+              
+            />
+            </Form.Group>
+          
+            <Form.Group style={{display: 'flex', flexDirection: 'column' ,margin:'10px' }}>
+            <Button type="button" className="search-btn" onClick={handleClick} disabled={loading} >Search</Button>
+            </Form.Group>
+            </Grid>
+           </Grid>
+           </Form>
+          <CustomTable rows={userList} handleUserInfo={handleUserInfo} ></CustomTable>  
+          </div>: null 
+         
+          } 
          { isUserInfo && userInfo? <UserInfo data={userInfo} handleUserComponent={handleUserComponent} />:null}
         
-          {/* <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>User Name</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Title</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Role</th>
-                <th>Practice Admin</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Bready</td>
-                <td>Bhaskar</td>
-                <td>Breddy</td>
-                <td>Manager</td>
-                <td>b@red.com</td>
-                <td>9095551234</td>
-                <td>AUTH VIEW</td>
-                <td>jsmith</td>
-              </tr>
-              <tr>
-                <td>Scordojo</td>
-                <td>Sunil</td>
-                <td>Cardozo</td>
-                <td>Nurse</td>
-                <td>s@car.com</td>
-                <td>6305551234</td>
-                <td>AUTH SUB</td>
-                <td>jsmith</td>
-              </tr>
-
-              <tr>
-                <td>Jsmith</td>
-                <td>John</td>
-                <td>Smith</td>
-                <td>Admin</td>
-                <td>j@smith.com</td>
-                <td>5551112346</td>
-                <td>ALL ACCESS</td>
-                <td>John</td>
-              </tr>
-            </tbody>
-          </Table> */}
+          
         {/* </div> */}
       {/* </Container> */}
     </div>
+    </>
   )
 }
 

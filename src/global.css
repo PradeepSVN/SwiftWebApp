@@ -300,6 +300,36 @@
   background-color: #eee; 
 }
 
+search-form-group {
+  display: flex!important;
+  flex-direction:column!important;
+}
+
+/* .search-text{
+  padding: 10px!important;
+}  */
+
+.search-btn {
+  background-color: var(--primary-info)!important;
+  border: gray!important;
+  color: white!important;
+  margin: 25px!important;
+  width: 150px!important;
+  height: 50px!important;
+}
+
+.search-role-select {
+  min-width: 150px!important;
+  height: 43px!important;
+  margin:0!important;
+  width: 150px!important;  
+}
+
+.search-role-select input {
+  background-color: yellow;
+  height: 43px;
+}
+
 
 
 /* Extra small devices (phones, 600px and down) */

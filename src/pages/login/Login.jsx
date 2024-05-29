@@ -72,7 +72,7 @@ const Login = () => {
   }
 
   const getUserInfo = async () => {
-    setLoading(true);
+    
     if(credentials.username == undefined || credentials.username == '' || credentials.username == null)
       {
         showToast("Please enter username", ToastMessageType.Error);
@@ -83,6 +83,7 @@ const Login = () => {
         showToast("Please enter password", ToastMessageType.Error);
         return;
       }
+    setLoading(true);
     console.log("======getUserInfo==Start=====");
     const res = await postData(APIS.LOGIN,credentials);
     console.log("======res=======",res);
@@ -115,7 +116,7 @@ const Login = () => {
   return (
     <ThemeProvider theme={defaultTheme}>
 
-        <Grid container component="main" sx={{ height: '100vh',minWidth:'100%' }}>
+        <Grid container component="main" sx={{maxWidth:'100%', height:'100vh', overflowX: 'hidden' }}>
       <CssBaseline />
       {
         loading ? <div  className="page-center-loading"> <Loader size={55} color='#6E3177' margin='0 auto' /></div> : 
@@ -140,7 +141,12 @@ const Login = () => {
             mx: 40,
             display: 'flex',
             flexDirection: 'column',
-            justifyContent:'center',        
+            justifyContent:'center', 
+            minWidth: {xs:'60%', md:'40%',sm:'40%'},  
+            marginLeft: '190px', 
+            alignItems: 'center', 
+            maxWidth: {xs:'60%', md:'40%',sm:'40%'}, 
+            // margin: {xs:'30px', md:'30px',sm:'40%'}, 
            
           }}
           className="login-box"

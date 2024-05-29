@@ -377,25 +377,25 @@ const handleSearchQuery = (serachValue) => {
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>User Name</label>
-            <input  className="input-line-style" placeholder="Enter your text" type="text" name="user_UserName" id="user_UserName" onChange={handleChange} />
+            <input  className="input-line-style" placeholder="Enter your User Name" type="text" name="user_UserName" id="user_UserName" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>First Name</label>
-            <input  className="input-line-style" placeholder="First Name" name="user_First_Name" id="user_First_Name" onChange={handleChange} />
+            <input  className="input-line-style" placeholder="Enter your First Name" name="user_First_Name" id="user_First_Name" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Last Name</label>
-            <input  className="input-line-style" placeholder="Last Name" id="user_Last_Name" name="user_Last_Name" onChange={handleChange} />
+            <input  className="input-line-style" placeholder="Enter your Last Name" id="user_Last_Name" name="user_Last_Name" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
             <Form.Group>
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Title</label>
-            <input  className="input-line-style" placeholder="Enter Title" id="user_Title" name="user_Title" onChange={handleChange} />
+            <input  className="input-line-style" placeholder="Enter your Title" id="user_Title" name="user_Title" onChange={handleChange} />
             </Form.Group>
           </Grid>
         </Grid>
@@ -404,13 +404,13 @@ const handleSearchQuery = (serachValue) => {
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Email</label>
-            <input  className="input-line-style" placeholder="Enter your text"  id="user_Email"  onChange={handleChange} name="user_Email" />
+            <input  className="input-line-style" placeholder="Enter your Email"  id="user_Email"  onChange={handleChange} name="user_Email" />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Phone</label>
-            <input  className="input-line-style" placeholder="Enter your text" id="user_Phone" name="user_Phone" onChange={handleChange} />
+            <input  className="input-line-style" placeholder="Enter your Phone" id="user_Phone" name="user_Phone" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
@@ -422,7 +422,7 @@ const handleSearchQuery = (serachValue) => {
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Fax </label>
-            <input  className="input-line-style" placeholder="Enter Extension" id="user_Fax" name="user_Fax" onChange={handleChange} />
+            <input  className="input-line-style" placeholder="Enter Fax" id="user_Fax" name="user_Fax" onChange={handleChange} />
             </Form.Group>
           </Grid>
         

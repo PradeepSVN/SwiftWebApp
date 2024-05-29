@@ -78,6 +78,18 @@ export const apiRequestData = {
       exceptionMessage: "Success"
     }
 
+  export const searchRequestObject = {    
+      user_UserName: "",
+      user_First_Name: "",
+      user_Last_Name: "",
+      role: "",
+      user_Prac_Admin: "",
+      user_Active: "",
+      user_Entities: "",
+      user_Tins: ""
+    
+  }
+
   export const addUserRequiredData = [
         {user_First_Name: "Please enter first name"},
         {user_Last_Name: "Please enter last name"},
