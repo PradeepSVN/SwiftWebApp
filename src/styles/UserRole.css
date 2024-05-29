@@ -30,3 +30,7 @@
  .ml3{
     margin-left: 13px;
  }
+
+ .uppercase-input {
+   text-transform: uppercase;
+ }

@@ -181,7 +181,8 @@ const getFilteredUserList = async () => {
             </Form.Group>
             <Form.Group style={{display: 'flex', flexDirection: 'column' ,margin:'10px' }}>
             <label>Role Name</label>
-            <Select            
+            <TextField placeholder="Role Name" id="role" className="search-text"  onChange={handleChange} />
+            {/* <Select            
               value={roleSelectedValue}
               onChange={handleRoleSelectOptions}
               options={roleOptions}
@@ -191,7 +192,7 @@ const getFilteredUserList = async () => {
               name="role"              
               className="search-role-select"
               
-            />
+            /> */}
             </Form.Group>
           
             <Form.Group style={{display: 'flex', flexDirection: 'column' ,margin:'10px' }}>

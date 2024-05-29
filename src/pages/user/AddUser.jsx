@@ -291,16 +291,17 @@ const handleSearchQuery = (serachValue) => {
     addUserRequiredData.find(item => 
       {  
         let key = Object.keys(item)[0];
-        console.log("==item==",item[key]);      
+          
         if(payload[key] == "" || payload[key] == null || payload[key] == undefined)
           {
+            console.log("==item==",item[key]);   
             showToast(item[key], ToastMessageType.Error);            
             return true;
             //fields =fields+", "+key.replace("user_","");
           }
       });
       //setFormError(errors + fields);
-      return true;
+      return false;
   };
 
   const addUser = async () => {
@@ -314,8 +315,7 @@ const handleSearchQuery = (serachValue) => {
       else
       {
         setFormError("");
-      }
-     
+      }     
      setLoading(true);
     clearTimeout(timer);    
     setPayload((_payload) => ({ ..._payload, ["entities"]: entitySelectedOptions.map((item) => item.value).join(', ') }))

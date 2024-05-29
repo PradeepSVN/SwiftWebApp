@@ -34,7 +34,7 @@ const Roles = () => {
   const handleChange = (e) => {
     const target = e.target
     console.log("=======target======",target);
-    setPayload((_payload) => ({ ..._payload, [target.id]: target.value }))
+    setPayload((_payload) => ({ ..._payload, [target.id]: target.value}))
     console.log("=======setPayload======",payload);
   }
 
@@ -128,12 +128,14 @@ const Roles = () => {
                  Role ID <span className="error">*</span>
                 </Form.Label>
                 <Form.Control
-                  className="w-50"
+                  className="w-50 text-uppercase"
                   type="text"
+                  maxLength={2}                  
                  // value={formData.RoleID}
                   onChange={handleChange}
                   id="role_ID"
                   name="role_ID"
+                  
                 />
                 {/* <span className="error">{errors.name}</span> */}
                 <Form.Control.Feedback type="invalid">
@@ -147,6 +149,7 @@ const Roles = () => {
                 </Form.Label>
                 <Form.Control
                   type="text"
+                  className="uppercase-input"
                   //value={formData.RoleName}
                   onChange={handleChange}
                   id="role_Name"
