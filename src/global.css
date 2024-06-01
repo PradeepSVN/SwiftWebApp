@@ -173,8 +173,8 @@
   }
 
  #user_Terminated_Date {
-    margin-left: -10px!important;
-    margin-top:-10px!important;
+    /* margin-left: -10px!important; */
+     margin-top:-10px!important;
     width: 70% !important;
     border-left: none !important;
     border-right: none !important;
@@ -333,11 +333,24 @@ search-form-group {
 
 
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {}
+@media only screen and (max-width: 600px) {
+
+  #user_Terminated_Date {
+    margin-left: 1px!important; 
+    margin-top:-10px!important;
+    width: 70% !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none!important;
+    border-bottom: 1px solid #ccc;
+    line-height: 3!important;
+}
+
+}
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-
+  
   
 }
 
