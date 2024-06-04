@@ -1,5 +1,5 @@
 import React, { useState,useEffect,useRef } from "react"
-import {Grid,Box,Table, TableBody, TableRow, TableCell, List,ListItem,ListItemText} from '@mui/material';
+import {Button,Grid,Box,Table, TableBody, TableRow, TableCell, List,ListItem,ListItemText} from '@mui/material';
 import { Form, Container,InputGroup,FormControl } from "react-bootstrap"
 import {APIS} from '../../utils/apiList';
 import {getData, postData} from '../../services/rest-services';
@@ -7,16 +7,19 @@ import '../../../src/global.css'
 import GlobalStyles from '../../theme/GlobalStyles';
 import {isObject} from '../../utils/utils';
 import moment from 'moment';
+import { useNavigate } from "react-router-dom"
 
 
 
 
-const UserInfo = ({data}) => {
+
+const UserInfo = ({data,handleNavigation}) => {
   const [APIRes, setAPIRes] = useState({})
   const [entities, setEntities] = useState([]);
   const [tinList, setTinList] = useState([]);
   const [loading, setLoading] = useState(false);
   const formRef = useRef(null);
+  const navigate = useNavigate ();
 
   useEffect(() => {
     console.log("=======userinfo page=",data);
@@ -70,6 +73,12 @@ const UserInfo = ({data}) => {
         setLoading(false);      
       }
    
+  }
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    console.log("====handleClick====")
+    handleNavigation({path:"EditUser",id:data.user_UID});
   }
 
   return (
@@ -190,7 +199,9 @@ const UserInfo = ({data}) => {
               </List>                       
              </Box>
              </Grid>
+             <Button type="button" className="search-btn" onClick={handleClick} >Edit</Button>
          </Grid>
+        
         {/* </Form> */}
       </Container>  
     </>

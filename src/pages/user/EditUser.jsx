@@ -23,7 +23,7 @@ import {isObject} from '../../utils/utils';
 import {showToast,ToastMessageType} from '../../utils/toastMessage';
 import { ToastContainer, toast } from "react-toastify";
 
-const AddUser = () => {
+const EditUser = ({id}) => {
   const [payload, setPayload] = useState(addUserAPIRequestData)
   const [userRoles, setUserRoles] = useState([]);
   const [roleSelectedValue, setRoleSelectedValue] = useState(null);
@@ -121,6 +121,7 @@ const options = [
 
   useEffect(() => {
     setLoading(false);
+    setPayload((_payload) => ({ ..._payload, ["user_UID"]: id }));
     console.log("=====Add User====",isLocalStorageValueExists(LocalStorageKey.token))
     if(!isLocalStorageValueExists(LocalStorageKey.token))
       {
@@ -128,6 +129,7 @@ const options = [
       }
     setPayload((_payload) => ({ ..._payload, ["created_By_User_UID"]: localStorage.getItem(LocalStorageKey.userId) }));
     try{
+      getUserData();
       getAllRole();
       getAllEnties();
       setLoading(false);
@@ -140,19 +142,87 @@ const options = [
   }, [])
 
 
+  const getUserData = async () => {
+    setLoading(true);
+    clearTimeout(timer);
+    console.log("======addUserRole==Start=====");
+    const res = await getData(APIS.GETUSERDETAILS+"/?user_UID="+id);
+    console.log("======res=======",res);
+    if(res && isObject(res.data) && res.data.result)
+      {
+        setPayload(res.data.result);  
+        getUserEntityDetails();
+        getUserEntityTinDetails();
+        getAllRole();
+
+          
+      }
+      else
+      {
+        setLoading(false);      
+      }
+   
+  }
+
+  const getUserEntityDetails = async () => {
+    setLoading(true);
+    clearTimeout(timer);
+    console.log("======addUserRole==Start=====");
+    const res = await getData(APIS.GETUSERENTITIES+"/?user_UID="+id);
+    console.log("======res=======",res);
+    if(res && isObject(res.data) && res.data.result && res.data.result.length > 0)
+      {
+            let options = [];
+            res.data.result.forEach((item) => (options.push({label: item.entity_Name,value:item.entity_ID })));
+            setEntitySelectedOptions(options); //{ value: 1, label: 'test' },          
+       
+      }
+      else
+      {
+        setLoading(false);      
+      }
+   
+  }
+
+  const getUserEntityTinDetails = async () => {
+    setLoading(true);
+    clearTimeout(timer);
+    console.log("======addUserRole==Start=====");
+    const res = await getData(APIS.GETUSERTINDETAILS+"/?user_UID="+id);
+    console.log("======res=======",res);
+    if(res && isObject(res.data) && res.data.result && res.data.result.length > 0)
+      {
+            let options = [];
+            res.data.result.forEach((item) => (options.push({label: item.tiN_Name,value:item.tiN_ID })));
+            setTinSelectedOptions(options); //{ value: 1, label: 'test' },          
+       
+      }
+      else
+      {
+        setLoading(false);      
+      }
+   
+  }
 
   const getAllRole = async () => {
     setLoading(true);
     clearTimeout(timer);
     console.log("======addUserRole==Start=====");
-    const res = await getData(APIS.GETUSERROLE);
+    const res = await getData(APIS.GETROLES);
     console.log("======res=======",res);
     if(res && isObject(res.data) && res.data.result)
       {
-        setUserRoles(res.data.result);  
+        setUserRoles(res.data.result); 
+        console.log("==user role id=",payload.role_UID); 
         let options = [];
-        res.data.result.forEach((item) => (options.push({label: item.role_Name,value:item.role_UID })));
-        setRoleOptions(options);    
+        res.data.result.forEach((item) => {
+          options.push({label: item.role_Name,value:item.role_UID })
+          if(item.role_UID == payload.role_UID)
+            {
+              setRoleSelectedValue({label: item.role_Name,value:item.role_UID });
+            }
+        });
+        setRoleOptions(options);           
       }
       else
       {
@@ -261,9 +331,17 @@ const handleSearchQuery = (serachValue) => {
 
   const handleEntitySelectOptions = (newValue) => {
     console.log("==handleSelectOptions=",newValue);
-    setEntitySelectedOptions(newValue);    
-    setEntityId(newValue[newValue.length-1].value);
-    getTinByEntityId(newValue[newValue.length-1].value);
+    setEntitySelectedOptions(newValue);  
+    if(newValue && newValue.length > 0)
+      {
+        setEntityId(newValue[newValue.length-1].value);
+        getTinByEntityId(newValue[newValue.length-1].value);
+      }
+      else
+      {
+         setTinSelectedOptions([]);
+      }  
+   
   };
 
   const handleTinSelectOptions = (newValue) => {
@@ -337,7 +415,7 @@ const handleSearchQuery = (serachValue) => {
   
     console.log("======addUserRole==Start=====",requestBody); 
     
-    const res = await postData(APIS.ADDUSER, requestBody);
+    const res = await postData(APIS.EDITUSER, requestBody);
     console.log("======res=======",res);
     if(res &&  isObject(res.data) && res.data.statusCode == 200)
       {        
@@ -371,31 +449,31 @@ const handleSearchQuery = (serachValue) => {
          <span className="error">{formError}</span> 
         </div>
         <div></div>
-        <h1 >Single User Add</h1>
+        <h1 >Single User Edit</h1>
         <Form  ref={formRef} style={{marginTop:'65px'}}>
         <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>User Name</label>
-            <input  className="input-line-style" placeholder="Enter your User Name" type="text" name="user_UserName" id="user_UserName" onChange={handleChange} />
+            <input  className="input-line-style" value={payload.user_UserName} placeholder="Enter your User Name" type="text" name="user_UserName" id="user_UserName" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>First Name</label>
-            <input  className="input-line-style" placeholder="Enter your First Name" name="user_First_Name" id="user_First_Name" onChange={handleChange} />
+            <input  className="input-line-style" value={payload.user_First_Name} placeholder="Enter your First Name" name="user_First_Name" id="user_First_Name" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Last Name</label>
-            <input  className="input-line-style" placeholder="Enter your Last Name" min={2} id="user_Last_Name" name="user_Last_Name" onChange={handleChange} />
+            <input  className="input-line-style" value={payload.user_First_Name} placeholder="Enter your Last Name" min={2} id="user_Last_Name" name="user_Last_Name" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
             <Form.Group>
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Title</label>
-            <input  className="input-line-style" placeholder="Enter your Title" id="user_Title" name="user_Title" onChange={handleChange} />
+            <input  className="input-line-style" value={payload.user_Title} placeholder="Enter your Title" id="user_Title" name="user_Title" onChange={handleChange} />
             </Form.Group>
           </Grid>
         </Grid>
@@ -404,25 +482,25 @@ const handleSearchQuery = (serachValue) => {
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Email</label>
-            <input  className="input-line-style" placeholder="Enter your Email"  id="user_Email"  onChange={handleChange} name="user_Email" />
+            <input  className="input-line-style"  value={payload.user_Email} placeholder="Enter your Email"  id="user_Email"  onChange={handleChange} name="user_Email" />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Phone</label>
-            <input  className="input-line-style" placeholder="(XXX)-XXX-XXXX" maxLength={15} id="user_Phone" name="user_Phone" onChange={handleChange} />
+            <input  className="input-line-style" value={payload.user_Phone} placeholder="(XXX)-XXX-XXXX" maxLength={15} id="user_Phone" name="user_Phone" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Extn </label>
-            <input  className="input-line-style" placeholder="XXXXXXXXXX" maxLength={10} id="user_Phone_Extn" name="user_Phone_Extn" onChange={handleChange} />
+            <input  className="input-line-style"  value={payload.user_Phone_Extn} placeholder="XXXXXXXXXX" maxLength={10} id="user_Phone_Extn" name="user_Phone_Extn" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Fax </label>
-            <input  className="input-line-style" placeholder="(XXX)-XXX-XXXX"  maxLength={15} id="user_Fax" name="user_Fax" onChange={handleChange} />
+            <input  className="input-line-style" value={payload.user_Fax} placeholder="(XXX)-XXX-XXXX"  maxLength={15} id="user_Fax" name="user_Fax" onChange={handleChange} />
             </Form.Group>
           </Grid>
         
@@ -437,6 +515,7 @@ const handleSearchQuery = (serachValue) => {
                     name="user_Change_Password"
                     id="user_Change_Password"
                     onChange={handleChecked}
+                    checked={payload.user_Change_Password}
                   />
           </Form.Group>
            
@@ -450,6 +529,7 @@ const handleSearchQuery = (serachValue) => {
                       name="user_Active"
                       id="user_Active"
                       onChange={handleChecked}
+                      checked={payload.user_Active}
                     />
             </Form.Group>
           </Grid >
@@ -462,6 +542,7 @@ const handleSearchQuery = (serachValue) => {
                       name="user_Activeuser_Temp_Disable"
                       id="user_Activeuser_Temp_Disable"
                       onChange={handleChecked}
+                     
                     />
                   </Form.Group>
           </Grid>
@@ -472,7 +553,9 @@ const handleSearchQuery = (serachValue) => {
                     label="Terminated" 
                     name="user_Terminated"
                     id="user_Terminated"
+                    checked={payload.user_Terminated}
                     onChange={handleChecked}/>
+                    
                   </Form.Group>
           </Grid>        
         </Grid>
@@ -483,6 +566,7 @@ const handleSearchQuery = (serachValue) => {
                  <label>Terminated Date</label>
                  <TextField
                   // className="input-line-style"
+                  value={payload.user_Terminated_Date}
                   aria-label="option 1"
                    type="date"
                    placeholder="Select a date"
@@ -510,7 +594,7 @@ const handleSearchQuery = (serachValue) => {
         value={roleSelectedValue}
         onChange={handleRoleSelectOptions}
         options={roleOptions}
-        placeholder="Select Entity"
+        placeholder="Select Role"
         styles={customStyles}
         isSearchable
         id="user_role"
@@ -562,7 +646,7 @@ const handleSearchQuery = (serachValue) => {
           <Grid item xs={12}>
           <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Note</label>
-            <textarea rows="3" cols="30" style={{width:'600px'}} className="textarea-line-style"  multiple placeholder="Enter Note" id="user_Note" name="user_Note" onChange={handleChange} />
+            <textarea rows="3" cols="30" value={payload.user_Note} style={{width:'600px'}} className="textarea-line-style"  multiple placeholder="Enter Note" id="user_Note" name="user_Note" onChange={handleChange} />
             </Form.Group>
           </Grid>
         </Grid>
@@ -575,7 +659,7 @@ const handleSearchQuery = (serachValue) => {
                     <Spinner animation="border" role="status" size="sm" color="white">          
                     </Spinner>
                   ):null}
-                    Create User
+                    Update
                   </Button>
         </Grid>
         </Grid>
@@ -588,4 +672,4 @@ const handleSearchQuery = (serachValue) => {
   )
 }
 
-export default AddUser
+export default EditUser

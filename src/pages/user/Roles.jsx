@@ -178,7 +178,7 @@ const Roles = () => {
               <thead>
                 <tr>
                   <th></th>
-                  <th>Selective</th>
+                 
                   <th>View</th>
                   <th>submit</th>
                   <th>Reports</th>
@@ -187,7 +187,7 @@ const Roles = () => {
               <tbody>
                 <tr className='table-row'>
                   <td>Membership</td>
-                  <td></td>
+                  
                   <td key="memb_View" >
                   <Form.Group >
                     <Checkbox                     
@@ -221,7 +221,7 @@ const Roles = () => {
                 </tr>
                 <tr className='table-row'>
                   <td>Utilization management</td>
-                  <td></td>
+                 
                   <td key="auth_View" className='table-td'>
                   <Form.Group >
                     <Checkbox                    
@@ -256,7 +256,7 @@ const Roles = () => {
 
                 <tr>
                   <td>Claims</td>
-                  <td></td>
+                  
                   <td key="claim_View" >
                   <Form.Group >
                     <Checkbox                    
@@ -290,7 +290,7 @@ const Roles = () => {
                 </tr>
                 <tr>
                   <td>Providers</td>
-                  <td></td>
+                 
                   <td key="prov_View" >
                   <Form.Group >
                     <Checkbox                      
@@ -324,7 +324,7 @@ const Roles = () => {
                 </tr>
                 <tr>
                   <td>Finance</td>
-                  <td></td>
+                 
                   <td key="fin_View" >
                   <Form.Group >
                     <Checkbox                     

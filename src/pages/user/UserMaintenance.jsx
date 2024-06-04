@@ -16,7 +16,7 @@ import { Form } from "react-bootstrap"
 import Select from 'react-select';
 
 
-const UserMaintenance = () => {
+const UserMaintenance = ({changeNavLinkPath}) => {
   const [loading, setLoading] = useState(true);
   const [userList, setUserList] = useState([]);
   const [userInfo, setUserInfo] = useState({});
@@ -99,6 +99,8 @@ const UserMaintenance = () => {
     setIsUserInfo(status);
   }
 
+ 
+
   const handleRoleSelectOptions = (newValue) => {
     console.log("==handleSelectOptions=",newValue);
     setRoleSelectedValue(newValue);
@@ -107,6 +109,10 @@ const UserMaintenance = () => {
 
   const handleBackBtn = () => {   
     setIsUserInfo(false); 
+};
+
+const handleNavigation = (data) => {   
+  changeNavLinkPath(data);
 };
 
 
@@ -164,6 +170,7 @@ const getFilteredUserList = async () => {
       </Button>:null}
          { !isUserInfo ?
            <div>
+             <h1 >User List</h1>
             <Form>
            <Grid>
             <Grid item xs={8} style={{marginLeft:'100px', display:'flex'}}>
@@ -205,7 +212,7 @@ const getFilteredUserList = async () => {
           </div>: null 
          
           } 
-         { isUserInfo && userInfo? <UserInfo data={userInfo} handleUserComponent={handleUserComponent} />:null}
+         { isUserInfo && userInfo? <UserInfo data={userInfo} handleNavigation={handleNavigation} />:null}
         
           
         {/* </div> */}

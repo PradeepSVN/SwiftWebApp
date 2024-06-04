@@ -21,6 +21,7 @@ import '../../src/global.css';
 import '../styles/layout.css';
 import {COLORS,borderStyles} from '../utils/constants';
 import CustomDropdown from '../components/DropdownComponent';
+import NestedMenu from '../components/NestedMenu';
 // Import other components as needed (e.g., IconButton)
 function Header({ navLinks,changeNavLinkPath }) {
     const pages = ['Products', 'Pricing', 'Blog'];
@@ -103,6 +104,24 @@ function Header({ navLinks,changeNavLinkPath }) {
         }
      
     };
+
+    const handleIsActiveNavigation = (path) => { 
+     
+      console.log("=========path=====",path); 
+      if(path)
+        {
+          navLinks.map((link) => {
+            link.isActive = false;
+            if(link.path == path)
+              {
+                link.isActive = true;
+              }            
+          })
+          //changeNavLinkPath(path);
+          //navigate(path);
+        }
+     
+    };
   
    
     const handleSelect = (eventKey) => {
@@ -119,10 +138,13 @@ function Header({ navLinks,changeNavLinkPath }) {
         
        link.type === "button"? <Button className={`p-2 link-btn ${link.isActive && link.path !="Logout" ? 'link-btn-Focus' : ''}`} onClick={() => handleNavigation(link.path)}
       sx={{ my: 2,  display: 'block', textTransform:'none', fontSize:'18px',marginRight:'45px',whiteSpace:'nowrap',overflow:'hidden'  }}>{link.title}</Button>: 
-            <CustomDropdown            
-            //id="dropdown-basic-button"
-            planText={link.title}
+      link.type === "DropdownButton"?   <CustomDropdown            
+            id="dropdown-basic-button"
+            //planText={link.title}
             onSelect={handleSelect}
+            data = {link}
+            changeNavLinkPath={changeNavLinkPath}   
+            handleIsActiveNavigation={handleIsActiveNavigation}         
            
           >
            {/* {link.options.map((option) => (
@@ -130,7 +152,14 @@ function Header({ navLinks,changeNavLinkPath }) {
                 {option.value}
               </Dropdown.Item>
             ))}  */}
-          </CustomDropdown> 
+          </CustomDropdown>:
+          <NestedMenu
+          data = {link}
+          changeNavLinkPath={changeNavLinkPath}   
+          handleIsActiveNavigation={handleIsActiveNavigation}   
+          >
+            
+          </NestedMenu>
           
             
        ));

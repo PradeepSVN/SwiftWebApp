@@ -309,6 +309,18 @@ search-form-group {
   padding: 10px!important;
 }  */
 
+.member-search-text{
+  height: 40px!important;
+  max-height: 40px!important;
+  min-width: 100px!important;
+} 
+
+.css-qbdosj-Input > #react-select-9-input {
+  /* Your styles here */
+  width: 202px!important;
+  height: 40px!important;
+}
+
 .search-btn {
   background-color: var(--primary-info)!important;
   border: gray!important;

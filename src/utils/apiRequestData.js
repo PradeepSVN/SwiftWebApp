@@ -19,6 +19,7 @@ export const apiRequestData = {
   }
 
   export const addUserAPIRequestData={
+    user_UID:'',
     user_Prac_Admin:false,
     user_Change_Password:false,
     user_Temp_Disable:false,
@@ -90,6 +91,22 @@ export const apiRequestData = {
     
   }
 
+  export const searchMemberRequestObject = {
+    entitY_UID: "",
+    insurance: "",
+    option: "",
+    membeR_ID: "",
+    firsT_NAME: "",
+    lasT_NAME: "",
+    dob: "",
+    pcp: "",
+    page: 0,
+    size: 100,
+    sortColumn: "MEMBERID",
+    order: "ASC",
+    totalrows: 0
+  }
+
   export const addUserRequiredData = [
         {user_First_Name: "Please enter first name"},
         {user_Last_Name: "Please enter last name"},
@@ -102,5 +119,33 @@ export const apiRequestData = {
         {user_UserName: "Please enter username"},
         {role_UID:"Please select role"}
   ]
+
+  export const roleAPIResponse =   {
+    "role_UID": "a4c1942f-eb0c-4f31-8cf3-a582bf779d02",
+    "role_ID": "OA",
+    "role_Name": "Office Admin",
+    "role_Type": 1,
+    "prac_Admin_Assignable": true,
+    "memb_View": true,
+    "memb_Submit": true,
+    "memb_Reports": true,
+    "auth_View": true,
+    "auth_Submit": true,
+    "auth_Reports": true,
+    "claim_View": true,
+    "claim_Submit": true,
+    "claim_Reports": true,
+    "prov_View": true,
+    "prov_Submit": true,
+    "prov_Reports": true,
+    "fin_View": true,
+    "fin_Reports": true,
+    "created_By_User_UID": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "created_Date": "2024-05-25T10:19:47.973",
+    "updated_By_User_UID": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "updated_Date": "2024-05-25T10:19:47.973"
+  };
+
+
 
 
