@@ -17,11 +17,15 @@ import { ToastContainer, toast } from "react-toastify";
 
 
 
+
 const Roles = () => {
+  const [requestData, setRequestData] = useState(apiRequestData);
   const [payload, setPayload] = useState(apiRequestData);
   const [formError, setFormError] = useState("")
   const [loading, setLoading] = useState(false);
   const formRef  = useRef(null);
+
+
   const handleSubmit = event => {
     event.preventDefault()
     //onSubmit(username, password);
@@ -66,8 +70,7 @@ const Roles = () => {
   }
 
   const addUserRole = async () => {
-    setLoading(true);
-    clearTimeout(timer);
+    setLoading(true);   
     console.log("======addUserRole==Start=====");
     const res = await postData(APIS.ADDUSERROLE,payload);
     console.log("======res=======",res);
@@ -81,7 +84,8 @@ const Roles = () => {
           }
           else
           {
-            showToast("User created successfully!",ToastMessageType.Success);
+            showToast("User created successfully!",ToastMessageType.Success);            
+            clearTimeout(timer);
             formRef.current.reset();
           }
         //setPayload((_payload) => ({ ..._payload, ["role_ID"]: '' }))
@@ -107,9 +111,9 @@ const Roles = () => {
     console.log("====setPayload======",payload);
   };
 
-  const timer = setTimeout(() => {
+  const timer = setTimeout(() => {   
     setLoading(false);
-  }, 4000); // Hide spinner after 3 seconds
+  }, 1000); // Hide spinner after 3 seconds
 
   return (
     <div className="justify-content-center align-items-center vh-100">
@@ -193,7 +197,7 @@ const Roles = () => {
                     <Checkbox                     
                       aria-label="option 1"                      
                       id="memb_View"
-                      name ="memb_View"
+                      name ="memb_View"                     
                       onChange={handleChecked}
                     />
                  </Form.Group>

@@ -97,31 +97,31 @@ const UserInfo = ({data,handleNavigation}) => {
             <Table>
              <TableBody sx={{border:'none'}}>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>USER NAME</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>User Name</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{data.user_UserName}</TableCell>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>PHONE</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Phone</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{data.user_Phone}</TableCell>
               </TableRow>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>FIRST NAME</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>First Name</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{data.user_UserName}</TableCell>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>FAX</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Fax</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{data.user_UserName}</TableCell>
               </TableRow>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>LAST NAME</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Last Name</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{data.user_Last_Name}</TableCell>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>ASSIGNED ROLE</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Assigned Role</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{data.role_Name}</TableCell>
               </TableRow>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>TITLE</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Title</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{data.user_Title}</TableCell>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>PRACTICE ADMIN</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Practice Admn</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{data.user_Prac_Admin?'Yes':'No'}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>EMAIL</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Email</TableCell>
                 <TableCell sx={{border:'none'}}>{data.user_Email}</TableCell>
               </TableRow>             
              </TableBody>
@@ -133,19 +133,19 @@ const UserInfo = ({data,handleNavigation}) => {
           <Table>
              <TableBody sx={{border:'none'}}>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>CREATED</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Created</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{moment(data.created_Date).format("MM-DD-YYYY HH:mm:ss")}</TableCell>
               </TableRow>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>LAST LOGIN</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Last Login</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{moment(data.created_Date).format("MM-DD-YYYY HH:mm:ss")}</TableCell>
               </TableRow>              
               <TableRow>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>PASSWORD LAST CHANGED</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Password Last Changed</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{moment(data.updated_Date).format("MM-DD-YYYY HH:mm:ss")}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>PASSWORD EXPIRING</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Password Expiring</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}></TableCell>
               </TableRow>
              </TableBody>
@@ -155,7 +155,7 @@ const UserInfo = ({data,handleNavigation}) => {
         </Grid>
          <Grid  style={{ margin:'35px', }} container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 8 }} paddingBottom={5}>
              <Grid item xs={6}>
-              <label className="user-info-value">ASSIGNED ENTITIES</label>
+              <label className="user-info-value">Assigned Entities</label>
               <Box className="user-info-box" sx={{height:'200px',display: "flex",
                       flexDirection: "column",
                       //height: 700,
@@ -178,7 +178,7 @@ const UserInfo = ({data,handleNavigation}) => {
               
              </Grid>
              <Grid item xs={6}>
-             <label className="user-info-value">ASSIGNED TINS</label>
+             <label className="user-info-value">Assigned Tins</label>
              <Box className="user-info-box" sx={{height:'200px',display: "flex",
                       flexDirection: "column",
                       //height: 700,

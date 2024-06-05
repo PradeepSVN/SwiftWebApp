@@ -22,6 +22,12 @@ import { BorderColor } from "@mui/icons-material";
 import {isObject} from '../../utils/utils';
 import {showToast,ToastMessageType} from '../../utils/toastMessage';
 import { ToastContainer, toast } from "react-toastify";
+import { DateField } from '@mui/x-date-pickers/DateField';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 
 const AddUser = () => {
   const [payload, setPayload] = useState(addUserAPIRequestData)
@@ -247,6 +253,12 @@ const handleSearchQuery = (serachValue) => {
     console.log("===payload==",payload);
   }
 
+  const handleDateChange = (e) => {
+    let date = dayjs(e.toISOString()).format('MM/DD/YYYY'); // dayjs(e.toISOString(),'MM/dd/yyyy')
+    console.log("===handleChange====target.id========", date);
+    setPayload((_payload) => ({ ..._payload, ["user_Terminated_Date"]: date }))
+  }
+
   const handleChecked = (e) => {
     const target = e.target.checked;
     console.log("=======target======",target + e.target.id);
@@ -293,11 +305,17 @@ const handleSearchQuery = (serachValue) => {
         let key = Object.keys(item)[0];
           
         if(payload[key] == "" || payload[key] == null || payload[key] == undefined)
-          {
+          {  
             console.log("==item==",item[key]);   
             showToast(item[key], ToastMessageType.Error);            
             return true;
             //fields =fields+", "+key.replace("user_","");
+          }
+          if(key=="user_Last_Name" && payload[key].length<2)
+          {
+            console.log("==item==",item[key]);   
+            showToast("user_Last_Name enter atleast 2 characters", ToastMessageType.Error);            
+            return true;
           }
       });
       //setFormError(errors + fields);
@@ -349,7 +367,10 @@ const handleSearchQuery = (serachValue) => {
           else
           {
             showToast(APIMESSAGES.USERCREATRED,ToastMessageType.Success);
-            formRef.current.reset();
+            setTimeout(()=>{
+              window.location.reload(false);
+              }, 1000);
+                formRef.current.reset();
           }
       }
       else
@@ -481,13 +502,20 @@ const handleSearchQuery = (serachValue) => {
         <Grid item xs={3}>
           <Form.Group  className="form-date">
                  <label>Terminated Date</label>
-                 <TextField
+                 <LocalizationProvider dateAdapter={AdapterDayjs}>
+                 <DatePicker format="MM/DD/YYYY" 
+                  name="user_Terminated_Date"
+                  id="user_Terminated_Date"
+                  onChange={handleDateChange}
+                 />
+                 {/* <DateField
                   // className="input-line-style"
                   aria-label="option 1"
-                   type="date"
+                  //  type="date"
                    placeholder="Select a date"
                    name="user_Terminated_Date"
                    id="user_Terminated_Date"
+                   format="MM/DD/YYYY"
                    onChange={handleChange}
                    sx={{
                     "& fieldset": { border: 'none',padding:'5px',width:'200px', marginLeft:'0px' },
@@ -495,8 +523,8 @@ const handleSearchQuery = (serachValue) => {
                   
                    //onChange={(event) => setSelectedDate(new Date(event.target.value))}
                    // value={selectedDate.toISOString().slice(0, 10)} // Format for date input
-                 />
-              
+                 /> */}
+               </LocalizationProvider>
                  
                  {/* <span className="error">{errors.outletname}</span> */}
                </Form.Group>

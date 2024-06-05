@@ -22,8 +22,13 @@ import { BorderColor } from "@mui/icons-material";
 import {isObject} from '../../utils/utils';
 import {showToast,ToastMessageType} from '../../utils/toastMessage';
 import { ToastContainer, toast } from "react-toastify";
+import { format, parse } from 'date-fns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-const EditUser = ({id}) => {
+const EditUser = ({id,changeNavLinkPath}) => {
   const [payload, setPayload] = useState(addUserAPIRequestData)
   const [userRoles, setUserRoles] = useState([]);
   const [roleSelectedValue, setRoleSelectedValue] = useState(null);
@@ -317,6 +322,13 @@ const handleSearchQuery = (serachValue) => {
     console.log("===payload==",payload);
   }
 
+  const handleDateChange = (e) => {
+    let date = dayjs(e.toISOString()).format('MM/DD/YYYY'); // dayjs(e.toISOString(),'MM/dd/yyyy')
+    console.log("===handleChange====target.id========", date);
+    setPayload((_payload) => ({ ..._payload, ["user_Terminated_Date"]: date }))
+  }
+
+
   const handleChecked = (e) => {
     const target = e.target.checked;
     console.log("=======target======",target + e.target.id);
@@ -356,7 +368,7 @@ const handleSearchQuery = (serachValue) => {
       {
         setFormError("Please fill the required fields");
       }
-    addUser();
+      editUser();
     //localStorage.setItem("token", "23rasdfqwrwqerwqaerfq")
     //navigate("/")
   }
@@ -382,8 +394,7 @@ const handleSearchQuery = (serachValue) => {
       return false;
   };
 
-  const addUser = async () => {
-    
+  const editUser = async () => {       
     console.log("entity selected options=",entitySelectedOptions);
     console.log("tin selected options=",tinSelectedOptions);
     if(hasRequiredKeys())
@@ -426,8 +437,10 @@ const handleSearchQuery = (serachValue) => {
           }
           else
           {
-            showToast(APIMESSAGES.USERCREATRED,ToastMessageType.Success);
-            formRef.current.reset();
+            changeNavLinkPath("UserMaintenance");
+            //showToast(APIMESSAGES.USERCREATRED,ToastMessageType.Success);
+            //formRef.current.reset();
+            
           }
       }
       else
@@ -564,15 +577,17 @@ const handleSearchQuery = (serachValue) => {
         <Grid item xs={3}>
           <Form.Group  className="form-date">
                  <label>Terminated Date</label>
-                 <TextField
+                 <LocalizationProvider dateAdapter={AdapterDayjs}>
+                 <DatePicker
+                //  defaultValue={dayjs('05/06/2024')}
                   // className="input-line-style"
-                  value={payload.user_Terminated_Date}
-                  aria-label="option 1"
-                   type="date"
-                   placeholder="Select a date"
+                 defaultValue={dayjs(payload.user_Terminated_Date)}
+                  aria-label="option 1"                  
+                   format="MM/DD/YYYY"                  
                    name="user_Terminated_Date"
                    id="user_Terminated_Date"
-                   onChange={handleChange}
+                   onChange={handleDateChange}
+                   
                    sx={{
                     "& fieldset": { border: 'none',padding:'5px',width:'200px', marginLeft:'0px' },
                   }}
@@ -580,7 +595,7 @@ const handleSearchQuery = (serachValue) => {
                    //onChange={(event) => setSelectedDate(new Date(event.target.value))}
                    // value={selectedDate.toISOString().slice(0, 10)} // Format for date input
                  />
-              
+                </LocalizationProvider>
                  
                  {/* <span className="error">{errors.outletname}</span> */}
                </Form.Group>

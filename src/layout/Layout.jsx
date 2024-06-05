@@ -104,7 +104,7 @@ const Layout = ({navPathTo}) => {
         {contentPage == "UserRoles"?<UserRoles />:null}
         {contentPage == "UserMaintenance"?<UserMaintenance  changeNavLinkPath={changeNavLinkPath} />:null}  
         {contentPage == "MemberList"?<MemberList />:null}   
-        {contentPage == "EditUser"?<EditUser id={id} />:null}   
+        {contentPage == "EditUser"?<EditUser id={id} changeNavLinkPath={changeNavLinkPath} />:null}   
       
        
         {/* </Row>  */}

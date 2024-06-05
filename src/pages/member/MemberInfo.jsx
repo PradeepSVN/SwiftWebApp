@@ -63,69 +63,69 @@ const MemberInfo = ({data}) => {
             <Table>
              <TableBody sx={{border:'none'}}>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>ADDRESS LINE1</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Address Line1</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_ADDRESS_1}</TableCell>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>HOME PHONE</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Home Phone</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_PHONE}</TableCell>
               </TableRow>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>ADDRESS LINE2</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Address Line2</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_ADDRESS_2}</TableCell>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>MOBILE PHONE</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Mobile Phone</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_MOBILE}</TableCell>
               </TableRow>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>CITY</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>City</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_CITY}</TableCell>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>WORK PHONE</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Work Phone</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_WORK_PHONE}</TableCell>
               </TableRow>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>ZIP</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Zip</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_ZIP}</TableCell>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>EMAIL</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Email</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_EMAIL}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>STATE</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>State</TableCell>
                 <TableCell sx={{border:'none'}}>{memberInfo.membeR_STATE}</TableCell>
               </TableRow>             
              </TableBody>
             </Table>
             </Box>
-            <Box className="user-info-box" sx={{ height:'350px',paddingTop:'5px'}}>
+            <Box className="user-info-box" sx={{ height:'400px',paddingTop:'5px'}}>
               <br/>
             <h2 className="page-title">Primary Care</h2>
             <Table>
              <TableBody sx={{border:'none'}}>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>NAME</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Name</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.provideR_FULLNAME}</TableCell>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>OFFICE PHONE</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Office Phone</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.provideR_PHONE}</TableCell>
               </TableRow>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>PRACTICE</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Practice</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.tiN_NAME}</TableCell>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>FAX</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Fax</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.provideR_FAX}</TableCell>
               </TableRow>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>ADDRESS LINE1</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Address Line1</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.provideR_ADDRESS_1}</TableCell>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>EMAIL</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Email</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.provideR_EMAIL}</TableCell>
               </TableRow>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>ADDRESS LINE2</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Address Line2</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.provideR_ADDRESS_2}</TableCell>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>ZIP</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Zip</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.provideR_ZIP}</TableCell>
               </TableRow>
               <TableRow>
-              <TableCell className="user-info-lable" sx={{border:'none'}}>CITY</TableCell>
+              <TableCell className="user-info-lable" sx={{border:'none'}}>City</TableCell>
                 <TableCell sx={{border:'none'}}>{memberInfo.provideR_CITY}</TableCell>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>STATE</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>State</TableCell>
                 <TableCell sx={{border:'none'}}>{memberInfo.provideR_STATE}</TableCell>
               </TableRow>             
              </TableBody>
@@ -139,41 +139,41 @@ const MemberInfo = ({data}) => {
           <Table>
              <TableBody sx={{border:'none'}}>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>MEMBER NAME</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Member Name</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_FULLNAME}</TableCell>
                
               </TableRow>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>DOB & AGE</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Dob & Age</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_DOB} , {memberInfo.membeR_Age} Yrs</TableCell>
                 
               </TableRow>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>RELATIONSHIP</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Relationship</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_RELATIONSHIP}</TableCell>
               </TableRow>
               <TableRow sx={{border:'none'}}>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>MEMBER ID</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Member Id</TableCell>
                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_CLIENT_ID}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>SUBSCRIBER ID</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Subscriber Id</TableCell>
                 <TableCell sx={{border:'none'}}>{memberInfo.membeR_SUBSCRIBER_ID}</TableCell>
               </TableRow>      
               <TableRow>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>NISURANCE</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Insurance</TableCell>
                 <TableCell sx={{border:'none'}}>{memberInfo.insurancE_DESCRIPTION}</TableCell>
               </TableRow>     
               <TableRow>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>EFFECTIVE FROM</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Effective From</TableCell>
                 <TableCell sx={{border:'none'}}>{memberInfo.membeR_INSURANCE_EFF_DATE}</TableCell>
               </TableRow>   
               <TableRow>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>OPTION</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Option</TableCell>
                 <TableCell sx={{border:'none'}}>{memberInfo.optioN_CLIENT_ID}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="user-info-lable" sx={{border:'none'}}>OPTION EFFECTIVE</TableCell>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Option Effective</TableCell>
                 <TableCell sx={{border:'none'}}>{memberInfo.membeR_OPTION_EFF_DATE}</TableCell>
               </TableRow>         
              </TableBody>

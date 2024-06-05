@@ -11,9 +11,16 @@ const NestedMenu = ({ data,changeNavLinkPath,handleIsActiveNavigation }) => {
   const [submenuAnchorEl, setSubmenuAnchorEl] = useState(null);
   const [authSubmenuAnchorEl, setAuthSubmenuAnchorEl] = useState(null);
   const [provSubmenuAnchorEl, setProvSubmenuAnchorEl] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = (event) => {
+    setIsOpen(true);
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleOnMouseLeave = (event) => {
+    console.log("===handleOnMouseLeave======",isOpen)
+    setIsOpen(false);
   };
 
 
@@ -53,13 +60,15 @@ const NestedMenu = ({ data,changeNavLinkPath,handleIsActiveNavigation }) => {
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}       
+        onClick={handleClick} 
+        //onMouseEnter={handleClick}    
+        //onMouseLeave={handleOnMouseLeave}       
         className={`p-2 link-btn ${data.isActive && data.path !="Logout" ? 'link-btn-Focus' : ''}`}   
         sx={{ my: 2,  display: 'block', textTransform:'none', fontSize:'18px',marginRight:'45px',whiteSpace:'nowrap',overflow:'hidden'  }}     
       >
           {data.title} <ArrowDropDownIcon  />
       </Button>
-      {data.isMenu?    
+      {isOpen? data.isMenu?    
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -113,7 +122,7 @@ const NestedMenu = ({ data,changeNavLinkPath,handleIsActiveNavigation }) => {
       </Menu>
     </>
       
-      }
+      :null}
        
     </div>
   );
