@@ -22,6 +22,7 @@ import '../styles/layout.css';
 import {COLORS,borderStyles} from '../utils/constants';
 import CustomDropdown from '../components/DropdownComponent';
 import NestedMenu from '../components/NestedMenu';
+import LogoutIcon from '@mui/icons-material/Logout';
 // Import other components as needed (e.g., IconButton)
 function Header({ navLinks,changeNavLinkPath }) {
     const pages = ['Products', 'Pricing', 'Blog'];
@@ -129,6 +130,7 @@ function Header({ navLinks,changeNavLinkPath }) {
     };
   
     const handleBtnClick = (eventKey) => {
+      changeNavLinkPath("Logout");
       console.log(`Selected: ${eventKey}`); // Handle selection logic here
     };
   
@@ -195,6 +197,8 @@ function Header({ navLinks,changeNavLinkPath }) {
               backgroundColor={'red'}
             />
           </Search>
+          <Button type="button"  onClick={handleBtnClick}
+            sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><LogoutIcon sx={{ fontSize: 40, marginLeft:'30px' }} /></Button>
           </Box>
           
           {/* Add other content here, like buttons or icons */}

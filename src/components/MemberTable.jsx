@@ -37,14 +37,14 @@ const Column = {
 const columns = [
   { id: 'entity', label: 'Entity', minWidth: 170 },
   { id: 'insurance', label: 'Insurance', minWidth: 170 },
-  { id: 'optioncid', label: 'Option', minWidth: 170 },
-  { id: 'effective', label: 'Effective', minWidth: 170 },
-  { id: 'term', label: 'Term', minWidth: 170 },
+  { id: 'optioncid', label: 'Option', minWidth: 150 },
+  { id: 'effective', label: 'Effective', minWidth: 130 },
+  { id: 'term', label: 'Term', minWidth: 130 },
   { id: 'pcp', label: 'PCP', minWidth: 170 },
   { id: 'memberid', label: 'Member ID', minWidth: 170 },  
   { id: 'firstname', label: 'First Name', minWidth: 170 },  
   { id: 'lastname', label: 'Last Name', minWidth: 170 },  
-  { id: 'dob', label: 'DOB', minWidth: 170 },  
+  { id: 'dob', label: 'DOB', minWidth: 130 },  
 ];
 
 
@@ -94,7 +94,7 @@ export default function StickyHeadTable({tableData,handleMemberInfo,handlePagina
 };
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+    <Paper sx={{ width: '100%', overflow: 'hidden', marginTop:'150px' }}>
       <GlobalStyles />
       <TableContainer sx={{ maxHeight: 740 }}>
         <Table stickyHeader aria-label="sticky table" className='customTable'

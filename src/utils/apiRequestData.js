@@ -34,7 +34,7 @@ export const apiRequestData = {
     user_First_Name:'',
     user_Last_Name:'',
     user_Title:'',
-    user_Terminated_Date:'05/05/2024',
+    user_Terminated_Date:'',
     entities:'',
     tiNs:'',
     user_Password :'qw4r#@$$',

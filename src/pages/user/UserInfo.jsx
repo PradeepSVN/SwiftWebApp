@@ -8,12 +8,11 @@ import GlobalStyles from '../../theme/GlobalStyles';
 import {isObject} from '../../utils/utils';
 import moment from 'moment';
 import { useNavigate } from "react-router-dom"
+import Link from '@mui/material/Link';
 
 
 
-
-
-const UserInfo = ({data,handleNavigation}) => {
+const UserInfo = ({data,changeNavLinkPath}) => {
   const [APIRes, setAPIRes] = useState({})
   const [entities, setEntities] = useState([]);
   const [tinList, setTinList] = useState([]);
@@ -78,22 +77,33 @@ const UserInfo = ({data,handleNavigation}) => {
   const handleClick = (event) => {
     event.preventDefault();
     console.log("====handleClick====")
-    handleNavigation({path:"EditUser",id:data.user_UID});
+    //handleNavigation({path:"EditUser",data:data});
+    changeNavLinkPath({path:"EditUser",data:data});
   }
 
   return (
     <>
-     <Container  style={{margin:'15px', maxWidth:'75%', width:'100%'}}>
+  
+     <Container  style={{marginLeft:'55px', marginTop:'40px', maxWidth:'93%', width:'100%'}}>
       <GlobalStyles />
         {/* <h2 className="text-center p-3" >Add Single User</h2> */}
-      
+        <header>
+      <h1 className="page-title1">User Info</h1>
+      <nav>
+        <a href="/">Home</a> /
+        <a href="/">Administration</a> /
+        <a href="/">User Management</a> /
+        <a href="/">User List</a> /
+        &nbsp;<label> User View</label>
+      </nav>
+    </header>
         <div></div> 
        
-        <h1 className="page-title">User Info</h1>
+        {/* <h1 className="page-title">User Info</h1> */}
         {/* <Form  ref={formRef} style={{marginTop:'65px'}}> */}
-        <Grid style={{ margin:'25px', }} container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 6 }} paddingBottom={5}>
+        <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 6 }} paddingBottom={5}>
           <Grid item xs={8}>
-            <Box className="user-info-box" sx={{ height:'400px'}}>
+            <Box className="user-info-box" sx={{ height:'242px'}}>
             <Table>
              <TableBody sx={{border:'none'}}>
               <TableRow sx={{border:'none'}}>
@@ -122,7 +132,7 @@ const UserInfo = ({data,handleNavigation}) => {
               </TableRow>
               <TableRow>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>Email</TableCell>
-                <TableCell sx={{border:'none'}}>{data.user_Email}</TableCell>
+                <TableCell className="user-info-value" sx={{border:'none'}}>{data.user_Email}</TableCell>
               </TableRow>             
              </TableBody>
             </Table>
@@ -150,12 +160,15 @@ const UserInfo = ({data,handleNavigation}) => {
               </TableRow>
              </TableBody>
             </Table>
+            <br></br>
+            <br></br>
+            <br></br>
            </Box>
           </Grid>          
         </Grid>
-         <Grid  style={{ margin:'35px', }} container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 8 }} paddingBottom={5}>
-             <Grid item xs={6}>
-              <label className="user-info-value">Assigned Entities</label>
+         <Grid   container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 8 }} paddingBottom={5}>
+             <Grid item xs={4}>
+              <h4 className="page-title">Assigned Entities</h4>
               <Box className="user-info-box" sx={{height:'200px',display: "flex",
                       flexDirection: "column",
                       //height: 700,
@@ -177,8 +190,8 @@ const UserInfo = ({data,handleNavigation}) => {
               </Box>
               
              </Grid>
-             <Grid item xs={6}>
-             <label className="user-info-value">Assigned Tins</label>
+             <Grid item xs={4}>
+             <h4 className="page-title">Assigned Tins</h4>
              <Box className="user-info-box" sx={{height:'200px',display: "flex",
                       flexDirection: "column",
                       //height: 700,
@@ -199,7 +212,14 @@ const UserInfo = ({data,handleNavigation}) => {
               </List>                       
              </Box>
              </Grid>
-             <Button type="button" className="search-btn" onClick={handleClick} >Edit</Button>
+             <Grid item xs={4}>
+         <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+         <a >
+         <Link  variant="link" style={{fontSize:'x-large'}}  onClick={handleClick} >Edit</Link >
+         </a>
+      </div>
+      </Grid>
+            
          </Grid>
         
         {/* </Form> */}

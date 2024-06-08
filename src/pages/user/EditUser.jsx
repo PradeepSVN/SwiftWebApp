@@ -28,7 +28,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-const EditUser = ({id,changeNavLinkPath}) => {
+const EditUser = ({data,changeNavLinkPath}) => {
   const [payload, setPayload] = useState(addUserAPIRequestData)
   const [userRoles, setUserRoles] = useState([]);
   const [roleSelectedValue, setRoleSelectedValue] = useState(null);
@@ -126,7 +126,7 @@ const options = [
 
   useEffect(() => {
     setLoading(false);
-    setPayload((_payload) => ({ ..._payload, ["user_UID"]: id }));
+    setPayload((_payload) => ({ ..._payload, ["user_UID"]: data.user_UID }));
     console.log("=====Add User====",isLocalStorageValueExists(LocalStorageKey.token))
     if(!isLocalStorageValueExists(LocalStorageKey.token))
       {
@@ -134,9 +134,7 @@ const options = [
       }
     setPayload((_payload) => ({ ..._payload, ["created_By_User_UID"]: localStorage.getItem(LocalStorageKey.userId) }));
     try{
-      getUserData();
-      getAllRole();
-      getAllEnties();
+      getUserData();      
       setLoading(false);
     }catch (error) {
       console.log("==Add User Component Error=",error);
@@ -151,16 +149,14 @@ const options = [
     setLoading(true);
     clearTimeout(timer);
     console.log("======addUserRole==Start=====");
-    const res = await getData(APIS.GETUSERDETAILS+"/?user_UID="+id);
+    const res = await getData(APIS.GETUSERDETAILS+"/?user_UID="+data.user_UID);
     console.log("======res=======",res);
     if(res && isObject(res.data) && res.data.result)
       {
-        setPayload(res.data.result);  
-        getUserEntityDetails();
-        getUserEntityTinDetails();
+        setPayload(res.data.result); 
         getAllRole();
-
-          
+        getAllEnties(); 
+       
       }
       else
       {
@@ -173,14 +169,15 @@ const options = [
     setLoading(true);
     clearTimeout(timer);
     console.log("======addUserRole==Start=====");
-    const res = await getData(APIS.GETUSERENTITIES+"/?user_UID="+id);
+    const res = await getData(APIS.GETUSERENTITIES+"/?user_UID="+data.user_UID);
     console.log("======res=======",res);
     if(res && isObject(res.data) && res.data.result && res.data.result.length > 0)
       {
             let options = [];
             res.data.result.forEach((item) => (options.push({label: item.entity_Name,value:item.entity_ID })));
-            setEntitySelectedOptions(options); //{ value: 1, label: 'test' },          
-       
+            setEntitySelectedOptions(options); //{ value: 1, label: 'test' },  
+            res.data.result.forEach((item) => ( getTinByEntityId(item.entity_ID)));
+            
       }
       else
       {
@@ -193,7 +190,7 @@ const options = [
     setLoading(true);
     clearTimeout(timer);
     console.log("======addUserRole==Start=====");
-    const res = await getData(APIS.GETUSERTINDETAILS+"/?user_UID="+id);
+    const res = await getData(APIS.GETUSERTINDETAILS+"/?user_UID="+data.user_UID);
     console.log("======res=======",res);
     if(res && isObject(res.data) && res.data.result && res.data.result.length > 0)
       {
@@ -211,7 +208,7 @@ const options = [
 
   const getAllRole = async () => {
     setLoading(true);
-    clearTimeout(timer);
+    //clearTimeout(timer);
     console.log("======addUserRole==Start=====");
     const res = await getData(APIS.GETROLES);
     console.log("======res=======",res);
@@ -222,7 +219,7 @@ const options = [
         let options = [];
         res.data.result.forEach((item) => {
           options.push({label: item.role_Name,value:item.role_UID })
-          if(item.role_UID == payload.role_UID)
+          if(item.role_UID == data.role_UID)
             {
               setRoleSelectedValue({label: item.role_Name,value:item.role_UID });
             }
@@ -250,6 +247,7 @@ const options = [
         res.data.result.forEach((item) => (options.push({label: item.entity_Name,value:item.entity_ID })));
         setEntityOptions(options); //{ value: 1, label: 'test' },
         setAllEntityOptions(options);  
+        getUserEntityDetails();
       } 
       else
       {
@@ -271,6 +269,7 @@ const options = [
         res.data.result.forEach((item) => (options.push({label: item.tiN_Name,value:item.tiN_ID })));
         const combinedArray = [...tinOptions, ...options];
         setTinOptions(combinedArray);   
+        getUserEntityTinDetails();   
       }
       else
       {
@@ -437,7 +436,11 @@ const handleSearchQuery = (serachValue) => {
           }
           else
           {
-            changeNavLinkPath("UserMaintenance");
+            showToast("User updated successfully.",ToastMessageType.Success);
+            setTimeout(() => {
+              setLoading(false);
+              changeNavLinkPath("UserMaintenance");
+            }, 2000);
             //showToast(APIMESSAGES.USERCREATRED,ToastMessageType.Success);
             //formRef.current.reset();
             
@@ -452,17 +455,26 @@ const handleSearchQuery = (serachValue) => {
   }
 
   const timer = setTimeout(() => {
-    //setLoading(false);
-  }, 4000); // Hide spinner after 3 seconds
+    setLoading(false);
+  }, 7000); // Hide spinner after 3 seconds
+
 
   return (    
-      <Container style={{margin:'35px'}}>
+    <Container style={{marginLeft:'55px' , marginTop:'20px', maxWidth:'95%', width:'100%'}}>
+    <header>
+  <h1 className="page-title1">Single User Edit</h1>
+  <nav>
+    <a href="/">Home</a> /
+    <a href="/">Administration</a> / 
+    &nbsp;<label> Single User Edit</label> 
+  </nav>
+</header>
         {/* <h2 className="text-center p-3" >Add Single User</h2> */}
         <div className="text-center">
          <span className="error">{formError}</span> 
         </div>
         <div></div>
-        <h1 >Single User Edit</h1>
+        {/* <h1 >Single User Edit</h1> */}
         <Form  ref={formRef} style={{marginTop:'65px'}}>
         <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
           <Grid item xs={3}>
@@ -480,7 +492,7 @@ const handleSearchQuery = (serachValue) => {
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Last Name</label>
-            <input  className="input-line-style" value={payload.user_First_Name} placeholder="Enter your Last Name" min={2} id="user_Last_Name" name="user_Last_Name" onChange={handleChange} />
+            <input  className="input-line-style" value={payload.user_Last_Name} placeholder="Enter your Last Name" min={2} id="user_Last_Name" name="user_Last_Name" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
@@ -576,12 +588,12 @@ const handleSearchQuery = (serachValue) => {
         <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
         <Grid item xs={3}>
           <Form.Group  className="form-date">
-                 <label>Terminated Date</label>
+                 <label>Terminated Date</label><br></br>
                  <LocalizationProvider dateAdapter={AdapterDayjs}>
                  <DatePicker
                 //  defaultValue={dayjs('05/06/2024')}
                   // className="input-line-style"
-                 defaultValue={dayjs(payload.user_Terminated_Date)}
+                 defaultValue={data.user_Terminated_Date && data.user_Terminated_Date !="" ? dayjs(data.user_Terminated_Date):""}
                   aria-label="option 1"                  
                    format="MM/DD/YYYY"                  
                    name="user_Terminated_Date"

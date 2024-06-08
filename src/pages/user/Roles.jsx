@@ -116,7 +116,15 @@ const Roles = () => {
   }, 1000); // Hide spinner after 3 seconds
 
   return (
-    <div className="justify-content-center align-items-center vh-100">
+    <Container style={{marginLeft:'55px' , marginTop:'20px', maxWidth:'95%', width:'100%'}}>
+    <header>
+  <h1 className="page-title1">Roles Add</h1>
+  <nav>
+    <a href="/">Home</a> /
+    <a href="/">Administration</a> / 
+    &nbsp;<label> Roles</label> 
+  </nav>
+</header>
        {formError && (<div className="error-message">{formError}</div>)}  
       <Container className="px-4 py-3 my-2 center">
         {/* <h2 className="text-center p-3" >Add Role</h2> */}
@@ -366,7 +374,7 @@ const Roles = () => {
         </Form>
        
       </Container>
-    </div>
+    </Container>
   )
 }
 

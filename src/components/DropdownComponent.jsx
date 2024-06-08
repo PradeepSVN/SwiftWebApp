@@ -50,7 +50,8 @@ const Dropdown = ({ data,changeNavLinkPath,handleIsActiveNavigation }) => {
         }}
       >
          {data.menuItems.map((item, index) =>
-            <MenuItem key={index} value={item.name} primaryText={item.name} onClick={() => handleClose(item)} >{item.name}</MenuItem>
+            <MenuItem  key={index} value={item.name} primaryText={item.name} onClick={() => handleClose(item)}
+            style={{width:'150px',height:'100%',backgroundColor:'#eef8ff'}} ><p className='text-wrapper-6'>{item.name}</p></MenuItem>
           )}
        
       </Menu>

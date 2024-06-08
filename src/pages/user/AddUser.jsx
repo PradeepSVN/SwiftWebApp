@@ -386,13 +386,21 @@ const handleSearchQuery = (serachValue) => {
   }, 4000); // Hide spinner after 3 seconds
 
   return (    
-      <Container style={{margin:'35px'}}>
+    <Container style={{marginLeft:'55px' , marginTop:'20px', maxWidth:'95%', width:'100%'}}>
+    <header>
+  <h1 className="page-title1">Single User Add</h1>
+  <nav>
+    <a href="/">Home</a> /
+    <a href="/">Administration</a> / 
+    &nbsp;<label> Single User Add</label> 
+  </nav>
+</header>
         {/* <h2 className="text-center p-3" >Add Single User</h2> */}
         <div className="text-center">
          <span className="error">{formError}</span> 
         </div>
         <div></div>
-        <h1 >Single User Add</h1>
+        {/* <h1 >Single User Add</h1> */}
         <Form  ref={formRef} style={{marginTop:'65px'}}>
         <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
           <Grid item xs={3}>
@@ -501,7 +509,7 @@ const handleSearchQuery = (serachValue) => {
         <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
         <Grid item xs={3}>
           <Form.Group  className="form-date">
-                 <label>Terminated Date</label>
+                 <label>Terminated Date</label><br></br>
                  <LocalizationProvider dateAdapter={AdapterDayjs}>
                  <DatePicker format="MM/DD/YYYY" 
                   name="user_Terminated_Date"

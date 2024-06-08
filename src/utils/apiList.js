@@ -12,7 +12,7 @@ export const APIS = {
   GETALLENTITIES:"Master/GetEntityDetails",
   GETTINBYENTITYID:"Master/GetTinDetails",
   ADDUSER:"User/AddUser",
-  EDITUSER:"User//User/EditUserDetails",
+  EDITUSER:"User/EditUserDetails",
   USER: "Admin/GetUser",
   CLIENT_LIST: "Admin/GetClientList",
   CREATE_CLIENT: "Admin/CreateClient",

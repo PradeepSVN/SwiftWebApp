@@ -12,9 +12,11 @@ import {useEffect} from 'react'
 import '../styles/table.css';
 
 
+
 const tableStyle = {
   backgroundColor:  'white',
 };
+
 
 
 const Column = {
@@ -117,29 +119,36 @@ export default function StickyHeadTable({rows,handleUserInfo}) {
 };
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+    <Paper sx={{ width: '100%', overflow: 'hidden', marginTop:'20px' }}>
       <GlobalStyles />
-      <TableContainer sx={{ maxHeight: 740 }}>
+      <TableContainer sx={{ maxHeight: 740 }}  variant={'solid'}>
         <Table stickyHeader aria-label="sticky table" className='customTable'
-        style={{width:'90%', margin:'70px', justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+        style={{width:'90%', margin:'70px', justifyContent:'center',alignContent:'center',alignItems:'center' }}
+       >
           <TableHead>
-            <TableRow className='table-header'>
+            <TableRow className='table-header'
+            >
               {columns.map((column) => (
                 <TableCell className='table-th'
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
                 >
-                  {column.label}
+                  <p className='text-wrapper-tableheader'>{column.label}</p>
                 </TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows && rows.length >0? rows.map((row) => 
+            <TableRow style={{height:'10px'}} >
+
+            </TableRow>
+            {rows && rows.length >0? rows.map((row,index) => 
               {
-                return (
-                  <TableRow role="checkbox" tabIndex={-1} key={row.user_ID} className='table-row' onClick={(event) => handleRowChange(event, row)} >
+                return (<>            
+                  <TableRow style={{height:'10px'}}></TableRow>
+                   <TableRow role="checkbox" tabIndex={-1} key={row.user_ID} className='table-row' onClick={(event) => handleRowChange(event, row)} 
+                     >
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
@@ -151,6 +160,7 @@ export default function StickyHeadTable({rows,handleUserInfo}) {
                       );
                     })}
                   </TableRow>
+                  </> 
                 );
 
               }):null}

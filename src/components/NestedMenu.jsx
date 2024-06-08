@@ -80,7 +80,7 @@ const NestedMenu = ({ data,changeNavLinkPath,handleIsActiveNavigation }) => {
         }}
       >
          {data.menuItems.map((item, index) =>
-            <MenuItem key={index} value={item.name} primaryText={item.name} onClick={() => handleClose(item)} >{item.name}</MenuItem>
+            <MenuItem key={index} value={item.name} primaryText={item.name} onClick={() => handleClose(item)} ><p className='text-wrapper-6'>{item.name}</p></MenuItem>
           )}
        
       </Menu>:
@@ -96,7 +96,7 @@ const NestedMenu = ({ data,changeNavLinkPath,handleIsActiveNavigation }) => {
       }}
     >
        {data.menuItems.map((item, index) =>
-          <MenuItem style={{minWidth:'200px'}} value={item.name} primaryText={item.name} onClick={item.isSubmenu?handleSubMenuClick(item): () => handleClose(item)} >{item.name}{item.isSubmenu?<ArrowRightIcon sx={{float:'right'}}  />:null}</MenuItem>
+          <MenuItem style={{minWidth:'200px'}}  onClick={item.isSubmenu?handleSubMenuClick(item): () => handleClose(item)} >{item.name}{item.isSubmenu?<ArrowRightIcon sx={{float:'right'}}  />:null}</MenuItem>
         )}
      
     </Menu>

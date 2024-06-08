@@ -14,9 +14,10 @@ import '../../../src/global.css';
 import {searchRequestObject} from '../../utils/apiRequestData'
 import { Form } from "react-bootstrap"
 import Select from 'react-select';
+import SearchIcon from '@mui/icons-material/Search';
 
 
-const UserMaintenance = ({changeNavLinkPath}) => {
+const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
   const [loading, setLoading] = useState(true);
   const [userList, setUserList] = useState([]);
   const [userInfo, setUserInfo] = useState({});
@@ -33,6 +34,7 @@ const UserMaintenance = ({changeNavLinkPath}) => {
 
   let apiResponse = [];
   useEffect(() => {
+    setIsUserInfo(false);
     setLoading(true);
     //setContextData({pagePath:'UserMaintenance', isUserInfo:false});
     try{
@@ -90,8 +92,9 @@ const UserMaintenance = ({changeNavLinkPath}) => {
   }
 
   const handleUserInfo = (row) => {
-      setUserInfo(row);
-      setIsUserInfo(true);
+    changeNavLinkPath({path:"UserInfo",data:row});
+      //setUserInfo(row);
+      //setIsUserInfo(true);
    
   };
 
@@ -112,7 +115,7 @@ const UserMaintenance = ({changeNavLinkPath}) => {
 };
 
 const handleNavigation = (data) => {   
-  changeNavLinkPath(data);
+  changeNavLinkPath({path:"UserInfo",data:data});
 };
 
 
@@ -160,34 +163,43 @@ const getFilteredUserList = async () => {
     <div className="justify-content-center align-items-center vh-100" style={{margin:'30px'}}>
       {/* <Container className="px-4 py-3 my-2 center"> */}
         {/* <div className="col-md-10 offset-md-1"> */}
-      {isUserInfo? <Button 
+      {/* {isUserInfo? <Button 
       variant="contained" 
       color="primary" 
       startIcon={<ArrowBack />}
       onClick={handleBackBtn}
       >
         Back
-      </Button>:null}
-         { !isUserInfo ?
+      </Button>:null} */}
+         {/* { !isUserInfo ? */}
            <div>
-             <h1 >User List</h1>
+               <header>
+      <h1 className="page-title1">User List</h1>
+      <nav>
+        <a href="/">Home</a> /
+        <a href="/">Administration</a> /
+        <a href="/">User Management</a> /
+        &nbsp;<label> User List</label>
+      </nav>
+    </header>
             <Form>
-           <Grid>
-            <Grid item xs={8} style={{marginLeft:'100px', display:'flex'}}>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'10px' }}>
-            <label >User Name</label>
+           <Grid className="frame-17" style={{marginTop:'55px'}}>
+          
+            <Grid item xs={8} style={{ display:'flex'}}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'150px' }}>
+            {/* <label >User Name</label> */}
             <TextField placeholder="User Name" id="user_UserName" className="search-text" onChange={handleChange} />
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'10px'  }}>
-            <label >First Name</label>
+            <Form.Group style={{display: 'flex', flexDirection: 'column' ,margin:'8px 8px 8px 8px',width:'150px' }}>
+            {/* <label >First Name</label> */}
             <TextField placeholder="First Name" id="user_First_Name" className="search-text" onChange={handleChange} />
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column' ,margin:'10px' }}>
-            <label>Last Name</label>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'150px'}}>
+            {/* <label>Last Name</label> */}
             <TextField placeholder="Last Name" id="user_Last_Name" className="search-text"  onChange={handleChange} />
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column' ,margin:'10px' }}>
-            <label>Role Name</label>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px',width:'150px' }}>
+            {/* <label>Role Name</label> */}
             <TextField placeholder="Role Name" id="role" className="search-text"  onChange={handleChange} />
             {/* <Select            
               value={roleSelectedValue}
@@ -202,17 +214,17 @@ const getFilteredUserList = async () => {
             /> */}
             </Form.Group>
           
-            <Form.Group style={{display: 'flex', flexDirection: 'column' ,margin:'10px' }}>
-            <Button type="button" className="search-btn" onClick={handleClick} disabled={loading} >Search</Button>
+            <Form.Group style={{margin:'15px -11px -11px 10px' }}>
+            <Button type="button"   onClick={handleClick} disabled={loading} 
+            sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 40 }} /></Button>
             </Form.Group>
             </Grid>
            </Grid>
            </Form>
           <CustomTable rows={userList} handleUserInfo={handleUserInfo} ></CustomTable>  
-          </div>: null 
-         
-          } 
-         { isUserInfo && userInfo? <UserInfo data={userInfo} handleNavigation={handleNavigation} />:null}
+          </div>
+          {/* : null }  */}
+         {/* { isUserInfo && userInfo? <UserInfo data={userInfo} handleNavigation={handleNavigation} />:null} */}
         
           
         {/* </div> */}

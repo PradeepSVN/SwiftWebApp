@@ -18,6 +18,8 @@ import { roleAPIResponse } from '../utils/apiRequestData';
 import MemberList from '../pages/member/Members';
 import Home from '../pages/home/Home';
 import EditUser from '../pages/user/EditUser';
+import UserInfo from '../pages/user/UserInfo';
+import MemberInfo from '../pages/member/MemberInfo';
 import { isObject } from '../utils/utils';
 
 
@@ -48,7 +50,7 @@ const navLinks = DynamicHeader(roleAPIResponse); /*[
 
 
 const Layout = ({navPathTo}) => {
-  const[id, setId] = useState(null);
+  const[data, setData] = useState(null);
   const navigate = useNavigate()
   useEffect(() => {
     const token = localStorage.getItem(LocalStorageKey.token);
@@ -70,7 +72,7 @@ const Layout = ({navPathTo}) => {
     if(isObject(linkpath))
     {
       console.log("===layout=changeNavLinkPath=isObject==",linkpath.path);
-      setId(linkpath.id);
+      setData(linkpath.data);
       setContentPage(linkpath.path);
     }
     else if(linkpath == "Logout")
@@ -80,6 +82,7 @@ const Layout = ({navPathTo}) => {
     }
     else
     {
+      console.log("===setContentPage===",linkpath);
       setContentPage(linkpath);
     }
    
@@ -102,9 +105,11 @@ const Layout = ({navPathTo}) => {
         {contentPage == "AddUser"?<AddUser />:null}
         {contentPage == "BatchAdd"?<BatchAdd />:null}
         {contentPage == "UserRoles"?<UserRoles />:null}
-        {contentPage == "UserMaintenance"?<UserMaintenance  changeNavLinkPath={changeNavLinkPath} />:null}  
-        {contentPage == "MemberList"?<MemberList />:null}   
-        {contentPage == "EditUser"?<EditUser id={id} changeNavLinkPath={changeNavLinkPath} />:null}   
+        {contentPage == "UserMaintenance"?<UserMaintenance changeNavLinkPath={changeNavLinkPath} />:null}  
+        {contentPage == "MemberList"?<MemberList changeNavLinkPath={changeNavLinkPath} />:null}   
+        {contentPage == "MemberInfo"?<MemberInfo data={data} changeNavLinkPath={changeNavLinkPath} />:null}   
+        {contentPage == "UserInfo"?<UserInfo data={data} changeNavLinkPath={changeNavLinkPath} />:null}   
+        {contentPage == "EditUser"?<EditUser data={data} changeNavLinkPath={changeNavLinkPath} />:null}   
       
        
         {/* </Row>  */}
