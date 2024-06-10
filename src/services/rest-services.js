@@ -15,8 +15,8 @@ const basePath = APIS.BASEURL;  //process?.env?.REACT_APP_BASE_API_URL
 // authBasePath is for authentication purpose only
 const authBasePath = APIS.BASEURL; //process?.env?.REACT_APP_AUTH_API_URL
 const headers = {
-  //"Access-Control-Allow-Origin": "*",
- // "Access-Control-Allow-Methods": "POST, GET, OPTIONS, PUT, HEAD, DELETE",
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, GET, OPTIONS, PUT, HEAD, DELETE",
 }
 
 const logoutUser = () => {
@@ -89,7 +89,7 @@ export const getData = (url) => {
 export const postData = (url, body, isBaseURL = false) => {
   //headers.Authorization = localStorage.getItem(TOKEN_KEY)
   return customAxios
-    .post(`${isBaseURL ? authBasePath : basePath}${url}`, body)
+    .post(`${isBaseURL ? authBasePath : basePath}${url}`, body,{ headers: headers })
     .then((res) => res)
     .catch((err) => null) // handleErrorResponse(err), { type: API_REQ_TYPE.POST, url, body, isBaseURL })
 }
@@ -97,7 +97,7 @@ export const postData = (url, body, isBaseURL = false) => {
 export const postDataAPI = (url, body, isBaseURL = false) => {
   //headers.Authorization = localStorage.getItem(TOKEN_KEY)
   return customAxios
-    .post(`${isBaseURL ? authBasePath : basePath}${url}`, body)
+    .post(`${isBaseURL ? authBasePath : basePath}${url}`, body,{ headers: headers })
     .then((res) => handleSuccessRes(res))
     .catch((err) => handleErrorResponse(err), { type: API_REQ_TYPE.POST, url, body, isBaseURL })
 }
