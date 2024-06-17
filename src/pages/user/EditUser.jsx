@@ -653,7 +653,7 @@ const handleSearchQuery = (serachValue) => {
           </Grid>
           <Grid item xs={3}>
             <Form.Group>
-            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Tin</label>
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>TIN</label>
             <Select
             isMulti
         value={tinSelectedOptions}
