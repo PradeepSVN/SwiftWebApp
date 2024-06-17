@@ -585,7 +585,7 @@ const handleSearchQuery = (serachValue) => {
         value={tinSelectedOptions}
         onChange={handleTinSelectOptions}
         options={tinOptions}
-        placeholder="Select Tin"
+        placeholder="Select TIN"
         styles={customStyles}
         isSearchable
         id="user_tin"
