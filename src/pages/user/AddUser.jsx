@@ -547,7 +547,7 @@ const handleSearchQuery = (serachValue) => {
         value={roleSelectedValue}
         onChange={handleRoleSelectOptions}
         options={roleOptions}
-        placeholder="Select Entity"
+        placeholder="Select Role"
         styles={customStyles}
         isSearchable
         id="user_role"
