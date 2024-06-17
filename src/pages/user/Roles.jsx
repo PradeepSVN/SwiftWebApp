@@ -189,7 +189,7 @@ const Roles = () => {
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th></th>
+                  <th width='45%'></th>
                  
                   <th>View</th>
                   <th>submit</th>
@@ -197,7 +197,7 @@ const Roles = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr className='table-row'>
+                <tr >
                   <td>Membership</td>
                   
                   <td key="memb_View" >
@@ -231,10 +231,10 @@ const Roles = () => {
                      </Form.Group>
                   </td>
                 </tr>
-                <tr className='table-row'>
+                <tr>
                   <td>Utilization management</td>
                  
-                  <td key="auth_View" className='table-td'>
+                  <td key="auth_View" >
                   <Form.Group >
                     <Checkbox                    
                       aria-label="option 1"                      
@@ -244,7 +244,7 @@ const Roles = () => {
                     />
                      </Form.Group>
                   </td>
-                  <td key="auth_Submit"  className='table-td'>
+                  <td key="auth_Submit"  >
                   <Form.Group >
                     <Checkbox                    
                       aria-label="option 1"                      
@@ -254,7 +254,7 @@ const Roles = () => {
                     />
                      </Form.Group>
                   </td>
-                  <td key="auth_Reports"  className='table-td'>
+                  <td key="auth_Reports"  >
                   <Form.Group >
                     <Checkbox                    
                       aria-label="option 1"                      

@@ -127,7 +127,7 @@ export default function StickyHeadTable({tableData,handleUserInfo,handlePaginati
       <GlobalStyles />
       <TableContainer sx={{ maxHeight: 740 }}  variant={'solid'}>
         <Table stickyHeader aria-label="sticky table" className='customTable'
-        style={{width:'90%', margin:'70px', justifyContent:'center',alignContent:'center',alignItems:'center' }}
+        style={{width:'99%', marginTop:'70px', marginLeft:'5px', justifyContent:'center',alignContent:'center',alignItems:'center' }}
        >
           <TableHead>
             <TableRow className='table-header'

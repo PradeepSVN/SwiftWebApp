@@ -98,13 +98,13 @@ const ProviderInfo = ({data}) => {
              </Box>
              <br></br>
              <Box className="user-info-box2" sx={{width:'100%', Height:'150px !importent',overflowY: 'scroll'}}>
-             <h3 className="page-title">Practices</h3>
-             <div className="col-sm-12" sx={{display: 'flex'}}>
+             {/* <h3 className="page-title">Practices</h3> */}
+             <div className="col-sm-12 clsdisplay" >
              <div className="col-sm-5">
            <Table>
               <TableBody sx={{border:'none'}}>   
               <TableRow sx={{border:'none'}}>
-                 <TableCell className="user-info-lable" sx={{border:'none',overflow:'wrap'}}><b>Specialty</b></TableCell></TableRow>           
+                 <TableCell className="" sx={{border:'none',overflow:'wrap'}}><h3 className="page-title2">Specialty</h3></TableCell></TableRow>           
               {specialtyList && specialtyList.length >0? specialtyList.map((row,index) => 
               {
                 return (<>   
@@ -127,7 +127,7 @@ const ProviderInfo = ({data}) => {
            <Table>
               <TableBody sx={{border:'none'}}>  
               <TableRow sx={{border:'none'}}>
-              <TableCell className="user-info-lable" sx={{border:'none',overflow:'wrap' }}><b>Tins</b></TableCell></TableRow>                 
+              <TableCell className="" sx={{border:'none',overflow:'wrap' }}><h3 className="page-title2">Tin</h3></TableCell></TableRow>                 
               {tinList && tinList.length >0? tinList.map((row3,index) => 
               {
                 return (<>   
@@ -146,19 +146,24 @@ const ProviderInfo = ({data}) => {
             </Box>
            </Grid>
          <Grid item xs={6} >
-         <Box className="user-info-box" sx={{ height:'440px',paddingTop:'5px',overflowY: 'scroll'}}>
+         <Box className="user-info-box" sx={{ height:'200px',paddingTop:'5px',overflowY: 'scroll'}}>
            
            <h3 className="page-title">Contact Info</h3>
            <Table>
             <TableBody sx={{border:'none'}}>
-            <TableRow sx={{border:'none'}}>
+            {/* <TableRow sx={{border:'none'}}>
                <TableCell className="user-info-lable" sx={{border:'none'}}>Client Address Type</TableCell>
                <TableCell className="user-info-value" sx={{border:'none'}}>{providerInfo.provideR_CLIENT_ADDRESS_TYPE}</TableCell>
+             </TableRow> */}
+             <TableRow sx={{border:'none'}}>
+               <TableCell className="user-info-lable" sx={{border:'none'}}><b>Primary:</b></TableCell>           
+               <TableCell className="user-info-value" sx={{border:'none',overflow:'wrap'}}>{providerInfo.provideR_ADDRESS_1},{providerInfo.provideR_CITY},{providerInfo.provideR_STATE}-{providerInfo.provideR_ZIP} (p) {providerInfo.provideR_PHONE} (f) {providerInfo.provideR_FAX}</TableCell>     
              </TableRow>
              <TableRow sx={{border:'none'}}>
-               <TableCell className="user-info-lable" sx={{border:'none'}}><b>Primary:</b></TableCell>                
+               <TableCell className="user-info-lable" sx={{border:'none'}}><b>Secondary:</b></TableCell>           
+               <TableCell className="user-info-value" sx={{border:'none',overflow:'wrap'}}>{providerInfo.provideR_ADDRESS_2},{providerInfo.provideR_CITY},{providerInfo.provideR_STATE}-{providerInfo.provideR_ZIP} (p) {providerInfo.provideR_PHONE} (f) {providerInfo.provideR_FAX}</TableCell>     
              </TableRow>
-            <TableRow sx={{border:'none'}}>
+            {/* <TableRow sx={{border:'none'}}>
                <TableCell className="user-info-lable" sx={{border:'none'}}>Address Line1</TableCell>
                <TableCell className="user-info-value" sx={{border:'none',overflow:'wrap'}}>{providerInfo.provideR_ADDRESS_1}</TableCell>
              </TableRow>
@@ -183,8 +188,8 @@ const ProviderInfo = ({data}) => {
                <TableCell className="user-info-value" sx={{border:'none'}}>{providerInfo.provideR_ZIP}</TableCell>
              </TableRow>
              <TableRow sx={{border:'none'}}>
-               <TableCell className="user-info-lable" sx={{border:'none'}}><b>Secodary:</b></TableCell>                
-             </TableRow>
+               <TableCell className="user-info-lable" sx={{border:'none'}}><b>Secondary:</b></TableCell>                
+             </TableRow> 
             <TableRow sx={{border:'none'}}>
                <TableCell className="user-info-lable" sx={{border:'none'}}>Address Line2</TableCell>
                <TableCell className="user-info-value" sx={{border:'none',overflow:'wrap'}}>{providerInfo.provideR_ADDRESS_2}</TableCell>
@@ -208,7 +213,7 @@ const ProviderInfo = ({data}) => {
              <TableRow>  
              <TableCell className="user-info-lable" sx={{border:'none'}}>Zip</TableCell>
                <TableCell className="user-info-value" sx={{border:'none'}}>{providerInfo.provideR_ZIP}</TableCell>
-             </TableRow>           
+             </TableRow>   */}        
             </TableBody>
            </Table>
            </Box>

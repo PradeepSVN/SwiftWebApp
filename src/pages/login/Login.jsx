@@ -20,7 +20,7 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import logojpg from '../../assets/images/logo.jpg';
+import logojpg from '../../assets/images/logo.png';
 import { grey } from "@mui/material/colors";
 import {showToast,ToastMessageType} from '../../utils/toastMessage';
 import { ToastContainer, toast } from "react-toastify";
@@ -131,7 +131,7 @@ const Login = () => {
         style={{backgroundColor:'#d0e4fd'}}
       >
        
-         <img src={logojpg}  className="img-margin" width={'100%'} height={300}></img> 
+         <img src={logojpg}  className="img-margin" width={'95%'} height={220}></img> 
       
       </Grid>
       <Grid item xs={12} sm={8} md={6} component={Paper}  >
@@ -142,10 +142,10 @@ const Login = () => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent:'center', 
-            minWidth: {xs:'60%', md:'40%',sm:'40%'},  
+            minWidth: {xs:'60%', md:'55%',sm:'55%'},  
             marginLeft: '190px', 
             alignItems: 'center', 
-            maxWidth: {xs:'60%', md:'40%',sm:'40%'}, 
+            maxWidth: {xs:'60%', md:'55%',sm:'55%'}, 
             // margin: {xs:'30px', md:'30px',sm:'40%'}, 
            
           }}

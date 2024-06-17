@@ -121,7 +121,7 @@ const MemberInfo = ({data}) => {
             </Box>
            </Grid>   
            <Grid item xs={8}>
-             <Box className="user-info-box" sx={{ height:'310px',paddingBottom:'20px'}}>
+             <Box className="user-info-box" sx={{ height:'315px',paddingBottom:'20px'}}>
              <h3 className="page-title">Contact Info</h3>
              <Table>
               <TableBody sx={{border:'none'}}>
@@ -158,7 +158,7 @@ const MemberInfo = ({data}) => {
              {/* <div className="line"></div> */}
              </Box>
              <br></br>
-             <Box className="user-info-box" sx={{ height:'300px',paddingTop:'5px'}}>
+             <Box className="user-info-box" sx={{ height:'320px',paddingTop:'5px'}}>
            
              <h3 className="page-title">Primary Care</h3>
              <Table>

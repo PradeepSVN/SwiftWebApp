@@ -184,7 +184,7 @@ const getFilteredUserList = async () => {
 
   return (
     <>
-    <div className="justify-content-center align-items-center vh-100" style={{margin:'30px'}}>
+   <Container style={{marginLeft:'55px' , marginTop:'20px', maxWidth:'93%', width:'100%'}}>
       {/* <Container className="px-4 py-3 my-2 center"> */}
         {/* <div className="col-md-10 offset-md-1"> */}
       {/* {isUserInfo? <Button 
@@ -253,7 +253,7 @@ const getFilteredUserList = async () => {
           
         {/* </div> */}
       {/* </Container> */}
-    </div>
+    </Container>
     </>
   )
 }

@@ -23,6 +23,8 @@ const Members = ({changeNavLinkPath}) => {
   const [entities, setEntities] = useState([]);
   const [entityOptions, setEntityOptions] = useState([]);
   const [entitySelectedOptions, setEntitySelectedOptions] = useState([]);
+  const [insuranceOptions, setInsuranceOptions] = useState([]);
+  const [insuranceSelectedOptions, setInsuranceSelectedOptions] = useState([]);
   const [tableData, setTableData] = useState({rows:[],totalCount:0,page:0,size:10});
 
   const customStyles = {
@@ -68,6 +70,13 @@ const Members = ({changeNavLinkPath}) => {
  
 };
 
+const handleInsuranceSelectOptions = (newValue) => {
+  console.log("==handleSelectOptions=",newValue);
+  setInsuranceSelectedOptions(newValue);    
+  setSearchPayload((_payload) => ({ ..._payload, ["insurance"]: newValue.value }))
+  
+};
+
 const handleMemberComponent = (status) => {
   setIsMemberInfo(status);
 }
@@ -95,7 +104,8 @@ const handleClick = (event) => {
 const handleEntitySelectOptions = (newValue) => {
   console.log("==handleSelectOptions=",newValue);
   setEntitySelectedOptions(newValue);    
-  setSearchPayload((_payload) => ({ ..._payload, ["entitY_UID"]: newValue.value }))
+  setSearchPayload((_payload) => ({ ..._payload, ["entitY_UID"]: newValue.value }));
+  getInsuranceListByEntityId(newValue.value);
 };
 
 const getAllEnties = async () => {
@@ -111,6 +121,28 @@ const getAllEnties = async () => {
       let options = [];
       res.data.result.forEach((item) => (options.push({label: item.entity_Name,value:item.entity_ID })));
       setEntityOptions(options); //{ value: 1, label: 'test' },
+      //setAllEntityOptions(options);  
+    } 
+    else
+    {
+      setLoading(false);      
+    }
+ 
+}
+
+const getInsuranceListByEntityId = async (_entityId) => {
+  setLoading(true);
+  //clearTimeout(timer);
+  console.log("======addUserRole==Start=====");
+  const res = await getData(APIS.GETPROVIDERINSURANCELISTBYENTITYID+"/?entity_Id="+_entityId);
+  console.log("======res=======",res);
+  if(res && isObject(res.data) && res.data.result)
+    {
+      setLoading(false);
+      //setEntities(res.data.result);   
+      let options = [];
+      res.data.result.forEach((item) => (options.push({label: item.insurancE_DESCRIPTION,value:item.insurancE_CLIENT_ID })));
+      setInsuranceOptions(options); //{ value: 1, label: 'test' },
       //setAllEntityOptions(options);  
     } 
     else
@@ -207,9 +239,19 @@ const handlePagination = (pagenation) => {
             </Form.Group>
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'150px' }}>
             {/* <label >Insurance</label> */}
-            <TextField placeholder="Insurance" id="insurance" className="member-search-text"
-            
-             onChange={handleChange} />
+            <Select            
+              value={insuranceSelectedOptions}
+              onChange={handleInsuranceSelectOptions}
+              options={insuranceOptions}
+              placeholder="Select Insurance"            
+              isSearchable
+              id="insurance"
+              name="insurance"
+              styles={customStyles}              
+              maxMenuHeight={160}              
+              
+            /> 
+            {/* <TextField placeholder="Insurance" id="insurance" className="member-search-text" onChange={handleChange} /> */}
             </Form.Group>
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'150px' }}>
             {/* <label>Option</label> */}

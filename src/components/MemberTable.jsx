@@ -98,7 +98,7 @@ export default function StickyHeadTable({tableData,handleMemberInfo,handlePagina
       <GlobalStyles />
       <TableContainer sx={{ maxHeight: 740 }}>
         <Table stickyHeader aria-label="sticky table" className='customTable'
-        style={{width:'90%', margin:'70px', justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+        style={{width:'99%', marginRight:'5px', justifyContent:'center',alignContent:'center',alignItems:'center'}}>
           <TableHead>
             <TableRow className='table-header'>
               {columns.map((column) => (

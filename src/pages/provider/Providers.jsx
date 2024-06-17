@@ -267,8 +267,8 @@ const handlePagination = (pagenation) => {
               options={insuranceOptions}
               placeholder="Select Insurance"            
               isSearchable
-              id="tin"
-              name="tin"
+              id="insurance"
+              name="insurance"
               styles={customStyles}              
               maxMenuHeight={160}              
               
@@ -284,8 +284,8 @@ const handlePagination = (pagenation) => {
               options={tinOptions}
               placeholder="Select Tin"            
               isSearchable
-              id="insurance"
-              name="insurance"
+              id="tin"
+              name="tin"
               styles={customStyles}              
               maxMenuHeight={160}                  
               

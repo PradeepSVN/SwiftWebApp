@@ -2,7 +2,7 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import logojpg from '../assets/images/logo.jpg'; 
+import logojpg from '../assets/images/logo.png'; 
 const Logo = () => {
   return (   
     // <Row className="justify-content-md-center">

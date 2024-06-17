@@ -84,7 +84,7 @@ const UserInfo = ({data,changeNavLinkPath}) => {
   return (
     <>
   
-     <Container  style={{marginLeft:'55px', marginTop:'40px', maxWidth:'93%', width:'100%'}}>
+     <Container  style={{marginLeft:'55px', marginTop:'20px', maxWidth:'93%', width:'100%'}}>
       <GlobalStyles />
         {/* <h2 className="text-center p-3" >Add Single User</h2> */}
         <header>
@@ -103,7 +103,7 @@ const UserInfo = ({data,changeNavLinkPath}) => {
         {/* <Form  ref={formRef} style={{marginTop:'65px'}}> */}
         <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 6 }} paddingBottom={5}>
           <Grid item xs={8}>
-            <Box className="user-info-box" sx={{ height:'242px'}}>
+            <Box className="user-info-box1" sx={{ height:'242px'}}>
             <Table>
              <TableBody sx={{border:'none'}}>
               <TableRow sx={{border:'none'}}>
@@ -139,7 +139,7 @@ const UserInfo = ({data,changeNavLinkPath}) => {
             </Box>
           </Grid>
           <Grid item xs={4} >
-          <Box className="user-info-box" sx={{width:'100%', Height:'400px',}}>
+          <Box className="user-info-box1" sx={{width:'100%', Height:'242px !importent',}}>
           <Table>
              <TableBody sx={{border:'none'}}>
               <TableRow sx={{border:'none'}}>
@@ -169,7 +169,7 @@ const UserInfo = ({data,changeNavLinkPath}) => {
          <Grid   container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 8 }} paddingBottom={5}>
              <Grid item xs={4}>
               <h4 className="page-title">Assigned Entities</h4>
-              <Box className="user-info-box" sx={{height:'200px',display: "flex",
+              <Box className="user-info-box3" sx={{height:'200px',display: "flex",
                       flexDirection: "column",
                       //height: 700,
                       overflow: "hidden",
@@ -192,7 +192,7 @@ const UserInfo = ({data,changeNavLinkPath}) => {
              </Grid>
              <Grid item xs={4}>
              <h4 className="page-title">Assigned Tins</h4>
-             <Box className="user-info-box" sx={{height:'200px',display: "flex",
+             <Box className="user-info-box3" sx={{height:'200px',display: "flex",
                       flexDirection: "column",
                       //height: 700,
                       overflow: "hidden",
