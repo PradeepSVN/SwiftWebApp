@@ -107,6 +107,19 @@ export const apiRequestData = {
     totalrows: 0
   }
 
+  export const searchProviderRequestObject = {
+    entitY_ID: "",
+    insurance: "",
+    tin: "",
+    firsT_NAME: "",
+    lasT_NAME: "",
+    npi: "",
+    page: 0,
+    size: 10,
+    sortColumn: "",
+    order: ""
+  }
+
   export const addUserRequiredData = [
         {user_First_Name: "Please enter first name"},
         {user_Last_Name: "Please enter last name"},

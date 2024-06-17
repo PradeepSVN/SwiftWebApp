@@ -21,6 +21,8 @@ import EditUser from '../pages/user/EditUser';
 import UserInfo from '../pages/user/UserInfo';
 import MemberInfo from '../pages/member/MemberInfo';
 import { isObject } from '../utils/utils';
+import ProviderList from '../pages/provider/Providers';
+import ProviderInfo from '../pages/provider/ProviderInfo';
 
 
 
@@ -110,7 +112,9 @@ const Layout = ({navPathTo}) => {
         {contentPage == "MemberInfo"?<MemberInfo data={data} changeNavLinkPath={changeNavLinkPath} />:null}   
         {contentPage == "UserInfo"?<UserInfo data={data} changeNavLinkPath={changeNavLinkPath} />:null}   
         {contentPage == "EditUser"?<EditUser data={data} changeNavLinkPath={changeNavLinkPath} />:null}   
-      
+
+        {contentPage == "ProviderList"?<ProviderList changeNavLinkPath={changeNavLinkPath} />:null}  
+        {contentPage == "ProviderInfo"?<ProviderInfo data={data} changeNavLinkPath={changeNavLinkPath} />:null}   
        
         {/* </Row>  */}
         

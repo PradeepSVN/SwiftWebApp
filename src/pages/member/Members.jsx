@@ -129,7 +129,7 @@ const getFilteredUserList = async (page,size) => {
   console.log("======GETMEMBERS==Start=====",payload);
   const res = await postData(APIS.GETMEMBERS,payload);
   console.log("======res=======",res);
-  if(res &&  isObject(res.data) && res.data.statusCode == 200)
+  if(res &&  isObject(res.data)  && res.data.result.length>0  && res.data.statusCode == 200)
     {
       setLoading(false);    
       setMemberList(res.data.result);  
@@ -148,7 +148,14 @@ const getFilteredUserList = async (page,size) => {
     }
     else
     {
-      setLoading(false);      
+      setLoading(false);  
+      console.log("=======No Data Available=========")
+      setLoading(false);   
+      setMemberList([]);  
+      setTableData((_payload) => ({ ..._payload, ["rows"]: [] }));
+      setTableData((_payload) => ({ ..._payload, ["page"]: 0 }))
+      setTableData((_payload) => ({ ..._payload, ["size"]: 10 }))                
+      setTableData((_payload) => ({ ..._payload, ["totalCount"]: 0 }))    
     }
  
 }
@@ -257,7 +264,7 @@ const handlePagination = (pagenation) => {
            </Grid>
            </Form>
           <MemberTable tableData={tableData} handleMemberInfo={handleMemberInfo} handlePagination={handlePagination} ></MemberTable>  
-          </div>: null 
+          </div>: <></> 
          
           
          {/* { isMemberInfo && memberInfo? <MemberInfo data={memberInfo} handleMemberComponent={handleMemberComponent} />:null} */}

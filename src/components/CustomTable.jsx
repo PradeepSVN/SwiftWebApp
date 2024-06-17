@@ -79,14 +79,14 @@ function createData(
   createData('Brazil', 'BR', 210147125, 8515767),
 ];*/
 
-export default function StickyHeadTable({rows,handleUserInfo}) {
+export default function StickyHeadTable({tableData,handleUserInfo,handlePagination}) { 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [loading, setLoading] = React.useState(false);
  // const [rows, setRows] = React.useState([]);
 
   useEffect(() => {
-    console.log("==customtable useEffect=",rows);
+    console.log("==customtable useEffect=",tableData.rows);
    
     
     try{
@@ -101,10 +101,14 @@ export default function StickyHeadTable({rows,handleUserInfo}) {
 
 
   const handleChangePage = (event, newPage) => {
+    console.log("====handleChangePage=======",newPage)
+    handlePagination({page:newPage,pageSize:rowsPerPage});
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
+    console.log("====handleChangeRowsPerPage=======",event.target.value)
+    handlePagination({page:0,pageSize:event.target.value});
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
@@ -143,7 +147,7 @@ export default function StickyHeadTable({rows,handleUserInfo}) {
             <TableRow style={{height:'10px'}} >
 
             </TableRow>
-            {rows && rows.length >0? rows.map((row,index) => 
+            {tableData.rows && tableData.rows.length >0? tableData.rows.map((row,index) => 
               {
                 return (<>            
                   <TableRow style={{height:'10px'}}></TableRow>
@@ -188,9 +192,9 @@ export default function StickyHeadTable({rows,handleUserInfo}) {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
+        count={tableData.totalCount}
+        rowsPerPage={tableData.size}
+        page={tableData.page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />

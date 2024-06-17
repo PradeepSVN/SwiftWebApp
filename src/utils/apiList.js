@@ -22,6 +22,10 @@ export const APIS = {
   GET_ROLES: "Admin/GetRoles",  
   GETMEMBERS:"Member/GetAllMemberDetailsBySearch",
   GETMEMBERINFO:"Member/EditMemberDetails",
+  GETPROVIDERS:"Provider/GetAllProviderDetailsBySearch",
+  GETPROVIDERINFO:"Provider/ViewProviderDetails",
+  GETPROVIDERINSURANCELISTBYENTITYID:"Provider/GetProviderInsuranceList",
+  GETPROVIDERTINBYENTITYID:"Provider/GetProviderTinList"
 }
 
 export const APIMESSAGES = {

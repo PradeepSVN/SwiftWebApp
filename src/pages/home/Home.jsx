@@ -6,51 +6,55 @@ import {getData, postData} from '../../services/rest-services';
 import '../../../src/global.css'
 import GlobalStyles from '../../theme/GlobalStyles';
 import {isObject} from '../../utils/utils';
+import '../../styles/Menu.css'
+import { LocalStorageKey } from "../../utils/constants";
+import {isEmptyObject,isLocalStorageValueExists} from '../../utils/utils';
+import { useNavigate } from "react-router-dom"
 
 
 const Home = () => {
   
   const [loading,setLoading] = useState(false);
 
+  const [hoveredMenu, setHoveredMenu] = useState(null);
+  const [hoveredSubMenu, setHoveredSubMenu] = useState(null);
+  const navigate = useNavigate();
+
   useEffect(() => {
-    console.log("=======BatchAdd page=");
-    setLoading(true);
-   
-    try{
-      //getAllRole();
-      //getAllEnties();
-    }catch (error) {
-      console.log("==Add User Component Error=",error);
-    }
-   
-   
+    setLoading(false);
+    console.log("=====Add User====",isLocalStorageValueExists(LocalStorageKey.token))
+    if(!isLocalStorageValueExists(LocalStorageKey.token))
+      {
+         navigate("/login");
+      }
+       
+    //localStorage.removeItem("token")
+    //clearLocalStorage();
   }, [])
 
-  const getUserDetails = async () => {
-    setLoading(true);
-    //clearTimeout(timer);
-    console.log("======addUserRole==Start=====");
-    const res = await getData(APIS.GETUSERROLE);
-    console.log("======res=======",res);
-    if(res && isObject(res.data) && res.data.result)
-      {
-        //setUserRoles(res.data.result);  
-        //let options = [];
-        //res.data.result.forEach((item) => (options.push({label: item.role_Name,value:item.role_UID })));
-        //setRoleOptions(options);    
-      }
-      else
-      {
-        setLoading(false);      
-      }
-   
-  }
+
+  const handleMenuMouseEnter = (menu) => {
+      setHoveredMenu(menu);
+  };
+
+  const handleMenuMouseLeave = () => {
+      setHoveredMenu(null);
+      setHoveredSubMenu(null);
+  };
+
+  const handleSubMenuMouseEnter = (subMenu) => {
+      setHoveredSubMenu(subMenu);
+  };
+
+  const handleSubMenuMouseLeave = () => {
+      setHoveredSubMenu(null);
+  };
 
   return (
-    <div>
-    
-    </div>
-  )
-}
+      <Container className="menu" style={{marginTop:'100px'}}>
+        
+      </Container>
+  );
+};
 
 export default Home

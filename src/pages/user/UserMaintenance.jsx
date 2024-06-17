@@ -17,6 +17,7 @@ import Select from 'react-select';
 import SearchIcon from '@mui/icons-material/Search';
 
 
+
 const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
   const [loading, setLoading] = useState(true);
   const [userList, setUserList] = useState([]);
@@ -28,6 +29,7 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
   const [roleSelectedValue, setRoleSelectedValue] = useState(null);
   const [contextData, setContextData] = useState({});
   const pageContext = createContext({}); // Default value
+  const [tableData, setTableData] = useState({rows:[],totalCount:0,page:0,size:10});
 
 
   
@@ -38,8 +40,8 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
     setLoading(true);
     //setContextData({pagePath:'UserMaintenance', isUserInfo:false});
     try{
-      getAllRole();
-      getUserList();
+      //getAllRole();
+      getUserList(0,10);
       //getAllEnties();
     }catch (error) {
       console.log("==Add User Component Error=",error);
@@ -68,8 +70,12 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
    
   }
 
-  const getUserList = async () => {
+  const getUserList = async (page,size) => {
     setLoading(true);
+    let payload = searchPayload;
+    payload.page = page;
+    payload.size = size;
+  
     //clearTimeout(timer);
     console.log("======addUserRole==Start=====");
     const res = await getData(APIS.GETUSERLIST);
@@ -79,14 +85,27 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
         setLoading(false);    
         setUserList(res.data.result);  
         apiResponse = res.data.result;
-        console.log("====API Res Userlist====",apiResponse);
+        console.log("====API Res Userlist====",apiResponse);        
+        setTableData((_payload) => ({ ..._payload, ["rows"]: res.data.result }));
+        setTableData((_payload) => ({ ..._payload, ["page"]: payload.page }))
+        setTableData((_payload) => ({ ..._payload, ["size"]: payload.size }))
+        if(res.data.result.length > 0)
+          {          
+            setTableData((_payload) => ({ ..._payload, ["totalCount"]: res.data.result.length }))
+          }
         //let options = [];
         //res.data.result.forEach((item) => (options.push({label: item.role_Name,value:item.role_UID })));
         //setRoleOptions(options);    
       }
       else
       {
-        setLoading(false);      
+        setLoading(false);   
+        console.log("=======No Data Available=========")       
+        setUserList([]);  
+        setTableData((_payload) => ({ ..._payload, ["rows"]: [] }));
+        setTableData((_payload) => ({ ..._payload, ["page"]: 0 }))
+        setTableData((_payload) => ({ ..._payload, ["size"]: 10 }))                
+        setTableData((_payload) => ({ ..._payload, ["totalCount"]: 0 }))   
       }
    
   }
@@ -102,7 +121,12 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
     setIsUserInfo(status);
   }
 
- 
+  const handlePagination = (pagenation) => {
+    console.log("==handlePagination=",pagenation);
+    setSearchPayload((_payload) => ({ ..._payload, ["page"]: pagenation.page }))
+    setSearchPayload((_payload) => ({ ..._payload, ["size"]: pagenation.pageSize }))
+    getFilteredUserList(pagenation.page,pagenation.pageSize);
+  }
 
   const handleRoleSelectOptions = (newValue) => {
     console.log("==handleSelectOptions=",newValue);
@@ -221,7 +245,7 @@ const getFilteredUserList = async () => {
             </Grid>
            </Grid>
            </Form>
-          <CustomTable rows={userList} handleUserInfo={handleUserInfo} ></CustomTable>  
+          <CustomTable tableData={tableData} handleUserInfo={handleUserInfo} handlePagination={handlePagination} ></CustomTable>  
           </div>
           {/* : null }  */}
          {/* { isUserInfo && userInfo? <UserInfo data={userInfo} handleNavigation={handleNavigation} />:null} */}

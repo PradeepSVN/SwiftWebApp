@@ -219,6 +219,31 @@
   border-radius: 8px;
 }
 
+.user-info-box1{
+  border: 2px solid #084c81;
+  box-sizing: -3px 3px 3px 3px gray;;
+  border-radius: 8px;
+  height: 440px !important;
+}
+.user-info-box2{
+  border: 2px solid #084c81;
+  box-sizing: -3px 3px 3px 3px gray;;
+  border-radius: 8px;
+  height: 200px !important;
+}
+.table-infi-height{
+  height: 400px !important;
+}
+.seperator{
+  height: 100%;
+  width: 1px;
+  background:black;
+  margin: 0 auto;
+  top:0;
+  bottom: 0;
+  left: 50%;
+}
+
 .page-title{
   font-family: "DM Sans", sans-serif!important; 
   color:var(--primary-info);

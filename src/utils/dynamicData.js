@@ -39,7 +39,30 @@ export const DynamicHeader =(roleData) => {
     adminDropdown.menuItems = menuItems;           
     header.push(adminDropdown);
 
-    if(roleData["auth_View"] || roleData["auth_Submit"] || roleData["auth_Reports"] || roleData["prov_View"] || roleData["prov_Submit"] || roleData["prov_Reports"])
+    if(roleData["prov_View"] || roleData["prov_Submit"] || roleData["prov_Reports"])
+        {
+           
+            let providerDropdown = { type:'DropdownButton', path: 'Provider', title: 'Provider', isActive:false, isMenu:true, menuItems: menuItems };
+            let provSubMenuItems = [];
+            menuItems = [];
+            if(roleData["prov_View"])
+                {
+                    menuItems.push({name:'Provider List',path:'ProviderList'})
+                }
+            if(roleData["prov_Submit"])
+                {
+                    menuItems.push({name:'Add Provider',path:'AddProvider'})
+                }
+            // if(roleData["prov_Reports"])
+            //     {
+            //         menuItems.push({name:'prov_Reports'})
+            //     }
+            providerDropdown.menuItems = menuItems;
+               
+            header.push(providerDropdown); 
+        }
+
+   /* if(roleData["auth_View"] || roleData["auth_Submit"] || roleData["auth_Reports"] || roleData["prov_View"] || roleData["prov_Submit"] || roleData["prov_Reports"])
         {
             let authDropdown = { type:'NestedMenu', path: 'UtilizationManagement', title: '', isActive:false,isMenu:false, menuItems: menuItems };
  
@@ -87,7 +110,7 @@ export const DynamicHeader =(roleData) => {
 
             authDropdown.menuItems = menuItems;           
             header.push(authDropdown);
-        }       
+        } */      
 
     if(roleData["claim_View"] || roleData["claim_Submit"] || roleData["claim_Reports"])
         {
