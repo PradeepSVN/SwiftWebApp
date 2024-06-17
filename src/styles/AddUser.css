@@ -1,0 +1,61 @@
+.mainHeader{
+    padding-top: 2%;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 1%;
+}
+.error {
+    color:red;
+}
+
+.container{    
+    min-width: 1200px;
+    max-width: 1200px;
+}
+
+.vertical-center {
+    margin: 0 auto;
+    width:100%
+ }
+ .ml{
+    margin-left: 52px;
+ }
+ .ml1{
+    margin-top: 38px;
+  margin-left: 14px;
+ }
+ .ml2{
+    margin-left: 22px;
+ }
+ .ml3{
+    margin-left: 13px;
+ }
+
+
+.custom-multiselectcontrol {
+  /* Your custom styles for the control element */
+  background-color: white;
+  border:none;
+  /*border: 1px solid #ccc;*/
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+ 
+}
+
+.searchWrapper {
+   /* border: 1px solid #ccc; */
+   /* border-radius: 4px; */
+   background-color: white;
+   min-height: 22px;
+   padding: 5px;
+   position: relative;
+   width: 350px;
+}
+
+.multiSelectContainer {
+   position: relative;
+   text-align: left; 
+   width: 370px!important;
+   
+}
