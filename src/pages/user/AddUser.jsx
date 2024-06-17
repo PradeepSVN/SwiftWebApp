@@ -151,7 +151,7 @@ const options = [
     setLoading(true);
     clearTimeout(timer);
     console.log("======addUserRole==Start=====");
-    const res = await getData(APIS.GETUSERROLE);
+    const res = await getData(APIS.GETROLES);
     console.log("======res=======",res);
     if(res && isObject(res.data) && res.data.result)
       {
@@ -342,6 +342,7 @@ const handleSearchQuery = (serachValue) => {
     requestBody.entities = entitySelectedOptions.map((item) => item.value).join(', ');
     requestBody.tiNs = tinSelectedOptions.map((item) => item.value).join(', ');
     requestBody.user_Password = 'qw4r#@$$';
+    requestBody.user_UID ='00000000-0000-0000-0000-000000000000';
     requestBody.created_By_User_UID = localStorage.getItem(LocalStorageKey.userId);
     /*setTimeout(() => {
       setEntitySelectedOptions([]);

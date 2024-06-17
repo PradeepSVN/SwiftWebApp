@@ -19,7 +19,7 @@ export const apiRequestData = {
   }
 
   export const addUserAPIRequestData={
-    user_UID:'',
+    user_UID:'00000000-0000-0000-0000-000000000000',
     user_Prac_Admin:false,
     user_Change_Password:false,
     user_Temp_Disable:false,
