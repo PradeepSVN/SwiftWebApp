@@ -84,7 +84,7 @@ const Roles = () => {
           }
           else
           {
-            showToast("User created successfully!",ToastMessageType.Success);            
+            showToast("Role created successfully!",ToastMessageType.Success);            
             clearTimeout(timer);
             formRef.current.reset();
           }
