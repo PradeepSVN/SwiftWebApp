@@ -84,7 +84,10 @@ const Roles = () => {
           }
           else
           {
-            showToast("Role created successfully!",ToastMessageType.Success);            
+            showToast("Role created successfully!",ToastMessageType.Success);      
+            setTimeout(()=>{
+              window.location.reload(false);
+              }, 1000);      
             clearTimeout(timer);
             formRef.current.reset();
           }

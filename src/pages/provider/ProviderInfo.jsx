@@ -127,7 +127,7 @@ const ProviderInfo = ({data}) => {
            <Table>
               <TableBody sx={{border:'none'}}>  
               <TableRow sx={{border:'none'}}>
-              <TableCell className="" sx={{border:'none',overflow:'wrap' }}><h3 className="page-title2">Tin</h3></TableCell></TableRow>                 
+              <TableCell className="" sx={{border:'none',overflow:'wrap' }}><h3 className="page-title2">TIN</h3></TableCell></TableRow>                 
               {tinList && tinList.length >0? tinList.map((row3,index) => 
               {
                 return (<>   
