@@ -282,7 +282,7 @@ const handlePagination = (pagenation) => {
               value={tinSelectedOptions}
               onChange={handleTinSelectOptions}
               options={tinOptions}
-              placeholder="Select Tin"            
+              placeholder="Select TIN"            
               isSearchable
               id="tin"
               name="tin"
