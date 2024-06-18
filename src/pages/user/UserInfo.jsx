@@ -114,9 +114,9 @@ const UserInfo = ({data,changeNavLinkPath}) => {
               </TableRow>
               <TableRow sx={{border:'none'}}>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>First Name</TableCell>
-                <TableCell className="user-info-value" sx={{border:'none'}}>{data.user_UserName}</TableCell>
+                <TableCell className="user-info-value" sx={{border:'none'}}>{data.user_First_Name}</TableCell>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>Fax</TableCell>
-                <TableCell className="user-info-value" sx={{border:'none'}}>{data.user_UserName}</TableCell>
+                <TableCell className="user-info-value" sx={{border:'none'}}>{data.user_Fax}</TableCell>
               </TableRow>
               <TableRow sx={{border:'none'}}>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>Last Name</TableCell>
@@ -191,7 +191,7 @@ const UserInfo = ({data,changeNavLinkPath}) => {
               
              </Grid>
              <Grid item xs={4}>
-             <h4 className="page-title">Assigned Tins</h4>
+             <h4 className="page-title">Assigned TINs</h4>
              <Box className="user-info-box3" sx={{height:'200px',display: "flex",
                       flexDirection: "column",
                       //height: 700,
