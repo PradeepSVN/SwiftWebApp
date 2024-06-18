@@ -44,6 +44,7 @@ const EditUser = ({data,changeNavLinkPath}) => {
   const [formError, setFormError] = useState("")
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [isFirstTimeLoadPage, setIsFirstTimeLoadPage] = useState(true);
   const formRef = useRef(null);
   const navigate = useNavigate();
 
@@ -196,7 +197,12 @@ const options = [
       {
             let options = [];
             res.data.result.forEach((item) => (options.push({label: item.tiN_Name,value:item.tiN_ID })));
-            setTinSelectedOptions(options); //{ value: 1, label: 'test' },          
+            if(isFirstTimeLoadPage)
+              {
+                setTinSelectedOptions(options); //{ value: 1, label: 'test' },          
+                setIsFirstTimeLoadPage(false);
+              }
+           
        
       }
       else
@@ -351,6 +357,7 @@ const handleSearchQuery = (serachValue) => {
       else
       {
          setTinSelectedOptions([]);
+         setTinOptions([]);
       }  
    
   };

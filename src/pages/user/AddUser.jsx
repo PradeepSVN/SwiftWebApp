@@ -273,9 +273,19 @@ const handleSearchQuery = (serachValue) => {
 
   const handleEntitySelectOptions = (newValue) => {
     console.log("==handleSelectOptions=",newValue);
-    setEntitySelectedOptions(newValue);    
-    setEntityId(newValue[newValue.length-1].value);
-    getTinByEntityId(newValue[newValue.length-1].value);
+    if(newValue && newValue.length > 0)
+      {
+        setEntitySelectedOptions(newValue);    
+        setEntityId(newValue[newValue.length-1].value);
+        getTinByEntityId(newValue[newValue.length-1].value);
+      }
+      else
+      {
+        setEntitySelectedOptions([]); 
+        setTinOptions([]);   
+        setTinSelectedOptions([]);
+      }
+   
   };
 
   const handleTinSelectOptions = (newValue) => {
