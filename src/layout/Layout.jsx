@@ -94,7 +94,7 @@ const Layout = ({navPathTo}) => {
   return (
      <div>
       <GlobalStyles/>
-      <Header navLinks={navLinks}  changeNavLinkPath={changeNavLinkPath}></Header>
+      <Header className='header' navLinks={navLinks}  changeNavLinkPath={changeNavLinkPath}></Header>
       <Container  fluid className="p-0">
        
         {/* <Row >

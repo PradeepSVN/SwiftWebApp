@@ -124,12 +124,12 @@ export default function StickyHeadTable({tableData,handleUserInfo,handlePaginati
 };
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden', marginTop:'20px' }}>
+    <Paper sx={{ width: '100%', overflow: 'hidden', marginTop:'71px' }}>
       <GlobalStyles />
       <TableContainer sx={{ maxHeight: 740 }}  variant={'solid'}>
         <Table stickyHeader aria-label="sticky table" className='customTable'
-        style={{width:'99%', marginTop:'70px', marginLeft:'5px', justifyContent:'center',alignContent:'center',alignItems:'center' }}
-       >
+        style={{width:'99%', marginRight:'5px', justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+       
           <TableHead>
             <TableRow className='table-header'
             >

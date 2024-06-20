@@ -242,9 +242,9 @@ const handlePagination = (pagenation) => {
       </nav>
     </header>
             <Form>
-           <Grid  className="member-frame" style={{marginTop:'45px',width:'800px'}}>
+           <Grid  className="member-frame1" style={{marginTop:'45px'}}>
             <Grid item xs={10} style={{display:'flex'}}>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'200px' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'221px' }}>
             {/* <label >Entity</label> */}
             <Select            
               value={entitySelectedOptions}
@@ -259,7 +259,7 @@ const handlePagination = (pagenation) => {
               
             /> 
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'200px' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'227px' }}>
             {/* <label >Insurance</label> */}
             <Select            
               value={insuranceSelectedOptions}
@@ -276,7 +276,7 @@ const handlePagination = (pagenation) => {
              {/* <TextField placeholder="Insurance" id="insurance" className="member-search-text"             
              onChange={handleChange} /> */}
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'200px' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'221px' }}>
             {/* <label>Option</label> */}
             <Select            
               value={tinSelectedOptions}
