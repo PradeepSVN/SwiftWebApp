@@ -12,6 +12,10 @@ import MemberInfo from "./MemberInfo";
 import MemberTable from '../../components/MemberTable';
 import Select from 'react-select';
 import SearchIcon from '@mui/icons-material/Search';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const Members = ({changeNavLinkPath}) => {
 
@@ -69,6 +73,18 @@ const Members = ({changeNavLinkPath}) => {
     changeNavLinkPath({path:'MemberInfo',data:row})
  
 };
+
+const handleDateChange = (e) => {
+  try{
+    let date = dayjs(e.toISOString()).format('MM/DD/YYYY'); // dayjs(e.toISOString(),'MM/dd/yyyy')
+    console.log("===handleChange====target.id========", date);
+    setSearchPayload((_payload) => ({ ..._payload, ["dob"]: date }))
+  }catch(e)
+  {
+
+  }
+ 
+}
 
 const handleInsuranceSelectOptions = (newValue) => {
   console.log("==handleSelectOptions=",newValue);
@@ -235,9 +251,8 @@ const handlePagination = (pagenation) => {
               id="entitY_UID"
               name="entitY_UID"
               styles={customStyles}              
-              maxMenuHeight={200}              
-              className="react-select__menu"                   
-              
+              maxMenuHeight={200}           
+                    
             /> 
             </Form.Group>
            
@@ -252,8 +267,8 @@ const handlePagination = (pagenation) => {
               id="insurance"
               name="insurance"
               styles={customStyles}              
-              maxMenuHeight={200}              
-              className="react-select__menu"    
+              maxMenuHeight={200}             
+             
             /> 
             {/* <TextField placeholder="Insurance" id="insurance" className="member-search-text" onChange={handleChange} /> */}
             </Form.Group>
@@ -282,7 +297,14 @@ const handlePagination = (pagenation) => {
            
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 13px' }}>
             {/* <label>DOB</label> */}
-            <TextField placeholder="MM/DD/YYYY" id="dob"   onChange={handleChange} />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                 <DatePicker format="MM/DD/YYYY" 
+                  name="user_Terminated_Date"
+                  id="dob"
+                  onChange={handleDateChange}
+                 />                
+               </LocalizationProvider>
+            {/* <TextField placeholder="MM/DD/YYYY" id="dob"   onChange={handleChange} /> */}
             </Form.Group>
            
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 13px' }}>

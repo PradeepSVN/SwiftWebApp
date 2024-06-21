@@ -527,23 +527,7 @@ const handleSearchQuery = (serachValue) => {
                   name="user_Terminated_Date"
                   id="user_Terminated_Date"
                   onChange={handleDateChange}
-                 />
-                 {/* <DateField
-                  // className="input-line-style"
-                  aria-label="option 1"
-                  //  type="date"
-                   placeholder="Select a date"
-                   name="user_Terminated_Date"
-                   id="user_Terminated_Date"
-                   format="MM/DD/YYYY"
-                   onChange={handleChange}
-                   sx={{
-                    "& fieldset": { border: 'none',padding:'5px',width:'200px', marginLeft:'0px' },
-                  }}
-                  
-                   //onChange={(event) => setSelectedDate(new Date(event.target.value))}
-                   // value={selectedDate.toISOString().slice(0, 10)} // Format for date input
-                 /> */}
+                 />                
                </LocalizationProvider>
                  
                  {/* <span className="error">{errors.outletname}</span> */}
