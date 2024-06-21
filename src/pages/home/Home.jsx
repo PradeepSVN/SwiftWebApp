@@ -51,10 +51,10 @@ const Home = () => {
   };
 
   return (
-      <Container className="menu" style={{marginTop:'100px'}}>
+      <Container className="" style={{marginTop:'100px'}}>
        
           <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 6 }} paddingBottom={5}>
-            <Grid  item xs={6}>
+            <Grid  item xs={12}>
               <p>Prioritize Prevention: Schedule Your FREE Yearly Check-up
                 Now!
               </p>
