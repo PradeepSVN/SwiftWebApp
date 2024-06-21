@@ -566,6 +566,10 @@ nav a {
   box-sizing:border-box;
 }
 
+.react-select__menu {
+  z-index: 9999 !important;
+}
+
 
 
 /* Extra small devices (phones, 600px and down) */

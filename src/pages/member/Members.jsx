@@ -233,7 +233,8 @@ const handlePagination = (pagenation) => {
               id="entitY_UID"
               name="entitY_UID"
               styles={customStyles}              
-                            
+              maxMenuHeight={200}              
+              className="react-select__menu"                   
               
             /> 
             </Form.Group>
@@ -248,8 +249,8 @@ const handlePagination = (pagenation) => {
               id="insurance"
               name="insurance"
               styles={customStyles}              
-              maxMenuHeight={160}              
-              
+              maxMenuHeight={200}              
+              className="react-select__menu"    
             /> 
             {/* <TextField placeholder="Insurance" id="insurance" className="member-search-text" onChange={handleChange} /> */}
             </Form.Group>

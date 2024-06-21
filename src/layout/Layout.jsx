@@ -104,6 +104,7 @@ const Layout = ({navPathTo}) => {
 
          {/* <Row className='p-4'> */}
         {contentPage == undefined?<Home />:null}
+        {contentPage == "Home"?<Home />:null}
         {contentPage == "AddUser"?<AddUser />:null}
         {contentPage == "BatchAdd"?<BatchAdd />:null}
         {contentPage == "UserRoles"?<UserRoles />:null}

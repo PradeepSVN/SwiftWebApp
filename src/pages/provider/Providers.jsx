@@ -11,6 +11,7 @@ import ProviderTable from '../../components/ProviderTable';
 import Select from 'react-select';
 import SearchIcon from '@mui/icons-material/Search';
 import { Height } from "@mui/icons-material";
+import TestTable from '../../components/TestTable'
 
 const Providers = ({changeNavLinkPath}) => {
 
@@ -255,8 +256,8 @@ const handlePagination = (pagenation) => {
               id="entitY_UID"
               name="entitY_UID"
               styles={customStyles}              
-              maxMenuHeight={160}                  
-              
+              maxMenuHeight={190}                  
+              className="react-select__menu"    
             /> 
             </Form.Group>
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'200px' }}>
@@ -270,8 +271,8 @@ const handlePagination = (pagenation) => {
               id="insurance"
               name="insurance"
               styles={customStyles}              
-              maxMenuHeight={160}              
-              
+              maxMenuHeight={200}              
+              className="react-select__menu"    
             /> 
              {/* <TextField placeholder="Insurance" id="insurance" className="member-search-text"             
              onChange={handleChange} /> */}
@@ -287,8 +288,8 @@ const handlePagination = (pagenation) => {
               id="tin"
               name="tin"
               styles={customStyles}              
-              maxMenuHeight={160}                  
-              
+              maxMenuHeight={200}                  
+              className="react-select__menu"    
             /> 
             {/* <TextField placeholder="TIN" id="option" className="member-search-text"  onChange={handleChange} /> */}
             </Form.Group>
@@ -333,7 +334,8 @@ const handlePagination = (pagenation) => {
            
            </Grid>
            </Form>
-          <ProviderTable tableData={tableData} handleProviderInfo={handleProviderInfo} handlePagination={handlePagination} ></ProviderTable>  
+           {/* <TestTable></TestTable> */}
+           <ProviderTable tableData={tableData} handleProviderInfo={handleProviderInfo} handlePagination={handlePagination} ></ProviderTable> 
           </div>: <></>         
           
        
