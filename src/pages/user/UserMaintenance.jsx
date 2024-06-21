@@ -229,9 +229,9 @@ const getFilteredUserList = async () => {
       </nav>
     </header>
             <Form>
-           <Grid className="frame-17" style={{marginTop:'55px'}}>
+           <Grid className="frame-17" style={{marginTop:'50px'}}>
           
-            <Grid item xs={8} style={{ display:'flex'}}>
+            <Grid item xs={10} style={{ display:'flex'}}>
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'150px' }}>
             {/* <label >User Name</label> */}
             <TextField placeholder="User Name" id="user_UserName" className="search-text" onChange={handleChange} />

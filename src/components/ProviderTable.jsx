@@ -94,7 +94,7 @@ export default function StickyHeadTable({tableData,handleProviderInfo,handlePagi
 };
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden', marginTop:'150px' }}>
+    <Paper sx={{ width: '100%', overflow: 'hidden', marginTop:'125px' }}>
       <GlobalStyles />
       <TableContainer sx={{ maxHeight: 740 }}>
         <Table stickyHeader aria-label="sticky table" className='customTable'
