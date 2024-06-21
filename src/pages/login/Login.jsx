@@ -131,7 +131,7 @@ const Login = () => {
         style={{backgroundColor:'#d0e4fd'}}
       >
        
-         <img src={logojpg}  className="img-margin" width={'95%'} height={220}></img> 
+         <img src={logojpg}  className="img-margin" width={'67%'} height={220} style={{paddingLeft:'157px'}}></img> 
       
       </Grid>
       <Grid item xs={12} sm={8} md={6} component={Paper}  >

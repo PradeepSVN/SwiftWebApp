@@ -219,12 +219,14 @@ const handlePagination = (pagenation) => {
         &nbsp;<label> Member List</label> 
       </nav>
     </header>
+    
             <Form>
            <Grid  className="member-frame" style={{marginTop:'45px'}}>
             <Grid item xs={10} style={{display:'flex'}}>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'150px' }}>
+           
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' }}>
             {/* <label >Entity</label> */}
-            <Select            
+            <Select   className="react-select"          
               value={entitySelectedOptions}
               onChange={handleEntitySelectOptions}
               options={entityOptions}
@@ -237,9 +239,10 @@ const handlePagination = (pagenation) => {
               
             /> 
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'150px' }}>
+           
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' }}>
             {/* <label >Insurance</label> */}
-            <Select            
+            <Select   className="react-select"            
               value={insuranceSelectedOptions}
               onChange={handleInsuranceSelectOptions}
               options={insuranceOptions}
@@ -253,39 +256,45 @@ const handlePagination = (pagenation) => {
             /> 
             {/* <TextField placeholder="Insurance" id="insurance" className="member-search-text" onChange={handleChange} /> */}
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'150px' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' }}>
             {/* <label>Option</label> */}
             <TextField placeholder="Option" id="option" className="member-search-text"  onChange={handleChange} />
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'150px' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' }}>
             {/* <label>Member ID</label> */}
             <TextField placeholder="Member ID" id="membeR_ID"  onChange={handleChange} 
             sx={{ height: '75px' }} />
             </Form.Group>
             </Grid>
             <Grid item xs={10} style={{display:'flex', marginTop:'-30px'}}>
-           
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'150px' }}>
+            
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' }}>
             {/* <label>First Name</label> */}
+           
             <TextField placeholder="First Name" id="firsT_NAME"   onChange={handleChange} />
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 10px',width:'150px' }}>
+           
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 10px' }}>
             {/* <label>Last Name</label> */}
             <TextField placeholder="Last Name" id="lasT_NAME"  onChange={handleChange} />
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 13px',width:'150px' }}>
+           
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 13px' }}>
             {/* <label>DOB</label> */}
             <TextField placeholder="MM/DD/YYYY" id="dob"   onChange={handleChange} />
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 13px',width:'150px' }}>
+           
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 13px' }}>
             {/* <label>PCP</label> */}
             <TextField placeholder="PCP" id="pcp"   onChange={handleChange} />
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'150px' }}>           
+           
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' }}>           
             <Button type="button"   onClick={handleClick} disabled={loading} 
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 40 }} /></Button>
 
             </Form.Group>
+          
             </Grid>
                      
             {/* <Select            

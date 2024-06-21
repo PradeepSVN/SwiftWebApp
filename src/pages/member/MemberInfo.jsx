@@ -48,7 +48,7 @@ const MemberInfo = ({data}) => {
 
   return (
     <div>
-    <Container  style={{marginLeft:'55px', maxWidth:'95%', width:'100%'}}>
+    <Container  style={{marginLeft:'55px', marginTop: '20px', maxWidth:'95%', width:'100%'}}>
        <GlobalStyles />
        <header>
       <h1 className="page-title1" >Member Display</h1>

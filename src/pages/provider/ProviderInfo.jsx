@@ -57,7 +57,7 @@ const ProviderInfo = ({data}) => {
 
   return (
     <div>
-    <Container  style={{marginLeft:'55px', maxWidth:'95%', width:'100%'}}>
+    <Container  style={{marginLeft:'55px',marginTop:'20px', maxWidth:'95%', width:'100%'}}>
        <GlobalStyles />
        <header>
       <h1 className="page-title1" >View Provider</h1>
@@ -127,7 +127,7 @@ const ProviderInfo = ({data}) => {
            <Table>
               <TableBody sx={{border:'none'}}>  
               <TableRow sx={{border:'none'}}>
-              <TableCell className="" sx={{border:'none',overflow:'wrap' }}><h3 className="page-title2">TIN</h3></TableCell></TableRow>                 
+              <TableCell className="" sx={{border:'none',overflow:'wrap' }}><h3 className="page-title2">Practices</h3></TableCell></TableRow>                 
               {tinList && tinList.length >0? tinList.map((row3,index) => 
               {
                 return (<>   
