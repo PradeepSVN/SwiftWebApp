@@ -15,6 +15,7 @@ import {searchRequestObject} from '../../utils/apiRequestData'
 import { Form } from "react-bootstrap"
 import Select from 'react-select';
 import SearchIcon from '@mui/icons-material/Search';
+import zIndex from "@mui/material/styles/zIndex";
 
 
 
@@ -31,7 +32,27 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
   const pageContext = createContext({}); // Default value
   const [tableData, setTableData] = useState({rows:[],totalCount:0,page:0,size:10});
 
-
+  const customStyles = {
+    control: (styles) => ({
+      ...styles,     
+      fontSize: '16px',
+      borderBottom: '1px solid #ccc',
+      display: 'inline-block',
+      width: '100%',      
+      cursor: 'pointer',
+      boxShadow: 'none',
+      zIndex: 999, // state.isFocused ? 'none' : '0px 0px 0px rgba(0, 0, 0, 0.1)', // Remove focus shadow
+    }),
+    placeholder: (styles) => ({
+      color: '#aaa',
+    }),
+    option: (styles, { isSelected }) => ({
+      ...styles,
+      color: isSelected ? '#000' : '#333',
+      backgroundColor: isSelected ? '#eee' : 'transparent',
+      zIndex: 9999, 
+    }),
+  };
   
 
   let apiResponse = [];
@@ -40,8 +61,9 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
     setLoading(true);
     //setContextData({pagePath:'UserMaintenance', isUserInfo:false});
     try{
-      //getAllRole();
+      
       getUserList(0,10);
+      getAllRole();
       //getAllEnties();
     }catch (error) {
       console.log("==Add User Component Error=",error);
@@ -54,11 +76,11 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
     setLoading(true);
     //clearTimeout(timer);
     console.log("======addUserRole==Start=====");
-    const res = await getData(APIS.GETUSERROLE);
+    const res = await getData(APIS.GETROLES);
     console.log("======res=======",res);
     if(res && isObject(res.data) && res.data.result)
       {
-        setUserRoles(res.data.result);  
+        //setUserRoles(res.data.result);  
         let options = [];
         res.data.result.forEach((item) => (options.push({label: item.role_Name,value:item.role_UID })));
         setRoleOptions(options);    
@@ -224,7 +246,21 @@ const getFilteredUserList = async () => {
             </Form.Group>
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px',width:'150px' }}>
             {/* <label>Role Name</label> */}
-            <TextField placeholder="Role Name" id="role" className="search-text"  onChange={handleChange} />
+            <Select
+            
+            value={roleSelectedValue}
+            onChange={handleRoleSelectOptions}
+            options={roleOptions}
+            placeholder="Select Role"
+            styles={customStyles}
+            isSearchable
+            id="role"
+            name="role"
+            maxMenuHeight={100}  
+            className="react-select__menu"    
+              
+          />
+            {/* <TextField placeholder="Role Name" id="role" className="search-text"  onChange={handleChange} /> */}
             {/* <Select            
               value={roleSelectedValue}
               onChange={handleRoleSelectOptions}

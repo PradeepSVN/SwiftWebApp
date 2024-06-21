@@ -31,6 +31,7 @@ import {Form} from "react-bootstrap"
 
 
 
+
 const Login = () => {
   const [alertMsgData, setAlertMsgData] = useState({variant:'success',message:'test data'})
   const [credentials, setCredentials] = useState({ username: "", password: ""})
@@ -51,6 +52,12 @@ const Login = () => {
     const target = e.target
     setCredentials((cre) => ({ ...cre, [target.id]: target.value }))
   }
+
+  const handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      handleClick(e);
+    }
+  };
 
   const navigate = useNavigate()
 
@@ -188,6 +195,7 @@ const Login = () => {
           margin="normal"
           fullWidth
           onChange={handleChange} id="password"
+          onKeyDown={handleKeyDown}
           style= {{ backgroundColor: '#f2f2f2', borderRadius: '26px',fontFamily:'DM Sans' }}        
           sx={{            
             '& .MuiOutlinedInput-root': {

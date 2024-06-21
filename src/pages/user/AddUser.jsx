@@ -27,7 +27,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
+import InputMask from 'react-input-mask';
 
 const AddUser = () => {
   const [payload, setPayload] = useState(addUserAPIRequestData)
@@ -450,12 +450,13 @@ const handleSearchQuery = (serachValue) => {
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Phone</label>
-            <input  className="input-line-style" placeholder="(XXX)-XXX-XXXX" maxLength={15} id="user_Phone" name="user_Phone" onChange={handleChange} />
+            <InputMask mask="(999)-999-9999" className="input-line-style" placeholder="(XXX)-XXX-XXXX" maxLength={15} id="user_Phone" name="user_Phone" onChange={handleChange} />
+            {/* <input  className="input-line-style" placeholder="(XXX)-XXX-XXXX" maxLength={15} id="user_Phone" name="user_Phone" onChange={handleChange} /> */}
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
             <Form.Group >
-            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Extn </label>
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Extn </label>           
             <input  className="input-line-style" placeholder="XXXXXXXXXX" maxLength={10} id="user_Phone_Extn" name="user_Phone_Extn" onChange={handleChange} />
             </Form.Group>
           </Grid>
@@ -526,23 +527,7 @@ const handleSearchQuery = (serachValue) => {
                   name="user_Terminated_Date"
                   id="user_Terminated_Date"
                   onChange={handleDateChange}
-                 />
-                 {/* <DateField
-                  // className="input-line-style"
-                  aria-label="option 1"
-                  //  type="date"
-                   placeholder="Select a date"
-                   name="user_Terminated_Date"
-                   id="user_Terminated_Date"
-                   format="MM/DD/YYYY"
-                   onChange={handleChange}
-                   sx={{
-                    "& fieldset": { border: 'none',padding:'5px',width:'200px', marginLeft:'0px' },
-                  }}
-                  
-                   //onChange={(event) => setSelectedDate(new Date(event.target.value))}
-                   // value={selectedDate.toISOString().slice(0, 10)} // Format for date input
-                 /> */}
+                 />                
                </LocalizationProvider>
                  
                  {/* <span className="error">{errors.outletname}</span> */}
