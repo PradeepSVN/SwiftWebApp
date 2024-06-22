@@ -66,7 +66,9 @@ const Members = ({changeNavLinkPath}) => {
    
   }, [])
 
-  
+  const handleNavLinks = (path) => {
+        changeNavLinkPath(path);
+  };
   const handleMemberInfo = (row) => {
     setMemberInfo(row);
     setIsMemberInfo(true);
@@ -230,8 +232,9 @@ const handlePagination = (pagenation) => {
             <header>
       <h1 className="page-title1">Member List</h1>
       <nav>
-        <a href="/">Home</a> /
-        <a href="/">Membership</a> / 
+        <Button
+        style={{backgroundColor:'transparent'}}
+        onClick={ () => handleNavLinks("Home")}>Home</Button> /       
         &nbsp;<label> Member List</label> 
       </nav>
     </header>

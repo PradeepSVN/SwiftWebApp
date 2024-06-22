@@ -222,6 +222,9 @@ const getFilteredProviderList = async (page,size) => {
     }
  
 }
+const handleNavLinks = (path) => {
+  changeNavLinkPath(path);
+};
 
 const handlePagination = (pagenation) => {
   console.log("==handlePagination=",pagenation);
@@ -238,7 +241,9 @@ const handlePagination = (pagenation) => {
             <header>
       <h1 className="page-title1">Provider List</h1>
       <nav>
-        <a href="/">Home</a> /       
+      <Button
+        style={{backgroundColor:'transparent'}}
+        onClick={ () => handleNavLinks("Home")}>Home</Button>/       
         &nbsp;<label> Provider List</label> 
       </nav>
     </header>

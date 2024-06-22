@@ -164,6 +164,10 @@ const handleNavigation = (data) => {
   changeNavLinkPath({path:"UserInfo",data:data});
 };
 
+const handleNavLinks = (path) => {
+  changeNavLinkPath(path);
+};
+
 
 const handleChange = (e) => {
   console.log("===handleChange====target.id========", e.target.id);
@@ -191,6 +195,13 @@ const getFilteredUserList = async () => {
     {
       setLoading(false);    
       setUserList(res.data.result);  
+      setTableData((_payload) => ({ ..._payload, ["rows"]: res.data.result }));
+      setTableData((_payload) => ({ ..._payload, ["page"]: _payload.page }))
+      setTableData((_payload) => ({ ..._payload, ["size"]: _payload.size }))
+      if(res.data.result.length > 0)
+        {          
+          setTableData((_payload) => ({ ..._payload, ["totalCount"]: res.data.result[0].totalCount?res.data.result[0].totalCount:res.data.result.length }))
+        }
       apiResponse = res.data.result;
       console.log("====API Res Userlist====",apiResponse);
       //let options = [];
@@ -222,9 +233,9 @@ const getFilteredUserList = async () => {
                <header>
       <h1 className="page-title1">User List</h1>
       <nav>
-        <a href="/">Home</a> /
-        <a href="/">Administration</a> /
-        <a href="/">User Management</a> /
+      <Button
+        style={{backgroundColor:'transparent'}}
+        onClick={ () => handleNavLinks("Home")}>Home</Button> /
         &nbsp;<label> User List</label>
       </nav>
     </header>
