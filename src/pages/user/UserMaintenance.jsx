@@ -82,6 +82,7 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
       {
         //setUserRoles(res.data.result);  
         let options = [];
+        options.push({label: "   Select Role",value:0 });
         res.data.result.forEach((item) => (options.push({label: item.role_Name,value:item.role_UID })));
         setRoleOptions(options);    
       }
@@ -152,8 +153,17 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
 
   const handleRoleSelectOptions = (newValue) => {
     console.log("==handleSelectOptions=",newValue);
-    setRoleSelectedValue(newValue);
-    setSearchPayload((_payload) => ({ ..._payload, ["role"]: newValue.value }))
+    if(newValue && newValue.value != 0 && newValue.value != "0")
+      {
+        setRoleSelectedValue(newValue);
+        setSearchPayload((_payload) => ({ ..._payload, ["role"]: newValue.value }))
+      }
+      else
+      {
+        setRoleSelectedValue(newValue);
+        setSearchPayload((_payload) => ({ ..._payload, ["role"]: "" }))
+      }
+  
   };
 
   const handleBackBtn = () => {   
