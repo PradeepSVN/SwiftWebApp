@@ -38,7 +38,7 @@ const columns = [
   { id: 'entitY_CLIENT_ID', label: 'Entity', minWidth: 170 },
   { id: 'provideR_NPI', label: 'Provider NPI', minWidth: 170 },
   { id: 'provideR_FULLNAME', label: 'Prov Name', minWidth: 150 },
-  { id: 'tiN_NAME', label: 'TIN', minWidth: 90, maxWidth:100 },
+  { id: 'tiN_NAME', label: 'Practice', minWidth: 90, maxWidth:100 },
   { id: 'entitY_DESCRIPTION', label: 'Entity Name', minWidth: 170 },
   { id: 'provideR_ADDRESS_1', label: 'Address1', minWidth: 170 },
   { id: 'provideR_ADDRESS_2', label: 'Address2', minWidth: 170 },  

@@ -191,7 +191,7 @@ const UserInfo = ({data,changeNavLinkPath}) => {
               
              </Grid>
              <Grid item xs={4}>
-             <h4 className="page-title">Assigned TINs</h4>
+             <h4 className="page-title">Assigned Practices</h4>
              <Box className="user-info-box3" sx={{height:'200px',display: "flex",
                       flexDirection: "column",
                       //height: 700,

@@ -77,41 +77,41 @@ const MemberInfo = ({data}) => {
               <TableBody sx={{border:'none'}}>
                <TableRow sx={{border:'none'}}>
                  <TableCell className="user-info-lable" sx={{border:'none'}}>Member Name</TableCell>
-                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_FULLNAME}</TableCell>
+                 <TableCell className="user-info-value1" sx={{border:'none'}}>{memberInfo.membeR_FULLNAME}</TableCell>
                 
                </TableRow>
                <TableRow sx={{border:'none'}}>
                  <TableCell className="user-info-lable" sx={{border:'none'}}>Dob & Age</TableCell>
-                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_DOB} , {memberInfo.membeR_Age} Yrs</TableCell>
+                 <TableCell className="user-info-value1" sx={{border:'none'}}>{memberInfo.membeR_DOB} , {memberInfo.membeR_Age} Yrs</TableCell>
                  
                </TableRow>
                <TableRow sx={{border:'none'}}>
                  <TableCell className="user-info-lable" sx={{border:'none'}}>Relationship</TableCell>
-                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_RELATIONSHIP}</TableCell>
+                 <TableCell className="user-info-value1" sx={{border:'none'}}>{memberInfo.membeR_RELATIONSHIP}</TableCell>
                </TableRow>
                <TableRow sx={{border:'none'}}>
                  <TableCell className="user-info-lable" sx={{border:'none'}}>Member Id</TableCell>
-                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_CLIENT_ID}</TableCell>
+                 <TableCell className="user-info-value1" sx={{border:'none'}}>{memberInfo.membeR_CLIENT_ID}</TableCell>
                </TableRow>
                <TableRow>
                  <TableCell className="user-info-lable" sx={{border:'none'}}>Subscriber Id</TableCell>
-                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_SUBSCRIBER_ID}</TableCell>
+                 <TableCell className="user-info-value1" sx={{border:'none'}}>{memberInfo.membeR_SUBSCRIBER_ID}</TableCell>
                </TableRow>      
                <TableRow>
                  <TableCell className="user-info-lable" sx={{border:'none'}}>Insurance</TableCell>
-                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.insurancE_DESCRIPTION}</TableCell>
+                 <TableCell className="user-info-value1" sx={{border:'none'}}>{memberInfo.insurancE_DESCRIPTION}</TableCell>
                </TableRow>     
                <TableRow>
                  <TableCell className="user-info-lable" sx={{border:'none'}}>Effective From</TableCell>
-                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_INSURANCE_EFF_DATE}</TableCell>
+                 <TableCell className="user-info-value1" sx={{border:'none'}}>{memberInfo.membeR_INSURANCE_EFF_DATE}</TableCell>
                </TableRow>   
                <TableRow>
                  <TableCell className="user-info-lable" sx={{border:'none'}}>Option</TableCell>
-                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.optioN_CLIENT_ID}</TableCell>
+                 <TableCell className="user-info-value1" sx={{border:'none'}}>{memberInfo.optioN_CLIENT_ID}</TableCell>
                </TableRow>
                <TableRow>
                  <TableCell className="user-info-lable" sx={{border:'none'}}>Option Effective</TableCell>
-                 <TableCell className="user-info-value" sx={{border:'none'}}>{memberInfo.membeR_OPTION_EFF_DATE}</TableCell>
+                 <TableCell className="user-info-value1" sx={{border:'none'}}>{memberInfo.membeR_OPTION_EFF_DATE}</TableCell>
                </TableRow>         
               </TableBody>
              </Table>
