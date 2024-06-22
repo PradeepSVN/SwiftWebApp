@@ -285,7 +285,7 @@ const getFilteredUserList = async () => {
             /> */}
             </Form.Group>
           
-            <Form.Group style={{margin:'15px -11px -11px 10px' }}>
+            <Form.Group style={{margin:'14px',marginLeft:'95px' }}>
             <Button type="button"   onClick={handleClick} disabled={loading} 
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 40 }} /></Button>
             </Form.Group>

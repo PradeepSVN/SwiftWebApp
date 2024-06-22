@@ -662,13 +662,13 @@ const handleSearchQuery = (serachValue) => {
           </Grid>
           <Grid item xs={3}>
             <Form.Group>
-            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>TIN</label>
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Practice</label>
             <Select
             isMulti
         value={tinSelectedOptions}
         onChange={handleTinSelectOptions}
         options={tinOptions}
-        placeholder="Select Tin"
+        placeholder="Select Practice"
         styles={customStyles}
         isSearchable
         id="user_tin"
