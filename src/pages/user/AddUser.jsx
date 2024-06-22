@@ -463,7 +463,8 @@ const handleSearchQuery = (serachValue) => {
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Fax </label>
-            <input  className="input-line-style" placeholder="(XXX)-XXX-XXXX"  maxLength={15} id="user_Fax" name="user_Fax" onChange={handleChange} />
+         
+            <InputMask mask="(999)-999-9999" className="input-line-style" placeholder="(XXX)-XXX-XXXX" maxLength={15} id="user_Fax" name="user_Fax" onChange={handleChange} />
             </Form.Group>
           </Grid>
         

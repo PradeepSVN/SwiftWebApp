@@ -938,3 +938,17 @@ p {
             max-width: 93.6667%;
         }
     }
+    .home-info-box {
+  
+      border:2px solid #084c81!important;
+      box-shadow: -3px 3px 3px 3px gray!important;
+      border-radius: 8px;
+      height: 450px !important;
+    }
+    .link-btn{
+      background-color: transparent !important;
+      color: #6b94b3 !important;
+      font-weight: bold !important;
+      background-color: transparent;
+      font-variant: normal;
+    }

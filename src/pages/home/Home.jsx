@@ -55,6 +55,8 @@ const Home = () => {
        
           <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 6 }} paddingBottom={5}>
             <Grid  item xs={12}>
+            <Box className="home-info-box" sx={{width:'100%', Height:'750px !importent'}}>
+              <div style={{padding:'10px'}}>
               <p>Prioritize Prevention: Schedule Your FREE Yearly Check-up
                 Now!
               </p>
@@ -86,6 +88,8 @@ const Home = () => {
               have read, understood, and agreed to the terms of this disclaimer. If you do not agree with any
               part of this disclaimer, please discontinue using the PromiseCare Medical Group's websites.
               </p>
+              </div>
+              </Box>
             </Grid>
           </Grid>
         
