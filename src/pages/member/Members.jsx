@@ -121,9 +121,22 @@ const handleClick = (event) => {
 
 const handleEntitySelectOptions = (newValue) => {
   console.log("==handleSelectOptions=",newValue);
-  setEntitySelectedOptions(newValue);    
-  setSearchPayload((_payload) => ({ ..._payload, ["entitY_UID"]: newValue.value }));
-  getInsuranceListByEntityId(newValue.value);
+  
+
+  if(newValue && newValue.value != 0 && newValue.value != "0")
+    {
+      setEntitySelectedOptions(newValue);    
+      setSearchPayload((_payload) => ({ ..._payload, ["entitY_UID"]: newValue.value }));
+      getInsuranceListByEntityId(newValue.value);   
+    }
+    else
+    {
+      setEntitySelectedOptions(newValue);    
+      setSearchPayload((_payload) => ({ ..._payload, ["entitY_ID"]: "" }))
+      setInsuranceOptions([]);
+      setInsuranceSelectedOptions([]);
+     
+    }
 };
 
 const getAllEnties = async () => {
@@ -137,6 +150,7 @@ const getAllEnties = async () => {
       setLoading(false);
       setEntities(res.data.result);   
       let options = [];
+      options.push({label: "   Select Entity",value:0 });
       res.data.result.forEach((item) => (options.push({label: item.entity_Name,value:item.entity_ID })));
       setEntityOptions(options); //{ value: 1, label: 'test' },
       //setAllEntityOptions(options);  

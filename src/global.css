@@ -575,7 +575,13 @@ nav a {
   z-index: 9999 !important;
 }
 
+.css-1dimb5e-singleValue{
+  padding-left: 10px;
+}
 
+#react-select-3-placeholder,#react-select-3-input{
+  padding-left: 10px;
+}
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
