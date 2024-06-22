@@ -11,6 +11,8 @@ import TableSortLabel from '@mui/material/TableSortLabel'
 import GlobalStyles from '../theme/GlobalStyles';
 import {useEffect} from 'react'
 import '../styles/table.css';
+import EnhancedTableHead from './EnhancedTableHead'
+import {stableSort,getComparator} from './EnhancedTableHead'
 
 
 
@@ -35,13 +37,17 @@ const Column = {
 }
 
 const columns = [
-  { id: 'user_First_Name', label: 'First Name', minWidth: 170 },
-  { id: 'user_Last_Name', label: 'Last Name', minWidth: 170 },
-  { id: 'user_Title', label: 'Title', minWidth: 170 },
-  { id: 'user_Email', label: 'Email', minWidth: 170 },
-  { id: 'user_Phone', label: 'Phone', minWidth: 170 },
-  { id: 'user_UserName', label: 'User Name', minWidth: 170 },
-  { id: 'user_Active', label: 'Active', minWidth: 170 },  
+  { id: 'user_First_Name', label: 'First Name',numeric: false, disablePadding: true, minWidth: 170 },
+  { id: 'user_Last_Name', label: 'Last Name',numeric: false, disablePadding: true, minWidth: 170 },
+  { id: 'user_Title', label: 'Title',numeric: false, disablePadding: true, minWidth: 170 },
+  { id: 'user_Email', label: 'Email',numeric: false, disablePadding: true, minWidth: 170 },
+  { id: 'user_Phone', label: 'Phone',numeric: false, disablePadding: true, minWidth: 170 },
+  { id: 'user_UserName', label: 'User Name',numeric: false, disablePadding: true, minWidth: 170 },
+  { id: 'user_Active', label: 'Active',numeric: false, disablePadding: true, minWidth: 170 },  
+];
+
+const headCells = [
+  { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
 ];
 
 /*interface Data {
@@ -84,6 +90,8 @@ export default function StickyHeadTable({tableData,handleUserInfo,handlePaginati
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [loading, setLoading] = React.useState(false);
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy, setOrderBy] = React.useState('name');
  // const [rows, setRows] = React.useState([]);
 
   useEffect(() => {
@@ -114,6 +122,12 @@ export default function StickyHeadTable({tableData,handleUserInfo,handlePaginati
     setPage(0);
   };
 
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrder(isAsc ? 'desc' : 'asc');
+    setOrderBy(property);
+  };
+
   const handleRowChange = (event, row) => {
     console.log("=====handleRowChange======",row)
     handleUserInfo(row);
@@ -130,7 +144,7 @@ export default function StickyHeadTable({tableData,handleUserInfo,handlePaginati
         <Table stickyHeader aria-label="sticky table" className='customTable'
         style={{width:'99%', marginRight:'5px', justifyContent:'center',alignContent:'center',alignItems:'center'}}>
        
-          <TableHead>
+          {/* <TableHead>
             <TableRow className='table-header'
             >
               {columns.map((column) => (
@@ -143,12 +157,29 @@ export default function StickyHeadTable({tableData,handleUserInfo,handlePaginati
                 </TableCell>
               ))}
             </TableRow>
-          </TableHead>
+          </TableHead> */}
+          <EnhancedTableHead
+          headCells={columns}
+          order={order}
+          orderBy={orderBy}
+          onRequestSort={handleRequestSort}
+        />
           <TableBody>
+          {/* {stableSort(rows, getComparator(order, orderBy)).map((row, index) => (
+            <TableRow key={index}>
+              <TableCell component="th" scope="row">
+                {row.name}
+              </TableCell>
+              <TableCell align="right">{row.age}</TableCell>
+              <TableCell>{row.address}</TableCell>
+            </TableRow>
+          ))}  tableData.rows.map */}
+
+
             <TableRow style={{height:'10px'}} >
 
             </TableRow>
-            {tableData.rows && tableData.rows.length >0? tableData.rows.map((row,index) => 
+            {tableData.rows && tableData.rows.length >0? stableSort(tableData.rows, getComparator(order, orderBy)).map((row,index) => 
               {
                 return (<>            
                   <TableRow style={{height:'10px'}}></TableRow>
