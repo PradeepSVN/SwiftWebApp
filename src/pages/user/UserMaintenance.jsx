@@ -82,6 +82,7 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
       {
         //setUserRoles(res.data.result);  
         let options = [];
+        options.push({label: "   Select Role",value:0 });
         res.data.result.forEach((item) => (options.push({label: item.role_Name,value:item.role_UID })));
         setRoleOptions(options);    
       }
@@ -152,8 +153,17 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
 
   const handleRoleSelectOptions = (newValue) => {
     console.log("==handleSelectOptions=",newValue);
-    setRoleSelectedValue(newValue);
-    setSearchPayload((_payload) => ({ ..._payload, ["role"]: newValue.value }))
+    if(newValue && newValue.value != 0 && newValue.value != "0")
+      {
+        setRoleSelectedValue(newValue);
+        setSearchPayload((_payload) => ({ ..._payload, ["role"]: newValue.value }))
+      }
+      else
+      {
+        setRoleSelectedValue(newValue);
+        setSearchPayload((_payload) => ({ ..._payload, ["role"]: "" }))
+      }
+  
   };
 
   const handleBackBtn = () => {   
@@ -162,6 +172,10 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
 
 const handleNavigation = (data) => {   
   changeNavLinkPath({path:"UserInfo",data:data});
+};
+
+const handleNavLinks = (path) => {
+  changeNavLinkPath(path);
 };
 
 
@@ -191,6 +205,13 @@ const getFilteredUserList = async () => {
     {
       setLoading(false);    
       setUserList(res.data.result);  
+      setTableData((_payload) => ({ ..._payload, ["rows"]: res.data.result }));
+      setTableData((_payload) => ({ ..._payload, ["page"]: _payload.page }))
+      setTableData((_payload) => ({ ..._payload, ["size"]: _payload.size }))
+      if(res.data.result.length > 0)
+        {          
+          setTableData((_payload) => ({ ..._payload, ["totalCount"]: res.data.result[0].totalCount?res.data.result[0].totalCount:res.data.result.length }))
+        }
       apiResponse = res.data.result;
       console.log("====API Res Userlist====",apiResponse);
       //let options = [];
@@ -222,9 +243,9 @@ const getFilteredUserList = async () => {
                <header>
       <h1 className="page-title1">User List</h1>
       <nav>
-        <a href="/">Home</a> /
-        <a href="/">Administration</a> /
-        <a href="/">User Management</a> /
+      <Button
+        style={{backgroundColor:'transparent'}}
+        onClick={ () => handleNavLinks("Home")}>Home</Button> /
         &nbsp;<label> User List</label>
       </nav>
     </header>

@@ -187,7 +187,7 @@ function Header({ navLinks,changeNavLinkPath }) {
               </Button>
             ))}  */}
 
-          <Search>
+          {/* <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -196,7 +196,7 @@ function Header({ navLinks,changeNavLinkPath }) {
               inputProps={{ 'aria-label': 'search' }}
               backgroundColor={'red'}
             />
-          </Search>
+          </Search> */}
           <Button type="button"  onClick={handleBtnClick}
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><LogoutIcon sx={{ fontSize: 40, marginLeft:'30px' }} /></Button>
           </Box>

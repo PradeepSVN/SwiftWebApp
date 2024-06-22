@@ -97,23 +97,55 @@ const handleClick = (event) => {
 
 const handleEntitySelectOptions = (newValue) => {
   console.log("==handleSelectOptions=",newValue);
-  setEntitySelectedOptions(newValue);    
-  setSearchPayload((_payload) => ({ ..._payload, ["entitY_ID"]: newValue.value }))
-  getInsuranceListByEntityId(newValue.value);
-  getTinsByEntityId(newValue.value);
+  
+
+  if(newValue && newValue.value != 0 && newValue.value != "0")
+    {
+      setEntitySelectedOptions(newValue);    
+      setSearchPayload((_payload) => ({ ..._payload, ["entitY_ID"]: newValue.value }))
+      getInsuranceListByEntityId(newValue.value);
+      getTinsByEntityId(newValue.value);
+    }
+    else
+    {
+      setEntitySelectedOptions(newValue);    
+      setSearchPayload((_payload) => ({ ..._payload, ["entitY_ID"]: "" }))
+      setInsuranceOptions([]);
+      setInsuranceSelectedOptions([]);
+      setTinOptions([]);
+      setTinSelectedOptions([]);
+    }
 };
 
 const handleInsuranceSelectOptions = (newValue) => {
   console.log("==handleSelectOptions=",newValue);
-  setInsuranceSelectedOptions(newValue);    
-  setSearchPayload((_payload) => ({ ..._payload, ["insurance"]: newValue.value }))
+ 
+  if(newValue && newValue.value != 0 && newValue.value != "0")
+    {
+      setInsuranceSelectedOptions(newValue);    
+      setSearchPayload((_payload) => ({ ..._payload, ["insurance"]: newValue.value }))
+    }
+    else
+    {
+      setInsuranceSelectedOptions(newValue);    
+      setSearchPayload((_payload) => ({ ..._payload, ["insurance"]: "" }))
+    }
   
 };
 
 const handleTinSelectOptions = (newValue) => {
   console.log("==handleSelectOptions=",newValue);
-  setTinSelectedOptions(newValue);    
-  setSearchPayload((_payload) => ({ ..._payload, ["tin"]: newValue.value }))
+  if(newValue && newValue.value != 0 && newValue.value != "0")
+    {
+      setTinSelectedOptions(newValue);    
+      setSearchPayload((_payload) => ({ ..._payload, ["tin"]: newValue.value }))
+    }
+    else
+    {
+      setTinSelectedOptions(newValue);    
+      setSearchPayload((_payload) => ({ ..._payload, ["tin"]: "" }))
+    }
+  
  
 };
 
@@ -128,6 +160,7 @@ const getAllEnties = async () => {
       setLoading(false);
       setEntities(res.data.result);   
       let options = [];
+      options.push({label: "   Select Entity",value:0 });
       res.data.result.forEach((item) => (options.push({label: item.entity_Name,value:item.entity_ID })));
       setEntityOptions(options); //{ value: 1, label: 'test' },
       //setAllEntityOptions(options);  
@@ -150,6 +183,7 @@ const getInsuranceListByEntityId = async (_entityId) => {
       setLoading(false);
       //setEntities(res.data.result);   
       let options = [];
+      options.push({label: "   Select Insurance",value:0 });
       res.data.result.forEach((item) => (options.push({label: item.insurancE_DESCRIPTION,value:item.insurancE_CLIENT_ID })));
       setInsuranceOptions(options); //{ value: 1, label: 'test' },
       //setAllEntityOptions(options);  
@@ -172,6 +206,7 @@ const getTinsByEntityId = async (_entityId) => {
       setLoading(false);
       setEntities(res.data.result);   
       let options = [];
+      options.push({label: "   Select Practice",value:0 });
       res.data.result.forEach((item) => (options.push({label: item.tiN_NAME,value:item.tiN_ID })));
       setTinOptions(options); //{ value: 1, label: 'test' },
       //setAllEntityOptions(options);  
@@ -222,6 +257,9 @@ const getFilteredProviderList = async (page,size) => {
     }
  
 }
+const handleNavLinks = (path) => {
+  changeNavLinkPath(path);
+};
 
 const handlePagination = (pagenation) => {
   console.log("==handlePagination=",pagenation);
@@ -238,7 +276,9 @@ const handlePagination = (pagenation) => {
             <header>
       <h1 className="page-title1">Provider List</h1>
       <nav>
-        <a href="/">Home</a> /       
+      <Button
+        style={{backgroundColor:'transparent'}}
+        onClick={ () => handleNavLinks("Home")}>Home</Button>/       
         &nbsp;<label> Provider List</label> 
       </nav>
     </header>

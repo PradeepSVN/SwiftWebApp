@@ -64,6 +64,8 @@ export const DynamicHeader =(roleData) => {
             header.push(providerDropdown); 
         }
 
+        let authDropdown = { type:'NestedMenu', path: 'UtilizationManagement', title: 'Utilization', isActive:false,isMenu:false, menuItems: [] };
+        header.push(authDropdown); 
    /* if(roleData["auth_View"] || roleData["auth_Submit"] || roleData["auth_Reports"] || roleData["prov_View"] || roleData["prov_Submit"] || roleData["prov_Reports"])
         {
             let authDropdown = { type:'NestedMenu', path: 'UtilizationManagement', title: '', isActive:false,isMenu:false, menuItems: menuItems };
