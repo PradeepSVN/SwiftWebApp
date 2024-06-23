@@ -199,16 +199,16 @@ const Roles = () => {
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th width='45%'></th>
+                  <th width='35%'></th>
                  
                   <th>View</th>
-                  <th>submit</th>
+                  <th>Submit</th>
                   <th>Reports</th>
                 </tr>
               </thead>
               <tbody>
                 <tr >
-                  <td>Membership</td>
+                  <td style={{textAlign:'left'}}>Membership</td>
                   
                   <td key="memb_View" >
                   <Form.Group >
@@ -242,7 +242,7 @@ const Roles = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td>Utilization management</td>
+                  <td style={{textAlign:'left'}}>Utilization management</td>
                  
                   <td key="auth_View" >
                   <Form.Group >
@@ -277,7 +277,7 @@ const Roles = () => {
                 </tr>
 
                 <tr>
-                  <td>Claims</td>
+                  <td style={{textAlign:'left'}}>Claims</td>
                   
                   <td key="claim_View" >
                   <Form.Group >
@@ -311,7 +311,7 @@ const Roles = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td>Providers</td>
+                  <td style={{textAlign:'left'}}>Providers</td>
                  
                   <td key="prov_View" >
                   <Form.Group >
@@ -345,7 +345,7 @@ const Roles = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td>Finance</td>
+                  <td style={{textAlign:'left'}}>Finance</td>
                  
                   <td key="fin_View" >
                   <Form.Group >

@@ -67,6 +67,7 @@ const ProviderInfo = ({data}) => {
         &nbsp;<label> View Provider</label>
       </nav>
     </header>
+    <div style={{paddingLeft: '103px',paddingRight: '150px',paddingTop: '33px'}}>
     <section className="page-title">
       <h4>ENTITY - {providerInfo.entitY_DESCRIPTION}</h4>
     </section>
@@ -78,7 +79,7 @@ const ProviderInfo = ({data}) => {
          {/* <Form  ref={formRef} style={{marginTop:'65px'}}> */}
          <Grid container rowSpacing={2}  columnSpacing={{ xs: 1, sm: 2, md: 6 }} >
          <Grid item xs={6}>
-             <Box className="user-info-box" sx={{ height:'200px',paddingBottom:'20px'}}>
+             <Box className="user-info-box" sx={{ height:'271px',paddingBottom:'20px'}}>
              <h3 className="page-title">Provider Info</h3>
              <Table>
               <TableBody sx={{border:'none'}}>
@@ -132,7 +133,7 @@ const ProviderInfo = ({data}) => {
               {
                 return (<>   
                 <TableRow sx={{border:'none'}}>
-                 {/* <TableCell className="user-info-lable" sx={{border:'none'}}>{row3.TIN_CLIENT_ID}</TableCell> */}
+                 <TableCell className="user-info-lable" sx={{border:'none'}}>{row3.ENTITY_CLIENT_ID}</TableCell>
                  <TableCell className="user-info-value3" sx={{border:'none',overflow:'wrap'}}>{row3.TIN_NAME}</TableCell>
                   </TableRow>
                   </> 
@@ -146,10 +147,10 @@ const ProviderInfo = ({data}) => {
             </Box>
            </Grid>
          <Grid item xs={6} >
-         <Box className="user-info-box" sx={{ height:'200px',paddingTop:'5px',overflowY: 'scroll'}}>
+         <Box className="user-info-box" sx={{ height:'271px',paddingTop:'5px',overflowY: 'scroll'}}>
            
            <h3 className="page-title">Contact Info</h3>
-           <Table>
+           {/* <Table>
             <TableBody sx={{border:'none'}}>
            
              <TableRow sx={{border:'none'}}>
@@ -162,7 +163,59 @@ const ProviderInfo = ({data}) => {
              </TableRow>
                
             </TableBody>
-           </Table>
+           </Table> */}
+           <p style={{paddingLeft:'20px'}}><b>Primary:</b></p>
+           <Table>
+              <TableBody sx={{border:'none'}}>
+               <TableRow sx={{border:'none'}}>
+                 <TableCell className="user-info-lable" sx={{border:'none'}}>Address Line1</TableCell>
+                 <TableCell className="user-info-value" sx={{border:'none'}}>{providerInfo.provideR_ADDRESS_1}</TableCell>
+                 <TableCell className="user-info-lable" sx={{border:'none'}}>Phone</TableCell>
+                 <TableCell className="user-info-value" sx={{border:'none'}}>{providerInfo.provideR_PHONE}</TableCell>
+               </TableRow>
+               <TableRow sx={{border:'none'}}>
+                 <TableCell className="user-info-lable" sx={{border:'none'}}>City</TableCell>
+                 <TableCell className="user-info-value" sx={{border:'none'}}>{providerInfo.provideR_CITY}</TableCell>
+                 <TableCell className="user-info-lable" sx={{border:'none'}}>Fax</TableCell>
+                 <TableCell className="user-info-value" sx={{border:'none'}}>{providerInfo.provideR_FAX}</TableCell>
+               </TableRow>
+               <TableRow sx={{border:'none'}}>
+                 <TableCell className="user-info-lable" sx={{border:'none'}}>State</TableCell>
+                 <TableCell className="user-info-value" sx={{border:'none'}}>{providerInfo.provideR_STATE}</TableCell>
+               </TableRow>
+               <TableRow sx={{border:'none'}}>
+                 <TableCell className="user-info-lable" sx={{border:'none'}}>Zip</TableCell>
+                 <TableCell className="user-info-value" sx={{border:'none'}}>{providerInfo.provideR_ZIP}</TableCell>
+               </TableRow>
+                        
+              </TableBody>
+             </Table>
+             <p style={{paddingLeft:'20px'}}><b>Secondary:</b></p>
+           <Table>
+              <TableBody sx={{border:'none'}}>
+               <TableRow sx={{border:'none'}}>
+                 <TableCell className="user-info-lable" sx={{border:'none'}}>Address Line2</TableCell>
+                 <TableCell className="user-info-value" sx={{border:'none'}}>{providerInfo.provideR_ADDRESS_2}</TableCell>
+                 <TableCell className="user-info-lable" sx={{border:'none'}}>Phone</TableCell>
+                 <TableCell className="user-info-value" sx={{border:'none'}}>{providerInfo.provideR_PHONE}</TableCell>
+               </TableRow>
+               <TableRow sx={{border:'none'}}>
+                 <TableCell className="user-info-lable" sx={{border:'none'}}>City</TableCell>
+                 <TableCell className="user-info-value" sx={{border:'none'}}>{providerInfo.provideR_CITY}</TableCell>
+                 <TableCell className="user-info-lable" sx={{border:'none'}}>Fax</TableCell>
+                 <TableCell className="user-info-value" sx={{border:'none'}}>{providerInfo.provideR_FAX}</TableCell>
+               </TableRow>
+               <TableRow sx={{border:'none'}}>
+                 <TableCell className="user-info-lable" sx={{border:'none'}}>State</TableCell>
+                 <TableCell className="user-info-value" sx={{border:'none'}}>{providerInfo.provideR_STATE}</TableCell>
+               </TableRow>
+               <TableRow sx={{border:'none'}}>
+                 <TableCell className="user-info-lable" sx={{border:'none'}}>Zip</TableCell>
+                 <TableCell className="user-info-value" sx={{border:'none'}}>{providerInfo.provideR_ZIP}</TableCell>
+               </TableRow>
+                        
+              </TableBody>
+             </Table>
            </Box>
           <br></br>
             <Box className="user-info-box1" sx={{width:'100%', Height:'440px !importent',overflowY: 'scroll'}}>
@@ -191,7 +244,7 @@ const ProviderInfo = ({data}) => {
           <br></br>
            
          </Grid>
-         
+         </div>
          {/* </Form> */}
        </Container>  
      </div>

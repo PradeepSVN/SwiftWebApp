@@ -135,7 +135,7 @@
     background-color: transparent!important;
     padding: 5px!important;
     font-size: 16px!important;
-    border-bottom: 1px solid #ccc!important;
+    border-bottom: 1px solid #5f5858 !important;
     display: block!important;
     width: 200px!important;
   
@@ -150,7 +150,7 @@
     background-color: transparent!important;
     padding: 5px!important;
     font-size: 16px!important;
-    border-bottom: 1px solid #ccc!important;
+    border-bottom: 1px solid #5f5858!important;
     display: block!important;    
   
     &::placeholder {
@@ -172,7 +172,7 @@
   }
 
   .form-check{
-    margin-top: 41px!important;
+    margin-top: 4px!important;
     margin-left:-18px!important;
   }
 
@@ -188,7 +188,7 @@
     border-left: none !important;
     border-right: none !important;
     border-top: none!important;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #5f5858;
     line-height: 3!important;
 }
 
@@ -216,7 +216,7 @@
   font-family: "DM Sans", sans-serif!important;
   font-size: medium!important;
  font-weight:550!important; 
- width: 70% !important;
+ width: 59% !important;
 }
 .user-info-value3{
   font-family: "DM Sans", sans-serif!important;
@@ -228,7 +228,7 @@
 .user-info-box {
   
   border:2px solid #084c81!important;
-  box-shadow: -3px 3px 3px 3px gray!important;
+  /* box-shadow: -3px 3px 3px 3px gray!important; */
   border-radius: 8px;
 }
 
@@ -331,7 +331,7 @@
   list-style: none;
   padding: 0;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
-  display: none;
+  /* display: none; */
 }
 
 .dropdown-menu.open {
@@ -770,21 +770,21 @@ nav a {
 .user-info-box1 {
   
   border:2px solid #084c81!important;
-  box-shadow: -3px 3px 3px 3px gray!important;
+  /* box-shadow: -3px 3px 3px 3px gray!important; */
   border-radius: 8px;
   height: 250px !important;
 }
 .user-info-box2 {
   
   border:2px solid #084c81!important;
-  box-shadow: -3px 3px 3px 3px gray!important;
+  /* box-shadow: -3px 3px 3px 3px gray!important; */
   border-radius: 8px;
   height: 250px !important;
 }
 .user-info-box3 {
   
   border:2px solid #084c81!important;
-  box-shadow: -3px 3px 3px 3px gray!important;
+  /* box-shadow: -3px 3px 3px 3px gray!important; */
   border-radius: 8px;
   height: 200px !important;
 }
@@ -814,7 +814,7 @@ nav a {
 
 table td {
   text-align: center;
-  padding-top: 20px !important;
+  /* padding-top: 12px !important; */
 
 }
 table th {
@@ -914,25 +914,25 @@ p {
   margin-bottom: 1rem;
 }
 .css-1c2n6gr {
-  height: 359px !important;
+  height: 244px !important;
   padding-bottom: 20px;
 }
 .css-fp2jku {
-  height: 367px !important;
+  height: 269px !important;
   padding-top: 5px;
 }
 
 .css-1cb89fl {
     width: 100%;
-    height: 749px !important;
+    height: 538px !important;
 }
 
 .css-12ly86m {
-  height: 296px !important;
+  height: 181px !important;
 }
 .css-1cfvooe {
   width: 100%;
-  height: 296px !important;
+  height: 181px !important;
 }
 .css-1bn53lx {
   height: 38px !important; width: 210px !important;}
@@ -947,7 +947,7 @@ p {
     .home-info-box {
   
       border:2px solid #084c81!important;
-      box-shadow: -3px 3px 3px 3px gray!important;
+      /* box-shadow: -3px 3px 3px 3px gray!important; */
       border-radius: 8px;
       height: 450px !important;
     }
@@ -958,3 +958,63 @@ p {
       background-color: transparent;
       font-variant: normal;
     }
+    .css-diyzx1{
+      padding: 10px 0px 0px 20px !important;
+    }
+    .css-yb0lig {
+      margin: 0px;
+      font-family: Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      font-size: 1rem;
+      line-height: 0.2 !important;
+      letter-spacing: 0.00938em;
+      display: block;
+  }
+  .css-1ex1afd-MuiTableCell-root, .table-td {
+    color: #043566 !important;
+  }
+  .table-row {
+    border-left: 10px;
+    border-radius: 0 0 5px 5px;
+    box-shadow: -3px 2px 6px -3px #00000040 !important;
+    height: 78px !important;
+}
+.css-ikzkeu {
+  width: 100%;
+  overflow-x: auto;
+  /* max-height: 740px; */
+}
+.css-pdz006{
+  padding: 10px 0px 0px 20px !important;
+}
+.css-pdz006{
+  padding-left: 30px !important;
+}
+body{
+  scrollbar-width: thin !important;
+}
+
+
+	li.arrow {
+		&::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 6px;
+			height: 5px;
+			width: 5px;
+			border: 1px solid ;
+			border-width: 2px 2px 0 0;
+			transform: rotate(45deg);
+		}
+	}
+  .css-1tqosw4-control { border-bottom: 1px solid #5f5858!important;}
+  .form-check .form-check-input {
+    float: left;
+    margin-left: -0.3em !important;
+    font-size: 29px !important;
+}
+.form-check-label{
+  padding-left: 15px !important;
+  padding-top: 10px !important;
+}

@@ -97,7 +97,7 @@ const UserInfo = ({data,changeNavLinkPath}) => {
         &nbsp;<label> User View</label>
       </nav>
     </header>
-        <div></div> 
+        <div  style={{paddingLeft: '103px',paddingRight: '150px',paddingTop: '33px'}}>
        
         {/* <h1 className="page-title">User Info</h1> */}
         {/* <Form  ref={formRef} style={{marginTop:'65px'}}> */}
@@ -144,19 +144,19 @@ const UserInfo = ({data,changeNavLinkPath}) => {
              <TableBody sx={{border:'none'}}>
               <TableRow sx={{border:'none'}}>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>Created</TableCell>
-                <TableCell className="user-info-value" sx={{border:'none'}}>{moment(data.created_Date).format("MM-DD-YYYY HH:mm:ss")}</TableCell>
+                <TableCell className="user-info-value1" sx={{border:'none'}}>{moment(data.created_Date).format("MM-DD-YYYY HH:mm:ss")}</TableCell>
               </TableRow>
               <TableRow sx={{border:'none'}}>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>Last Login</TableCell>
-                <TableCell className="user-info-value" sx={{border:'none'}}>{moment(data.created_Date).format("MM-DD-YYYY HH:mm:ss")}</TableCell>
+                <TableCell className="user-info-value1" sx={{border:'none'}}>{moment(data.created_Date).format("MM-DD-YYYY HH:mm:ss")}</TableCell>
               </TableRow>              
               <TableRow>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>Password Last Changed</TableCell>
-                <TableCell className="user-info-value" sx={{border:'none'}}>{moment(data.updated_Date).format("MM-DD-YYYY HH:mm:ss")}</TableCell>
+                <TableCell className="user-info-value1" sx={{border:'none'}}>{moment(data.updated_Date).format("MM-DD-YYYY HH:mm:ss")}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>Password Expiring</TableCell>
-                <TableCell className="user-info-value" sx={{border:'none'}}></TableCell>
+                <TableCell className="user-info-value1" sx={{border:'none'}}></TableCell>
               </TableRow>
              </TableBody>
             </Table>
@@ -174,7 +174,7 @@ const UserInfo = ({data,changeNavLinkPath}) => {
                       //height: 700,
                       overflow: "hidden",
                       overflowY: "scroll",}}>
-               <List sx={{ width: '100%', marginLeft:'20px',padding:'0px', listStyleType: 'disc', pl: 2,
+               <List className="arrow" sx={{ width: '100%', marginLeft:'20px',padding:'0px', listStyleType: 'disc', pl: 2,
                         '& .MuiListItem-root': {
                           display: 'list-item',
                         }, }}>
@@ -197,7 +197,7 @@ const UserInfo = ({data,changeNavLinkPath}) => {
                       //height: 700,
                       overflow: "hidden",
                       overflowY: "scroll",}}>
-             <List sx={{ width: '100%', marginLeft:'20px',padding:'0px', listStyleType: 'disc', pl: 2,
+             <List className="arrow" sx={{ width: '100%', marginLeft:'20px',padding:'0px', listStyleType: 'disc', pl: 2,
                         '& .MuiListItem-root': {
                           display: 'list-item',
                         }, }}>
@@ -221,6 +221,7 @@ const UserInfo = ({data,changeNavLinkPath}) => {
       </Grid>
             
          </Grid>
+         </div> 
         
         {/* </Form> */}
       </Container>  

@@ -450,7 +450,7 @@ const handleSearchQuery = (serachValue) => {
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Phone</label>
-            <InputMask mask="(999)-999-9999" className="input-line-style" placeholder="(XXX)-XXX-XXXX" maxLength={15} id="user_Phone" name="user_Phone" onChange={handleChange} />
+            <InputMask mask="(999) 999-9999" className="input-line-style" placeholder="(XXX) XXX-XXXX" maxLength={15} id="user_Phone" name="user_Phone" onChange={handleChange} />
             {/* <input  className="input-line-style" placeholder="(XXX)-XXX-XXXX" maxLength={15} id="user_Phone" name="user_Phone" onChange={handleChange} /> */}
             </Form.Group>
           </Grid>
@@ -464,7 +464,7 @@ const handleSearchQuery = (serachValue) => {
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Fax </label>
          
-            <InputMask mask="(999)-999-9999" className="input-line-style" placeholder="(XXX)-XXX-XXXX" maxLength={15} id="user_Fax" name="user_Fax" onChange={handleChange} />
+            <InputMask mask="(999) 999-9999" className="input-line-style" placeholder="(XXX) XXX-XXXX" maxLength={15} id="user_Fax" name="user_Fax" onChange={handleChange} />
             </Form.Group>
           </Grid>
         

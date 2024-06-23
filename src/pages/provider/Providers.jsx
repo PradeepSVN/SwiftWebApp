@@ -285,7 +285,7 @@ const handlePagination = (pagenation) => {
             <Form>
            <Grid  className="member-frame1" style={{marginTop:'45px'}}>
             <Grid item xs={10} style={{display:'flex'}}>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'221px' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100' }}>
             {/* <label >Entity</label> */}
             <Select            
               value={entitySelectedOptions}
@@ -300,7 +300,7 @@ const handlePagination = (pagenation) => {
               className="react-select__menu"    
             /> 
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'227px' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100' }}>
             {/* <label >Insurance</label> */}
             <Select            
               value={insuranceSelectedOptions}
@@ -317,7 +317,7 @@ const handlePagination = (pagenation) => {
              {/* <TextField placeholder="Insurance" id="insurance" className="member-search-text"             
              onChange={handleChange} /> */}
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'221px' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100' }}>
             {/* <label>Option</label> */}
             <Select            
               value={tinSelectedOptions}
@@ -337,20 +337,20 @@ const handlePagination = (pagenation) => {
             </Grid>
             <Grid item xs={10} style={{display:'flex', marginTop:'0px'}}>
            
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'230px' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100' }}>
             {/* <label>First Name</label> */}
             <TextField placeholder="First Name" id="firsT_NAME"   onChange={handleChange} />
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 10px',width:'230px' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 10px',width:'100' }}>
             {/* <label>Last Name</label> */}
             <TextField placeholder="Last Name" id="lasT_NAME"  onChange={handleChange} />
             </Form.Group>  
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'230px' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100' }}>
             {/* <label>Member ID</label> */}
             <TextField placeholder="NPI" id="npi"  onChange={handleChange} 
              />
             </Form.Group>         
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'150px' }}>           
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100' }}>           
             <Button type="button"   onClick={handleClick} disabled={loading} 
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 40 }} /></Button>
 

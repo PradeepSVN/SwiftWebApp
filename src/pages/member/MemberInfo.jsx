@@ -59,8 +59,9 @@ const MemberInfo = ({data}) => {
         &nbsp;<label> View Member</label>
       </nav>
     </header>
+    <div style={{paddingLeft: '103px',paddingRight: '150px',paddingTop: '33px'}}>
     <section className="page-title">
-      <h4>ENTITY - {memberInfo.entitY_DESCRIPTION}</h4>
+      <h4>ENTITY : {memberInfo.entitY_DESCRIPTION}</h4>
     </section>
          {/* <h2 className="text-center p-3" >Add Single User</h2> */}
        
@@ -81,7 +82,7 @@ const MemberInfo = ({data}) => {
                 
                </TableRow>
                <TableRow sx={{border:'none'}}>
-                 <TableCell className="user-info-lable" sx={{border:'none'}}>Dob & Age</TableCell>
+                 <TableCell className="user-info-lable" sx={{border:'none'}}>DOB & Age</TableCell>
                  <TableCell className="user-info-value1" sx={{border:'none'}}>{memberInfo.membeR_DOB} , {memberInfo.membeR_Age} Yrs</TableCell>
                  
                </TableRow>
@@ -200,7 +201,7 @@ const MemberInfo = ({data}) => {
           <br></br>
            
          </Grid>
-         
+         </div>
          {/* </Form> */}
        </Container>  
      </div>
