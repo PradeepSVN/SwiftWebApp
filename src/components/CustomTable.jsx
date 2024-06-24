@@ -37,12 +37,13 @@ const Column = {
 }
 
 const columns = [
+  { id: 'user_UserName', label: 'User Name',numeric: false, disablePadding: true, minWidth: 170 },
   { id: 'user_First_Name', label: 'First Name',numeric: false, disablePadding: true, minWidth: 170 },
   { id: 'user_Last_Name', label: 'Last Name',numeric: false, disablePadding: true, minWidth: 170 },
+  { id: 'role_Name', label: 'Role Name',numeric: false, disablePadding: true, minWidth: 170 },
   { id: 'user_Title', label: 'Title',numeric: false, disablePadding: true, minWidth: 170 },
   { id: 'user_Email', label: 'Email',numeric: false, disablePadding: true, minWidth: 170 },
-  { id: 'user_Phone', label: 'Phone',numeric: false, disablePadding: true, minWidth: 170 },
-  { id: 'user_UserName', label: 'User Name',numeric: false, disablePadding: true, minWidth: 170 },
+  { id: 'user_Phone', label: 'Phone',numeric: false, disablePadding: true, minWidth: 170 }, 
   { id: 'user_Active', label: 'Active',numeric: false, disablePadding: true, minWidth: 170 },  
 ];
 

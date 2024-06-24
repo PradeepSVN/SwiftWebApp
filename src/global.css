@@ -173,7 +173,7 @@
 
   .form-check{
     margin-top: 4px!important;
-    margin-left:-18px!important;
+    margin-left:-24px!important;
   }
 
   .form-date{
@@ -230,6 +230,7 @@
   border:2px solid #084c81!important;
   /* box-shadow: -3px 3px 3px 3px gray!important; */
   border-radius: 8px;
+  scrollbar-width: thin;
 }
 
 .user-info-box1{
@@ -237,12 +238,14 @@
   box-sizing: -3px 3px 3px 3px gray;;
   border-radius: 8px;
   height: 440px !important;
+  scrollbar-width: thin;
 }
 .user-info-box2{
   border: 2px solid #084c81;
   box-sizing: -3px 3px 3px 3px gray;;
   border-radius: 8px;
   height: 200px !important;
+  scrollbar-width: thin;
 }
 .table-infi-height{
   height: 400px !important;
@@ -773,6 +776,7 @@ nav a {
   /* box-shadow: -3px 3px 3px 3px gray!important; */
   border-radius: 8px;
   height: 250px !important;
+  scrollbar-width: thin;
 }
 .user-info-box2 {
   
@@ -780,6 +784,7 @@ nav a {
   /* box-shadow: -3px 3px 3px 3px gray!important; */
   border-radius: 8px;
   height: 250px !important;
+  scrollbar-width: thin;
 }
 .user-info-box3 {
   
@@ -787,6 +792,7 @@ nav a {
   /* box-shadow: -3px 3px 3px 3px gray!important; */
   border-radius: 8px;
   height: 200px !important;
+  scrollbar-width: thin;
 }
 .table-info-height {
   height: 400px !important;
@@ -1017,4 +1023,30 @@ body{
 .form-check-label{
   padding-left: 15px !important;
   padding-top: 10px !important;
+}
+@media (min-width: 900px) {
+  .css-1gr72vn-MuiGrid-root > .MuiGrid-item {
+    padding-left: 25px;
+  }
+}
+.css-fmc6yi {
+  list-style: disc;
+  margin: 18px 0px 0px 20px;
+  position: relative;
+  width: 100%;
+  padding: 0px 0px 0px 10px;
+  list-style-type: none !important;
+}
+.css-1l3dw8b {padding-top: 18px !important;
+  padding-bottom: 8px;
+}
+
+.css-jhua64{
+  padding: 12px !important;
+}
+.css-fmc6yi {
+  padding: 0px !important;
+}
+.css-dx096b {
+  padding: 16px !important;
 }

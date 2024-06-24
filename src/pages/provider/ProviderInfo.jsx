@@ -60,11 +60,11 @@ const ProviderInfo = ({data}) => {
     <Container  style={{marginLeft:'55px',marginTop:'20px', maxWidth:'95%', width:'100%'}}>
        <GlobalStyles />
        <header>
-      <h1 className="page-title1" >View Provider</h1>
+      <h1 className="page-title1" >Provider View</h1>
       <nav>
         <a href="/">Home</a> /
         <a href="/">Provider List</a> /
-        &nbsp;<label> View Provider</label>
+        &nbsp;<label> Provider View</label>
       </nav>
     </header>
     <div style={{paddingLeft: '103px',paddingRight: '150px',paddingTop: '33px'}}>
@@ -78,7 +78,7 @@ const ProviderInfo = ({data}) => {
          
          {/* <Form  ref={formRef} style={{marginTop:'65px'}}> */}
          <Grid container rowSpacing={2}  columnSpacing={{ xs: 1, sm: 2, md: 6 }} >
-         <Grid item xs={6}>
+         <Grid item xs={4}>
              <Box className="user-info-box" sx={{ height:'271px',paddingBottom:'20px'}}>
              <h3 className="page-title">Provider Info</h3>
              <Table>
@@ -98,20 +98,18 @@ const ProviderInfo = ({data}) => {
              {/* <div className="line"></div> */}
              </Box>
              <br></br>
-             <Box className="user-info-box2" sx={{width:'100%', Height:'150px !importent',overflowY: 'scroll'}}>
-             {/* <h3 className="page-title">Practices</h3> */}
-             <div className="col-sm-12 clsdisplay" >
-             <div className="col-sm-5">
-           <Table>
-              <TableBody sx={{border:'none'}}>   
-              <TableRow sx={{border:'none'}}>
-                 <TableCell className="" sx={{border:'none',overflow:'wrap'}}><h3 className="page-title2">Specialty</h3></TableCell></TableRow>           
-              {specialtyList && specialtyList.length >0? specialtyList.map((row,index) => 
+             <Box className="user-info-box1" sx={{width:'100%', Height:'440px !importent',overflowY: 'scroll'}}>
+             
+             <h3 className="page-title">Insurance Info</h3>
+            
+           <Table className="table-info-height" sx={{border:'none', Height:'440px !important',overflowY: 'scroll'}}>
+              <TableBody sx={{border:'none'}}>              
+              {insuranceList && insuranceList.length >0? insuranceList.map((row1,index) => 
               {
                 return (<>   
                 <TableRow sx={{border:'none'}}>
-                 <TableCell className="user-info-lable" sx={{border:'none',overflow:'wrap'}}>{row.PROVIDER_SPECIALTY_TYPE}</TableCell>
-                 <TableCell className="user-info-value3" sx={{border:'none',overflow:'wrap'}}>{row.PROVIDER_CLIENT_SPECIALTY_DESCRIPTION}</TableCell>
+                 <TableCell className="user-info-lable" sx={{border:'none'}}>{row1.INSURANCE_CLIENT_ID}</TableCell>
+                 <TableCell className="user-info-value3" sx={{border:'none'}}>{row1.INSURANCE_DESCRIPTION}</TableCell>
                   </TableRow>
                   </> 
                 );
@@ -119,34 +117,12 @@ const ProviderInfo = ({data}) => {
               }):null}                      
               </TableBody>
              </Table>
-             </div>
-             <div className="col-sm-1">
-             <div class="seperator">
-             </div>
-             </div>
-             <div className="col-sm-6">
-           <Table>
-              <TableBody sx={{border:'none'}}>  
-              <TableRow sx={{border:'none'}}>
-              <TableCell className="" sx={{border:'none',overflow:'wrap' }}><h3 className="page-title2">Practices</h3></TableCell></TableRow>                 
-              {tinList && tinList.length >0? tinList.map((row3,index) => 
-              {
-                return (<>   
-                <TableRow sx={{border:'none'}}>
-                 <TableCell className="user-info-lable" sx={{border:'none'}}>{row3.ENTITY_CLIENT_ID}</TableCell>
-                 <TableCell className="user-info-value3" sx={{border:'none',overflow:'wrap'}}>{row3.TIN_NAME}</TableCell>
-                  </TableRow>
-                  </> 
-                );
-
-              }):null}                      
-              </TableBody>
-             </Table>
-             </div>
-             </div>
+             
             </Box>
+            
            </Grid>
-         <Grid item xs={6} >
+         <Grid item xs={8} >
+          
          <Box className="user-info-box" sx={{ height:'271px',paddingTop:'5px',overflowY: 'scroll'}}>
            
            <h3 className="page-title">Contact Info</h3>
@@ -218,18 +194,20 @@ const ProviderInfo = ({data}) => {
              </Table>
            </Box>
           <br></br>
-            <Box className="user-info-box1" sx={{width:'100%', Height:'440px !importent',overflowY: 'scroll'}}>
-             
-             <h3 className="page-title">Insurance Info</h3>
-            
-           <Table className="table-info-height" sx={{border:'none', Height:'440px !important',overflowY: 'scroll'}}>
-              <TableBody sx={{border:'none'}}>              
-              {insuranceList && insuranceList.length >0? insuranceList.map((row1,index) => 
+          <Box className="user-info-box2" sx={{width:'100%', Height:'150px !importent',overflowY: 'scroll'}}>
+             {/* <h3 className="page-title">Practices</h3> */}
+             <div className="col-sm-12 clsdisplay" >
+             <div className="col-sm-5">
+           <Table>
+              <TableBody sx={{border:'none'}}>   
+              <TableRow sx={{border:'none'}}>
+                 <TableCell className="" sx={{border:'none',overflow:'wrap'}}><h3 className="page-title2">Specialty</h3></TableCell></TableRow>           
+              {specialtyList && specialtyList.length >0? specialtyList.map((row,index) => 
               {
                 return (<>   
                 <TableRow sx={{border:'none'}}>
-                 <TableCell className="user-info-lable" sx={{border:'none'}}>{row1.INSURANCE_CLIENT_ID}</TableCell>
-                 <TableCell className="user-info-value3" sx={{border:'none'}}>{row1.INSURANCE_DESCRIPTION}</TableCell>
+                 <TableCell className="user-info-lable" sx={{border:'none',overflow:'wrap'}}>{row.PROVIDER_SPECIALTY_TYPE}</TableCell>
+                 <TableCell className="user-info-value3" sx={{border:'none',overflow:'wrap'}}>{row.PROVIDER_CLIENT_SPECIALTY_CODE} - {row.PROVIDER_CLIENT_SPECIALTY_DESCRIPTION}</TableCell>
                   </TableRow>
                   </> 
                 );
@@ -237,7 +215,31 @@ const ProviderInfo = ({data}) => {
               }):null}                      
               </TableBody>
              </Table>
-             
+             </div>
+             <div className="col-sm-1">
+             <div class="seperator">
+             </div>
+             </div>
+             <div className="col-sm-6">
+           <Table>
+              <TableBody sx={{border:'none'}}>  
+              <TableRow sx={{border:'none'}}>
+              <TableCell className="" sx={{border:'none',overflow:'wrap' }}><h3 className="page-title2">Practices</h3></TableCell></TableRow>                 
+              {tinList && tinList.length >0? tinList.map((row3,index) => 
+              {
+                return (<>   
+                <TableRow sx={{border:'none'}}>
+                 <TableCell className="user-info-lable" sx={{border:'none'}}>{row3.TIN_CLIENT_ID}</TableCell>
+                 <TableCell className="user-info-value3" sx={{border:'none',overflow:'wrap'}}>{row3.TIN_NAME}</TableCell>
+                  </TableRow>
+                  </> 
+                );
+
+              }):null}                      
+              </TableBody>
+             </Table>
+             </div>
+             </div>
             </Box>
            </Grid>   
           

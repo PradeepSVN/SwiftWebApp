@@ -51,12 +51,12 @@ const MemberInfo = ({data}) => {
     <Container  style={{marginLeft:'55px', marginTop: '20px', maxWidth:'95%', width:'100%'}}>
        <GlobalStyles />
        <header>
-      <h1 className="page-title1" >Member Display</h1>
+      <h1 className="page-title1" >Member View</h1>
       <nav>
         <a href="/">Home</a> /
         <a href="/">Membership</a> /
         <a href="/">Member List</a> /
-        &nbsp;<label> View Member</label>
+        &nbsp;<label> Member View</label>
       </nav>
     </header>
     <div style={{paddingLeft: '103px',paddingRight: '150px',paddingTop: '33px'}}>
@@ -161,7 +161,7 @@ const MemberInfo = ({data}) => {
              <br></br>
              <Box className="user-info-box" sx={{ height:'320px',paddingTop:'5px'}}>
            
-             <h3 className="page-title">Primary Care</h3>
+             <h3 className="page-title">Primary Care info</h3>
              <Table>
               <TableBody sx={{border:'none'}}>
                <TableRow sx={{border:'none'}}>

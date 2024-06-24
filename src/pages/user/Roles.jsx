@@ -199,7 +199,7 @@ const Roles = () => {
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th width='35%'></th>
+                  <th width='30%'></th>
                  
                   <th>View</th>
                   <th>Submit</th>
@@ -208,7 +208,7 @@ const Roles = () => {
               </thead>
               <tbody>
                 <tr >
-                  <td style={{textAlign:'left'}}>Membership</td>
+                  <td style={{textAlign:'left', paddingTop:'19px'}}>Membership</td>
                   
                   <td key="memb_View" >
                   <Form.Group >
@@ -242,7 +242,7 @@ const Roles = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td style={{textAlign:'left'}}>Utilization management</td>
+                  <td style={{textAlign:'left', paddingTop:'19px'}}>Utilization management</td>
                  
                   <td key="auth_View" >
                   <Form.Group >
@@ -277,7 +277,7 @@ const Roles = () => {
                 </tr>
 
                 <tr>
-                  <td style={{textAlign:'left'}}>Claims</td>
+                  <td style={{textAlign:'left', paddingTop:'19px'}}>Claims</td>
                   
                   <td key="claim_View" >
                   <Form.Group >
@@ -311,7 +311,7 @@ const Roles = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td style={{textAlign:'left'}}>Providers</td>
+                  <td style={{textAlign:'left', paddingTop:'19px'}}>Providers</td>
                  
                   <td key="prov_View" >
                   <Form.Group >
@@ -345,7 +345,7 @@ const Roles = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td style={{textAlign:'left'}}>Finance</td>
+                  <td style={{textAlign:'left', paddingTop:'19px'}}>Finance</td>
                  
                   <td key="fin_View" >
                   <Form.Group >

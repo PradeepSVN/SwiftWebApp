@@ -88,7 +88,7 @@ const UserInfo = ({data,changeNavLinkPath}) => {
       <GlobalStyles />
         {/* <h2 className="text-center p-3" >Add Single User</h2> */}
         <header>
-      <h1 className="page-title1">User Info</h1>
+      <h1 className="page-title1"> User View</h1>
       <nav>
         <a href="/">Home</a> /
         <a href="/">Administration</a> /
@@ -99,7 +99,7 @@ const UserInfo = ({data,changeNavLinkPath}) => {
     </header>
         <div  style={{paddingLeft: '103px',paddingRight: '150px',paddingTop: '33px'}}>
        
-        {/* <h1 className="page-title">User Info</h1> */}
+        <h4 className="page-title">User Info</h4>
         {/* <Form  ref={formRef} style={{marginTop:'65px'}}> */}
         <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 6 }} paddingBottom={5}>
           <Grid item xs={8}>
@@ -144,15 +144,15 @@ const UserInfo = ({data,changeNavLinkPath}) => {
              <TableBody sx={{border:'none'}}>
               <TableRow sx={{border:'none'}}>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>Created</TableCell>
-                <TableCell className="user-info-value1" sx={{border:'none'}}>{moment(data.created_Date).format("MM-DD-YYYY HH:mm:ss")}</TableCell>
+                <TableCell className="user-info-value1" sx={{border:'none'}}>{moment(data.created_Date).format("MM/DD/YYYY HH:mm A")}</TableCell>
               </TableRow>
               <TableRow sx={{border:'none'}}>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>Last Login</TableCell>
-                <TableCell className="user-info-value1" sx={{border:'none'}}>{moment(data.created_Date).format("MM-DD-YYYY HH:mm:ss")}</TableCell>
+                <TableCell className="user-info-value1" sx={{border:'none'}}>{moment(data.created_Date).format("MM/DD/YYYY HH:mm A")}</TableCell>
               </TableRow>              
               <TableRow>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>Password Last Changed</TableCell>
-                <TableCell className="user-info-value1" sx={{border:'none'}}>{moment(data.updated_Date).format("MM-DD-YYYY HH:mm:ss")}</TableCell>
+                <TableCell className="user-info-value1" sx={{border:'none'}}>{moment(data.updated_Date).format("MM/DD/YYYY HH:mm A")}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>Password Expiring</TableCell>

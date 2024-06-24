@@ -432,15 +432,27 @@ const handleSearchQuery = (serachValue) => {
             <input  className="input-line-style" placeholder="Enter your Last Name" min={2} id="user_Last_Name" name="user_Last_Name" onChange={handleChange} />
             </Form.Group>
           </Grid>
-          <Grid item xs={3}>
+         <Grid item xs={3}>
+          <Form.Group >
+                  <Form.Check
+                    aria-label="option 1"
+                    label="Change Password on Login"
+                    name="user_Change_Password"
+                    id="user_Change_Password"
+                    onChange={handleChecked}
+                  />
+          </Form.Group>
+           
+          </Grid>
+        </Grid>
+
+        <Grid container rowSpacing={1}   columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
+         <Grid item xs={3}>
             <Form.Group>
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Title</label>
             <input  className="input-line-style" placeholder="Enter your Title" id="user_Title" name="user_Title" onChange={handleChange} />
             </Form.Group>
           </Grid>
-        </Grid>
-
-        <Grid container rowSpacing={1}   columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
           <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Email</label>
@@ -454,7 +466,23 @@ const handleSearchQuery = (serachValue) => {
             {/* <input  className="input-line-style" placeholder="(XXX)-XXX-XXXX" maxLength={15} id="user_Phone" name="user_Phone" onChange={handleChange} /> */}
             </Form.Group>
           </Grid>
-          <Grid item xs={3}>
+          
+         <Grid item xs={3}>
+            <Form.Group  className="form-check">
+           
+            <Form.Check                     
+                      aria-label="option 1"
+                      label="Active"
+                      name="user_Active"
+                      id="user_Active"
+                      onChange={handleChecked}
+                    />
+            </Form.Group>
+          </Grid >
+        </Grid>
+
+        <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
+        <Grid item xs={3}>
             <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Extn </label>           
             <input  className="input-line-style" placeholder="XXXXXXXXXX" maxLength={10} id="user_Phone_Extn" name="user_Phone_Extn" onChange={handleChange} />
@@ -467,75 +495,8 @@ const handleSearchQuery = (serachValue) => {
             <InputMask mask="(999) 999-9999" className="input-line-style" placeholder="(XXX) XXX-XXXX" maxLength={15} id="user_Fax" name="user_Fax" onChange={handleChange} />
             </Form.Group>
           </Grid>
-        
-        </Grid>
-
-        <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
-          <Grid item xs={3}>
-          <Form.Group >
-                  <Form.Check
-                    aria-label="option 1"
-                    label="Change Password on Login"
-                    name="user_Change_Password"
-                    id="user_Change_Password"
-                    onChange={handleChecked}
-                  />
-          </Form.Group>
-           
-          </Grid>
-          <Grid item xs={3}>
-            <Form.Group  className="form-check">
-           
-            <Form.Check                     
-                      aria-label="option 1"
-                      label="Active"
-                      name="user_Active"
-                      id="user_Active"
-                      onChange={handleChecked}
-                    />
-            </Form.Group>
-          </Grid >
-          <Grid item xs={3}>
-          <Form.Group >
-                    <Form.Check
-                      className="ml"
-                      aria-label="option 1"
-                      label="Disaible"
-                      name="user_Activeuser_Temp_Disable"
-                      id="user_Activeuser_Temp_Disable"
-                      onChange={handleChecked}
-                    />
-                  </Form.Group>
-          </Grid>
-          <Grid item xs={3}>
-          <Form.Group controlId="user_Terminated">
-                    <Form.Check
-                    aria-label="option 1" 
-                    label="Terminated" 
-                    name="user_Terminated"
-                    id="user_Terminated"
-                    onChange={handleChecked}/>
-                  </Form.Group>
-          </Grid>        
-        </Grid>
-
-        <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
-        <Grid item xs={3}>
-          <Form.Group  className="form-date">
-                 <label>Terminated Date</label><br></br>
-                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                 <DatePicker format="MM/DD/YYYY" 
-                  name="user_Terminated_Date"
-                  id="user_Terminated_Date"
-                  onChange={handleDateChange}
-                 />                
-               </LocalizationProvider>
-                 
-                 {/* <span className="error">{errors.outletname}</span> */}
-               </Form.Group>
-          </Grid>
-
-          <Grid item xs={3}>
+          
+         <Grid item xs={3}>
           <Form.Group >
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Assign Roles </label>
             <Select
@@ -557,6 +518,24 @@ const handleSearchQuery = (serachValue) => {
          
           </Grid>
          
+          <Grid item xs={3}>
+          <Form.Group >
+                    <Form.Check
+                      className="ml"
+                      aria-label="option 1"
+                      label="Disaible"
+                      name="user_Activeuser_Temp_Disable"
+                      id="user_Activeuser_Temp_Disable"
+                      onChange={handleChecked}
+                    />
+                  </Form.Group>
+          </Grid>
+            
+        </Grid>
+
+        <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
+      
+          
           <Grid item xs={3}>
             <Form.Group>
             <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Entity</label>
@@ -589,6 +568,31 @@ const handleSearchQuery = (serachValue) => {
       />
             </Form.Group>
           </Grid>
+            <Grid item xs={3}>
+          <Form.Group  className="form-date">
+                 <label>Terminated Date</label><br></br>
+                 <LocalizationProvider dateAdapter={AdapterDayjs}>
+                 <DatePicker format="MM/DD/YYYY" 
+                  name="user_Terminated_Date"
+                  id="user_Terminated_Date"
+                  onChange={handleDateChange}
+                 />                
+               </LocalizationProvider>
+                 
+                 {/* <span className="error">{errors.outletname}</span> */}
+               </Form.Group>
+          </Grid>
+
+            <Grid item xs={3}>
+          <Form.Group controlId="user_Terminated">
+                    <Form.Check
+                    aria-label="option 1" 
+                    label="Terminated" 
+                    name="user_Terminated"
+                    id="user_Terminated"
+                    onChange={handleChecked}/>
+                  </Form.Group>
+          </Grid>    
         </Grid>
 
         <Grid container rowSpacing={10}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
