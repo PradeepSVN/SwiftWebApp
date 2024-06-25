@@ -331,7 +331,7 @@
   top: 100%;
   left: 0;
   background-color: #fff;
-  list-style: none;
+  list-style: block;
   padding: 0;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
   /* display: none; */
@@ -1049,4 +1049,7 @@ body{
 }
 .css-dx096b {
   padding: 16px !important;
+}
+.css-ikzkeu {
+  overflow: hidden !important;
 }

@@ -403,6 +403,7 @@ const handleSearchQuery = (serachValue) => {
   <nav>
     <a href="/">Home</a> /
     <a href="/">Administration</a> / 
+    <a href="/">User List</a> /
     &nbsp;<label> Single User Add</label> 
   </nav>
 </header>

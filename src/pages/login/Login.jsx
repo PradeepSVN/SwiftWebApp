@@ -224,7 +224,7 @@ const Login = () => {
               disabled={loading}
               sx={{  mt: 3, mb: 2, backgroundColor:'#084c81',textTransform:'none', fontWeight:'bold', fontSize:'15px'}}
             >
-              Log In
+              Login
             </Button>
             {/* <Grid container>
               <Grid item xs>
