@@ -151,69 +151,16 @@ const ProviderInfo = ({data}) => {
            <h3 className="page-title">Contact Info</h3>
            <Table>
             <TableBody sx={{border:'none'}}>
-            {/* <TableRow sx={{border:'none'}}>
-               <TableCell className="user-info-lable" sx={{border:'none'}}>Client Address Type</TableCell>
-               <TableCell className="user-info-value3" sx={{border:'none'}}>{providerInfo.provideR_CLIENT_ADDRESS_TYPE}</TableCell>
-             </TableRow> */}
+           
              <TableRow sx={{border:'none'}}>
                <TableCell className="user-info-lable" sx={{border:'none'}}><b>Primary:</b></TableCell>           
-               <TableCell className="user-info-value3" sx={{border:'none',overflow:'wrap'}}>{providerInfo.provideR_ADDRESS_1},{providerInfo.provideR_CITY},{providerInfo.provideR_STATE}-{providerInfo.provideR_ZIP} (p) {providerInfo.provideR_PHONE} (f) {providerInfo.provideR_FAX}</TableCell>     
+               <TableCell className="user-info-value3" sx={{border:'none',overflow:'wrap'}}>{providerInfo.provideR_ADDRESS_1},{providerInfo.provideR_CITY},{providerInfo.provideR_STATE}-{providerInfo.provideR_ZIP}, (p) {providerInfo.provideR_PHONE} ,(f) {providerInfo.provideR_FAX}</TableCell>     
              </TableRow>
              <TableRow sx={{border:'none'}}>
                <TableCell className="user-info-lable" sx={{border:'none'}}><b>Secondary:</b></TableCell>           
-               <TableCell className="user-info-value3" sx={{border:'none',overflow:'wrap'}}>{providerInfo.provideR_ADDRESS_2},{providerInfo.provideR_CITY},{providerInfo.provideR_STATE}-{providerInfo.provideR_ZIP} (p) {providerInfo.provideR_PHONE} (f) {providerInfo.provideR_FAX}</TableCell>     
+               <TableCell className="user-info-value3" sx={{border:'none',overflow:'wrap'}}>{providerInfo.provideR_ADDRESS_2}</TableCell>     
              </TableRow>
-            {/* <TableRow sx={{border:'none'}}>
-               <TableCell className="user-info-lable" sx={{border:'none'}}>Address Line1</TableCell>
-               <TableCell className="user-info-value3" sx={{border:'none',overflow:'wrap'}}>{providerInfo.provideR_ADDRESS_1}</TableCell>
-             </TableRow>
-             <TableRow>
-             <TableCell className="user-info-lable" sx={{border:'none'}}>City</TableCell>
-               <TableCell className="user-info-value3" sx={{border:'none'}}>{providerInfo.provideR_CITY}</TableCell>
-             </TableRow>
-             <TableRow>
-             <TableCell className="user-info-lable" sx={{border:'none'}}>State</TableCell>
-               <TableCell className="user-info-value3" sx={{border:'none'}}>{providerInfo.provideR_STATE}</TableCell>
-             </TableRow>  
-             <TableRow>  
-             <TableCell className="user-info-lable" sx={{border:'none'}}>Phone</TableCell>
-               <TableCell className="user-info-value3" sx={{border:'none'}}>{providerInfo.provideR_PHONE}</TableCell>
-             </TableRow>
-             <TableRow>  
-             <TableCell className="user-info-lable" sx={{border:'none'}}>Fax</TableCell>
-               <TableCell className="user-info-value3" sx={{border:'none'}}>{providerInfo.provideR_FAX}</TableCell>
-             </TableRow>
-             <TableRow>  
-             <TableCell className="user-info-lable" sx={{border:'none'}}>Zip</TableCell>
-               <TableCell className="user-info-value3" sx={{border:'none'}}>{providerInfo.provideR_ZIP}</TableCell>
-             </TableRow>
-             <TableRow sx={{border:'none'}}>
-               <TableCell className="user-info-lable" sx={{border:'none'}}><b>Secondary:</b></TableCell>                
-             </TableRow> 
-            <TableRow sx={{border:'none'}}>
-               <TableCell className="user-info-lable" sx={{border:'none'}}>Address Line2</TableCell>
-               <TableCell className="user-info-value3" sx={{border:'none',overflow:'wrap'}}>{providerInfo.provideR_ADDRESS_2}</TableCell>
-             </TableRow>
-             <TableRow>
-             <TableCell className="user-info-lable" sx={{border:'none'}}>City</TableCell>
-               <TableCell className="user-info-value3" sx={{border:'none'}}>{providerInfo.provideR_CITY}</TableCell>
-             </TableRow>
-             <TableRow>
-             <TableCell className="user-info-lable" sx={{border:'none'}}>State</TableCell>
-               <TableCell className="user-info-value3" sx={{border:'none'}}>{providerInfo.provideR_STATE}</TableCell>
-             </TableRow>  
-             <TableRow>  
-             <TableCell className="user-info-lable" sx={{border:'none'}}>Phone</TableCell>
-               <TableCell className="user-info-value3" sx={{border:'none'}}>{providerInfo.provideR_PHONE}</TableCell>
-             </TableRow>
-             <TableRow>  
-             <TableCell className="user-info-lable" sx={{border:'none'}}>Fax</TableCell>
-               <TableCell className="user-info-value3" sx={{border:'none'}}>{providerInfo.provideR_FAX}</TableCell>
-             </TableRow>
-             <TableRow>  
-             <TableCell className="user-info-lable" sx={{border:'none'}}>Zip</TableCell>
-               <TableCell className="user-info-value3" sx={{border:'none'}}>{providerInfo.provideR_ZIP}</TableCell>
-             </TableRow>   */}        
+               
             </TableBody>
            </Table>
            </Box>

@@ -13,7 +13,8 @@ import { LocalStorageKey } from "../../utils/constants";
 import {Checkbox} from '@mui/material'
 import {showToast,ToastMessageType} from '../../utils/toastMessage';
 import { ToastContainer, toast } from "react-toastify";
-
+import Grid from '@mui/material/Grid';
+import "bootstrap/dist/css/bootstrap.min.css"
 
 
 
@@ -60,10 +61,23 @@ const Roles = () => {
   const handleClick = (event) => {
     event.preventDefault();
     setFormError("");
+    console.log(payload.role_Name);
+    
     if(isEmptyObject(payload))
       {
+        
         setFormError("Please fill the required fields");
       }
+      if(payload.role_ID=="")
+        {
+          showToast("Enter role id", ToastMessageType.Error);   
+          return true;
+        }
+        if(payload.role_Name=="")
+          {
+            showToast("Enter role name ", ToastMessageType.Error);   
+            return true;
+          }
     addUserRole();
     //localStorage.setItem("token", "23rasdfqwrwqerwqaerfq")
     //navigate("/")
@@ -129,52 +143,42 @@ const Roles = () => {
   </nav>
 </header>
        {formError && (<div className="error-message">{formError}</div>)}  
-      <Container className="px-4 py-3 my-2 center">
+      <Container className=" ">
         {/* <h2 className="text-center p-3" >Add Role</h2> */}
         <div className="text-center">
           {/* <span className="error">{isDuplicate?'Email ID already exists to some other user.':''}</span> */}
         </div>
         <div></div>
-        <Form ref={formRef}>
-          <div className="col-md-5 offset-md-2">
-            <div className="col-md-12">
-              <Form.Group >
-                <Form.Label>
-                 Role ID <span className="error">*</span>
-                </Form.Label>
-                <Form.Control
-                  className="w-50 text-uppercase"
-                  type="text"
-                  maxLength={2}                  
-                 // value={formData.RoleID}
-                  onChange={handleChange}
-                  id="role_ID"
-                  name="role_ID"
-                  
-                />
+        <Form ref={formRef} style={{ marginTop:'20px'}}>
+        <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
+          <div className="col-md-10">
+            <div className="row">
+            <div className="col-md-4">
+              <Form.Group  >               
+              <Form.Label>
+                  Role Id <span className="error">*</span>
+                </Form.Label>       
+                 {/* <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Role ID <span className="error">*</span></label>  */}
+                <input  className="input-line-style uppercase-input" maxLength={2}  placeholder="Enter Role ID" type="text" name="role_ID" id="role_ID" onChange={handleChange} />
                 {/* <span className="error">{errors.name}</span> */}
                 <Form.Control.Feedback type="invalid">
                   Please provide a valid role id.
                 </Form.Control.Feedback>
               </Form.Group>
-
+              </div>
+              <div className="col-md-4">
               <Form.Group >
                 <Form.Label>
                   Role Name <span className="error">*</span>
-                </Form.Label>
-                <Form.Control
-                  type="text"
-                  className="uppercase-input"
-                  //value={formData.RoleName}
-                  onChange={handleChange}
-                  id="role_Name"
-                  name="role_Name"
-                />
+                </Form.Label>                
+                 <input  className="input-line-style uppercase-input"   placeholder="Enter Role Name" type="text" name="role_Name" id="role_Name" onChange={handleChange} />
                 {/* <span className="error">{errors.outletname}</span> */}
                 <Form.Control.Feedback type="invalid">
                   Please provide a valid Role Name.
                 </Form.Control.Feedback>
               </Form.Group>
+              </div>
+              <div className="col-md-4">
               <Form.Group >
                 <Form.Check
                   className="ml1"
@@ -185,10 +189,13 @@ const Roles = () => {
                   onChange={handleChecked}
                 />
               </Form.Group>
+              </div>
             </div>
-          </div>
+            <br></br>
           <br></br>
-          <div className="col-md-10 offset-md-1">
+          </div>
+          
+          <div className="col-md-10">
             <Table striped bordered hover>
               <thead>
                 <tr>
@@ -365,15 +372,21 @@ const Roles = () => {
               </tbody>
             </Table>
             <br></br>
-            <Button className="my-3" type="button" onClick={handleClick}  disabled={loading}>
+            <Grid container rowSpacing={10}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5} >
+            <Grid item xs={12} className="grid-container" >
+            <Button className="login-btn" style={{  mt: 3, mb: 2, backgroundColor:'#084c81',textTransform:'none',color:'white', fontWeight:'bold', fontSize:'15px', width:'30%'}} type="button" onClick={handleClick}  disabled={loading}>
             {loading ? (
                 <Spinner animation="border" role="status" size="sm">          
                 </Spinner>
               ):null}
               Create Role
             </Button>
+            </Grid>
+          </Grid>
           </div>
           <ToastContainer/>
+          
+          </Grid>
         </Form>
        
       </Container>
