@@ -29,7 +29,7 @@ import dayjs from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import InputMask from 'react-input-mask';
 
-const AddUser = () => {
+const AddUser = ({changeNavLinkPath}) => {
   const [payload, setPayload] = useState(addUserAPIRequestData)
   const [userRoles, setUserRoles] = useState([]);
   const [roleSelectedValue, setRoleSelectedValue] = useState(null);
@@ -379,9 +379,11 @@ const handleSearchQuery = (serachValue) => {
           {
             showToast(APIMESSAGES.USERCREATRED,ToastMessageType.Success);
             setTimeout(()=>{
-              window.location.reload(false);
+              changeNavLinkPath("UserMaintenance");
+              //window.location.reload(false);
               }, 1000);
                 formRef.current.reset();
+                
           }
       }
       else
