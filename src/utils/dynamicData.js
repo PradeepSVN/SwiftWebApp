@@ -5,7 +5,7 @@ export const DynamicHeader =(roleData) => {
    let subMenuItems = [];
    let button =  { type:'button', path: '', title: '', isActive:true };
 
-   let adminDropdown = { type:'NestedMenu', path: 'Administration', title: 'Admin', isActive:false, isMenu:false, menuItems: menuItems };
+   let adminDropdown = { type:'NestedMenu', path: 'Admin', title: 'Admin', isActive:false, isMenu:false, menuItems: menuItems };
     menuItems = [];
     let adminSubMenuItems = [];
     adminSubMenuItems.push({name:'User List',path: 'UserMaintenance',isSubmenu:true})
@@ -18,7 +18,7 @@ export const DynamicHeader =(roleData) => {
    
    if(roleData["memb_View"] || roleData["memb_Submit"] || roleData["memb_Reports"])
     {
-        let membershipDropdown = { type:'DropdownButton', path: 'Membership', title: '', isActive:false, isMenu:true, menuItems: menuItems };
+        let membershipDropdown = { type:'DropdownButton', path: 'Membership', title: 'Membership', isActive:false, isMenu:true, menuItems: menuItems };
         membershipDropdown.title = "Membership";
         membershipDropdown.path = "Membership";
         menuItems = [];
@@ -64,7 +64,7 @@ export const DynamicHeader =(roleData) => {
             header.push(providerDropdown); 
         }
 
-        let authDropdown = { type:'NestedMenu', path: 'UtilizationManagement', title: 'Utilization', isActive:false,isMenu:false, menuItems: [] };
+        let authDropdown = { type:'NestedMenu', path: 'Utilization', title: 'Utilization', isActive:false,isMenu:false, menuItems: [] };
         header.push(authDropdown); 
    /* if(roleData["auth_View"] || roleData["auth_Submit"] || roleData["auth_Reports"] || roleData["prov_View"] || roleData["prov_Submit"] || roleData["prov_Reports"])
         {
@@ -118,7 +118,7 @@ export const DynamicHeader =(roleData) => {
 
     if(roleData["claim_View"] || roleData["claim_Submit"] || roleData["claim_Reports"])
         {
-            let claimDropdown = { type:'DropdownButton', path: 'Claims', title: '', isActive:false,isMenu:true, menuItems: menuItems };
+            let claimDropdown = { type:'DropdownButton', path: 'Claim', title: '', isActive:false,isMenu:true, menuItems: menuItems };
             claimDropdown.title = "Claim";
             claimDropdown.path = "Claims";
             menuItems = [];

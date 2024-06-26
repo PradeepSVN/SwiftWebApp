@@ -10,6 +10,10 @@ import TableRow from '@mui/material/TableRow';
 import GlobalStyles from '../theme/GlobalStyles';
 import {useEffect} from 'react'
 import '../styles/table.css';
+import EnhancedTableHead from './EnhancedTableHead'
+import {stableSort,getComparator} from './EnhancedTableHead'
+
+
 
 
 const tableStyle = {
@@ -35,16 +39,16 @@ const Column = {
 }
 
 const columns = [
-  { id: 'entity', label: 'Entity', minWidth: 170 },
-  { id: 'insurance', label: 'Insurance', minWidth: 170 },
-  { id: 'optioncid', label: 'Option', minWidth: 150 },
-  { id: 'effective', label: 'Effective', minWidth: 130 },
-  { id: 'term', label: 'Term', minWidth: 130 },
-  { id: 'pcp', label: 'PCP', minWidth: 170 },
-  { id: 'memberid', label: 'Member ID', minWidth: 170 },  
-  { id: 'firstname', label: 'First Name', minWidth: 170 },  
-  { id: 'lastname', label: 'Last Name', minWidth: 170 },  
-  { id: 'dob', label: 'DOB', minWidth: 130 },  
+  { id: 'entity', label: 'Entity',orderBy:'asc', minWidth: 170 },
+  { id: 'insurance', label: 'Insurance',orderBy:'asc', minWidth: 170 },
+  { id: 'optioncid', label: 'Option',orderBy:'asc', minWidth: 150 },
+  { id: 'effective', label: 'Effective', orderBy:'asc',minWidth: 130 },
+  { id: 'term', label: 'Term',orderBy:'asc', minWidth: 130 },
+  { id: 'pcp', label: 'PCP',orderBy:'asc', minWidth: 170 },
+  { id: 'memberid',orderBy:'asc', label: 'Member ID', minWidth: 170 },  
+  { id: 'firstname',orderBy:'asc', label: 'First Name', minWidth: 170 },  
+  { id: 'lastname',orderBy:'asc', label: 'Last Name', minWidth: 170 },  
+  { id: 'dob',orderBy:'asc', label: 'DOB', minWidth: 130 },  
 ];
 
 
@@ -54,7 +58,10 @@ export default function StickyHeadTable({tableData,handleMemberInfo,handlePagina
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [totalCount, setTotalCount] = React.useState(2000);
   const [loading, setLoading] = React.useState(false);
- // const [rows, setRows] = React.useState([]);
+  const [order, setOrder] = React.useState('asc');  //asc
+  const [orderBy, setOrderBy] = React.useState('id');
+
+  // const [rows, setRows] = React.useState([]);
 
   useEffect(() => {
     console.log("==member table useEffect=",tableData.rows);
@@ -84,6 +91,23 @@ export default function StickyHeadTable({tableData,handleMemberInfo,handlePagina
     setPage(0);
   };
 
+  const handleRequestSort = (event, property) => {
+    console.log("===handleRequestSort=property==",property);
+    console.log("===handleRequestSort=order==",order);
+    setOrderBy(property);
+    columns.map((item) => 
+      { 
+        if(item.id == property)
+          {
+            item.orderBy = item.orderBy == 'asc'?'desc':'asc';
+            setOrder(item.orderBy);
+            console.log("===item.orderBy==",item.orderBy);
+          }
+
+      });  
+    
+  };
+
   const handleRowChange = (event, row) => {
     console.log("=====handleRowChange======",row)
     handleMemberInfo(row);
@@ -99,7 +123,7 @@ export default function StickyHeadTable({tableData,handleMemberInfo,handlePagina
       <TableContainer sx={{ maxHeight: 740 }}>
         <Table stickyHeader aria-label="sticky table" className='customTable'
         style={{width:'99%', marginRight:'5px', justifyContent:'center',alignContent:'center',alignItems:'center'}}>
-          <TableHead>
+          {/* <TableHead>
             <TableRow className='table-header'>
               {columns.map((column) => (
                 <TableCell className='table-th'
@@ -111,11 +135,23 @@ export default function StickyHeadTable({tableData,handleMemberInfo,handlePagina
                 </TableCell>
               ))}
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {tableData.rows && tableData.rows.length >0? tableData.rows.map((row) => 
+          </TableHead> */}
+           <EnhancedTableHead
+          headCells={columns}
+          order={order}
+          orderBy={orderBy}
+          onRequestSort={handleRequestSort}
+          
+        />
+          <TableBody>         
+
+            <TableRow style={{height:'10px'}} >
+
+            </TableRow>
+            {tableData.rows && tableData.rows.length >0? stableSort(tableData.rows, getComparator(order, orderBy)).map((row,index) => 
               {
-                return (
+                return (<>            
+                  <TableRow style={{height:'10px'}}></TableRow>
                   <TableRow role="checkbox" tabIndex={-1} key={row.user_ID} className='table-row' onClick={(event) => handleRowChange(event, row)} >
                     {columns.map((column) => {
                       const value = row[column.id];
@@ -128,6 +164,7 @@ export default function StickyHeadTable({tableData,handleMemberInfo,handlePagina
                       );
                     })}
                   </TableRow>
+                  </> 
                 );
 
               }):null}

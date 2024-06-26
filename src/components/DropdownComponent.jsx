@@ -33,6 +33,7 @@ const Dropdown = ({ data,changeNavLinkPath,handleIsActiveNavigation }) => {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}  
+        isActive={data.isActive}
         //onMouseEnter={handleClick}     
         className={`p-2 link-btn ${data.isActive && data.path !="Logout" ? 'link-btn-Focus' : ''}`}
         sx={{ my: 2,  display: 'block', textTransform:'none', fontSize:'18px',marginRight:'45px',whiteSpace:'nowrap',overflow:'hidden'  }}
