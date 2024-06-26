@@ -9,8 +9,9 @@ import {isObject} from '../../utils/utils';
 import moment from 'moment';
 import { useNavigate } from "react-router-dom"
 import Link from '@mui/material/Link';
-
-
+import { useReactToPrint } from "react-to-print";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import PrintIcon from '@material-ui/icons/Print';
 
 const UserInfo = ({data,changeNavLinkPath}) => {
   const [APIRes, setAPIRes] = useState({})
@@ -80,6 +81,10 @@ const UserInfo = ({data,changeNavLinkPath}) => {
     //handleNavigation({path:"EditUser",data:data});
     changeNavLinkPath({path:"EditUser",data:data});
   }
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   return (
     <>
@@ -88,7 +93,7 @@ const UserInfo = ({data,changeNavLinkPath}) => {
       <GlobalStyles />
         {/* <h2 className="text-center p-3" >Add Single User</h2> */}
         <header>
-      <h1 className="page-title1"> User View</h1>
+      <h1 className="page-title1"> User View</h1> 
       <nav>
         <a href="/">Home</a> /
         <a href="/">Administration</a> /
@@ -97,9 +102,9 @@ const UserInfo = ({data,changeNavLinkPath}) => {
         &nbsp;<label> User View</label>
       </nav>
     </header>
-        <div  style={{paddingLeft: '103px',paddingRight: '150px',paddingTop: '33px'}}>
+        <div  style={{paddingLeft: '103px',paddingRight: '150px',paddingTop: '33px'}} ref={componentRef}> 
        
-        <h4 className="page-title">User Info</h4>
+        <h4 className="page-title">User Info</h4> 
         {/* <Form  ref={formRef} style={{marginTop:'65px'}}> */}
         <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 6 }} paddingBottom={5}>
           <Grid item xs={8}>
@@ -216,7 +221,11 @@ const UserInfo = ({data,changeNavLinkPath}) => {
          <div style={{display: 'flex', justifyContent: 'flex-end'}}>
          <a >
          <Link  variant="link" style={{fontSize:'x-large'}}  onClick={handleClick} >Edit</Link >
+         </a>&nbsp; &nbsp;
+         <a >
+         <Link  variant="link" style={{fontSize:'x-large'}}  onClick={handlePrint} >Print</Link >
          </a>
+         {/* <button onClick={handlePrint}>Print </button> */}
       </div>
       </Grid>
             
