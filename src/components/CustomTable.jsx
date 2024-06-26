@@ -37,14 +37,14 @@ const Column = {
 }
 
 const columns = [
-  { id: 'user_UserName', label: 'User Name',numeric: false, disablePadding: true, minWidth: 170 },
-  { id: 'user_First_Name', label: 'First Name',numeric: false, disablePadding: true, minWidth: 170 },
-  { id: 'user_Last_Name', label: 'Last Name',numeric: false, disablePadding: true, minWidth: 170 },
-  { id: 'role_Name', label: 'Role Name',numeric: false, disablePadding: true, minWidth: 170 },
-  { id: 'user_Title', label: 'Title',numeric: false, disablePadding: true, minWidth: 170 },
-  { id: 'user_Email', label: 'Email',numeric: false, disablePadding: true, minWidth: 170 },
-  { id: 'user_Phone', label: 'Phone',numeric: false, disablePadding: true, minWidth: 170 }, 
-  { id: 'user_Active', label: 'Active',numeric: false, disablePadding: true, minWidth: 170 },  
+  { id: 'user_First_Name', label: 'First Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+  { id: 'user_Last_Name', label: 'Last Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+  { id: 'user_Title', label: 'Title',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+  { id: 'user_Email', label: 'Email',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+  { id: 'user_Phone', label: 'Phone',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+  { id: 'user_UserName', label: 'User Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+  { id: 'user_Active', label: 'Active',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+
 ];
 
 const headCells = [
@@ -91,8 +91,10 @@ export default function StickyHeadTable({tableData,handleUserInfo,handlePaginati
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [loading, setLoading] = React.useState(false);
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('name');
+  const [order, setOrder] = React.useState('asc');  //asc
+  const [orderBy, setOrderBy] = React.useState('id');
+  //cosnt [orderByList, setOrderByList] = React.useState()
+  const [firstTimeOrderBy, setFirstTimeOrderBy] = React.useState(true);
  // const [rows, setRows] = React.useState([]);
 
   useEffect(() => {
@@ -124,9 +126,33 @@ export default function StickyHeadTable({tableData,handleUserInfo,handlePaginati
   };
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    console.log("===handleRequestSort=property==",property);
+    console.log("===handleRequestSort=order==",order);
     setOrderBy(property);
+    columns.map((item) => 
+      { 
+        if(item.id == property)
+          {
+            item.orderBy = item.orderBy == 'asc'?'desc':'asc';
+            setOrder(item.orderBy);
+            console.log("===item.orderBy==",item.orderBy);
+          }
+
+      });
+   
+    /*const isAsc = orderBy === property && order === 'asc';
+    if(firstTimeOrderBy)
+    {
+      setOrder('desc');//isAsc ? 'desc' : 'asc');
+      setFirstTimeOrderBy(false);
+    }
+    else
+    {
+        setOrder(isAsc ? 'desc' : 'asc');
+    }
+   
+    console.log("===handleRequestSort=isAsc==",isAsc);
+    setOrderBy(property);*/
   };
 
   const handleRowChange = (event, row) => {
@@ -164,6 +190,7 @@ export default function StickyHeadTable({tableData,handleUserInfo,handlePaginati
           order={order}
           orderBy={orderBy}
           onRequestSort={handleRequestSort}
+          
         />
           <TableBody>
           {/* {stableSort(rows, getComparator(order, orderBy)).map((row, index) => (

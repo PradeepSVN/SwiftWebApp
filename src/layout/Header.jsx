@@ -89,14 +89,15 @@ function Header({ navLinks,changeNavLinkPath }) {
     const navigate = useNavigate ();
   
     const handleNavigation = (path) => { 
-     
-      console.log(`path: ${path}`); 
+      console.log(`----handleNavigation-----path: ${path}`); 
+      console.log("navLinks=",navLinks); 
       if(path)
         {
           navLinks.map((link) => {
             link.isActive = false;
             if(link.path == path)
               {
+                console.log(`----link.path: ${path}`); 
                 link.isActive = true;
               }            
           })
