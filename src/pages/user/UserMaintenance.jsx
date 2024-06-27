@@ -30,7 +30,18 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
   const [roleSelectedValue, setRoleSelectedValue] = useState(null);
   const [contextData, setContextData] = useState({});
   const pageContext = createContext({}); // Default value
-  const [tableData, setTableData] = useState({rows:[],totalCount:0,page:0,size:10});
+  const [tableData, setTableData] = useState({columns:[],rows:[],totalCount:0,page:0,size:10});
+
+  const columns = [
+    { id: 'user_First_Name', label: 'First Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+    { id: 'user_Last_Name', label: 'Last Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+    { id: 'user_Title', label: 'Title',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+    { id: 'user_Email', label: 'Email',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+    { id: 'user_Phone', label: 'Phone',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+    { id: 'user_UserName', label: 'User Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+    { id: 'user_Active', label: 'Active',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+  
+  ];
 
   const customStyles = {
     control: (styles) => ({
@@ -101,7 +112,7 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
   
     //clearTimeout(timer);
     console.log("======addUserRole==Start=====");
-    const res = await getData(APIS.GETUSERLIST);
+    const res = await postData(APIS.GETALLUSERDETAILSBYSEARCH,payload);
     console.log("======res=======",res);
     if(res &&  isObject(res.data) && res.data.statusCode == 200)
       {
@@ -112,6 +123,7 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
         setTableData((_payload) => ({ ..._payload, ["rows"]: res.data.result }));
         setTableData((_payload) => ({ ..._payload, ["page"]: payload.page }))
         setTableData((_payload) => ({ ..._payload, ["size"]: payload.size }))
+        setTableData((_payload) => ({ ..._payload, ["columns"]: columns }))
         if(res.data.result.length > 0)
           {          
             setTableData((_payload) => ({ ..._payload, ["totalCount"]: res.data.result.length }))
@@ -148,7 +160,7 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
     console.log("==handlePagination=",pagenation);
     setSearchPayload((_payload) => ({ ..._payload, ["page"]: pagenation.page }))
     setSearchPayload((_payload) => ({ ..._payload, ["size"]: pagenation.pageSize }))
-    getFilteredUserList(pagenation.page,pagenation.pageSize);
+    getUserList(pagenation.page,pagenation.pageSize);
   }
 
   const handleRoleSelectOptions = (newValue) => {
@@ -190,40 +202,12 @@ const handleChange = (e) => {
 const handleClick = (event) => {
   event.preventDefault();
   
-  getFilteredUserList();
+  getUserList(tableData.page,tableData.size);
   //localStorage.setItem("token", "23rasdfqwrwqerwqaerfq")
   //navigate("/")
 }
 
-const getFilteredUserList = async () => {
-  setLoading(true);
-  //clearTimeout(timer);
-  console.log("======addUserRole==Start=====");
-  const res = await postData(APIS.GETALLUSERDETAILSBYSEARCH,searchPayload);
-  console.log("======res=======",res);
-  if(res &&  isObject(res.data) && res.data.statusCode == 200)
-    {
-      setLoading(false);    
-      setUserList(res.data.result);  
-      setTableData((_payload) => ({ ..._payload, ["rows"]: res.data.result }));
-      setTableData((_payload) => ({ ..._payload, ["page"]: _payload.page }))
-      setTableData((_payload) => ({ ..._payload, ["size"]: _payload.size }))
-      if(res.data.result.length > 0)
-        {          
-          setTableData((_payload) => ({ ..._payload, ["totalCount"]: res.data.result[0].totalCount?res.data.result[0].totalCount:res.data.result.length }))
-        }
-      apiResponse = res.data.result;
-      console.log("====API Res Userlist====",apiResponse);
-      //let options = [];
-      //res.data.result.forEach((item) => (options.push({label: item.role_Name,value:item.role_UID })));
-      //setRoleOptions(options);    
-    }
-    else
-    {
-      setLoading(false);      
-    }
- 
-}
+
 
   return (
     <>
