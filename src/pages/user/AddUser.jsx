@@ -327,6 +327,19 @@ const handleSearchQuery = (serachValue) => {
             showToast("user_Last_Name enter atleast 2 characters", ToastMessageType.Error);            
             return true;
           }
+          if(key=="user_Phone" && payload[key].replace('_', '').length<10)
+            {
+              console.log("==item==",payload[key].replace('_', '').length);   
+              console.log("==item==",item[key]);   
+              showToast("user_Phone enter 10 digits", ToastMessageType.Error);            
+              return true;
+            }
+            if(key=="user_Fax" && payload[key].replace('_', '').length<10)
+              {
+                console.log("==item==",item[key]);   
+                showToast("user_Fax enter 10 digits", ToastMessageType.Error);            
+                return true;
+              }
       });
       //setFormError(errors + fields);
       return false;
