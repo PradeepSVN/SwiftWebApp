@@ -87,7 +87,11 @@ export const apiRequestData = {
       user_Prac_Admin: "",
       user_Active: "",
       user_Entities: "",
-      user_Tins: ""
+      user_Tins: "",
+      order:"",
+      sortColumn:"",
+      page:0,
+      size:10
     
   }
 

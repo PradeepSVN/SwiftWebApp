@@ -48,6 +48,7 @@ const EditUser = ({data,changeNavLinkPath}) => {
   const [isFirstTimeLoadPage, setIsFirstTimeLoadPage] = useState(true);
   const formRef = useRef(null);
   const navigate = useNavigate();
+  const phoneRegex = /^\(\d{3}\) \d{3}-\d{4}$/;
 
   const CustomTextField = styled.input`
   border: none;
@@ -381,29 +382,58 @@ const handleSearchQuery = (serachValue) => {
   }
 
   const hasRequiredKeys = () => {
+    let status = false;
     setFormError("");
     let errors = "Please fill the fields "
     let fields = "";
-    const requiredKeys = ['user_UserName', 'user_First_Name', 'user_Last_Name', 'user_Title', 'role_UID']; // Replace with your required keys
+    const optionalKeys = ['user_Fax','role_UID']; // Replace with your required keys
     addUserRequiredData.find(item => 
       {  
         let key = Object.keys(item)[0];
           
-        if(payload[key] == "" || payload[key] == null || payload[key] == undefined)
-          {
-            console.log("==item==",item[key]);   
-            showToast(item[key], ToastMessageType.Error);            
+        if(!optionalKeys.includes(key) &&  payload[key] == "" || payload[key] == null || payload[key] == undefined)
+          {  
+            console.log("=optionalKeys=item==",item[key]);   
+            showToast(item[key], ToastMessageType.Error);
+            formRef.current[key].focus();             
+            status = true;
             return true;
             //fields =fields+", "+key.replace("user_","");
           }
+        else if(key=="user_Last_Name" && payload[key].length<2)
+          {
+            console.log("=user_Last_Name=item==",item[key]);   
+            formRef.current[key].focus(); 
+            showToast("user_Last_Name enter atleast 2 characters", ToastMessageType.Error);            
+            status = true;
+            return true;
+          }
+          else if (key=="user_Phone" && !phoneRegex.test(payload[key])) {
+            console.log("=user_Phone=item==",item[key]);   
+            showToast("Please enter valid phone number.", ToastMessageType.Error);  
+            formRef.current[key].focus();          
+            status = true;
+            return true;
+          }        
+
+          else if (key=="user_Fax" && payload[key] != "" && !phoneRegex.test(payload[key])) {
+            console.log("=user_Fax=item==",item[key]);   
+            showToast("Please enter valid fax number.", ToastMessageType.Error);  
+            formRef.current[key].focus();          
+            status = true;
+            return true;
+          }
+         
       });
       //setFormError(errors + fields);
-      return false;
+
+      return status;
   };
 
   const editUser = async () => {       
     console.log("entity selected options=",entitySelectedOptions);
     console.log("tin selected options=",tinSelectedOptions);
+      
     if(hasRequiredKeys())
       {
        return;
