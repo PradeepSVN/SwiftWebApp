@@ -48,7 +48,7 @@ const columns = [
   { id: 'memberid',orderBy:'asc', label: 'Member ID', minWidth: 170 },  
   { id: 'firstname',orderBy:'asc', label: 'First Name', minWidth: 170 },  
   { id: 'lastname',orderBy:'asc', label: 'Last Name', minWidth: 170 },  
-  { id: 'dob',orderBy:'asc', label: 'DOB', minWidth: 130 },  
+  { id: 'dob',orderBy:'asc', label: 'DOB', minWidth: 200 },  
 ];
 
 
@@ -120,8 +120,9 @@ export default function StickyHeadTable({tableData,handleMemberInfo,handlePagina
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden', marginTop:'140px' }}>
       <GlobalStyles />
-      <TableContainer sx={{ maxHeight: 740 }}>
-        <Table stickyHeader aria-label="sticky table" className='customTable'
+      {/* <TableContainer sx={{ maxHeight: 740 }}> */}
+      <TableContainer >
+      <Table stickyHeader aria-label="sticky table" className='customTable'
         style={{width:'99%', marginRight:'5px', justifyContent:'center',alignContent:'center',alignItems:'center'}}>
           {/* <TableHead>
             <TableRow className='table-header'>
@@ -152,7 +153,7 @@ export default function StickyHeadTable({tableData,handleMemberInfo,handlePagina
               {
                 return (<>            
                   <TableRow style={{height:'10px'}}></TableRow>
-                  <TableRow role="checkbox" tabIndex={-1} key={row.user_ID} className='table-row' onClick={(event) => handleRowChange(event, row)} >
+                  <TableRow style={{height: '60px !important'}} role="checkbox" tabIndex={-1} key={row.user_ID} className='table-row1' onClick={(event) => handleRowChange(event, row)} >
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (

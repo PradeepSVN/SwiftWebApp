@@ -41,13 +41,14 @@ const Column = {
 }
 
 const columns = [
-  { id: 'user_First_Name', label: 'First Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
-  { id: 'user_Last_Name', label: 'Last Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
-  { id: 'user_Title', label: 'Title',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
-  { id: 'user_Email', label: 'Email',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
-  { id: 'user_Phone', label: 'Phone',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
-  { id: 'user_UserName', label: 'User Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
-  { id: 'user_Active', label: 'Active',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+  { id: 'user_UserName', label: 'User Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 230 },
+  { id: 'user_First_Name', label: 'First Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 220 },
+  { id: 'user_Last_Name', label: 'Last Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 200},
+  { id: 'user_Title', label: 'Title',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 200 },
+  { id: 'user_Email', label: 'Email',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 230 },
+  { id: 'user_Phone', label: 'Phone',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 200 },
+  { id: 'role_Name', label: 'Role Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 200 },
+  { id: 'user_Active', label: 'Active',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 200 },
 
 ];
 
@@ -233,12 +234,12 @@ const downloadPDF = async () => {
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden', marginTop:'71px' }}>
       <GlobalStyles />
-      <TableContainer sx={{ maxHeight: 740 }}  variant={'solid'}>
-      {/* <Button variant="contained" color="primary" onClick={downloadPDF}>
-        Download as PDF
-      </Button> */}
-        <Table  id="user-table" stickyHeader aria-label="sticky table" className='customTable'
-        style={{ width:'99%', marginRight:'5px', justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+
+      {/* <TableContainer sx={{ maxHeight: 740 }}  variant={'solid'}> */}
+      <TableContainer >
+        <Table stickyHeader aria-label="sticky table" className='customTable'
+        style={{width:'99%', marginRight:'5px', justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+
        
           {/* <TableHead>
             <TableRow className='table-header'
@@ -280,7 +281,7 @@ const downloadPDF = async () => {
               {
                 return (<>            
                   <TableRow style={{height:'10px'}}></TableRow>
-                   <TableRow role="checkbox" tabIndex={-1} key={row.user_ID} className='table-row' onClick={(event) => handleRowChange(event, row)} 
+                   <TableRow style={{height: '60px !important'}} role="checkbox" tabIndex={-1} key={row.user_ID} className='table-row1' onClick={(event) => handleRowChange(event, row)} 
                      >
                     {columns.map((column) => {
                       const value = row[column.id];

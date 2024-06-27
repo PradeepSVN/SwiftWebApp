@@ -354,7 +354,7 @@ const handleSearchQuery = (serachValue) => {
 
       return status;
   };
-
+  
   const addUser = async () => {
     
     console.log("entity selected options=",entitySelectedOptions);
