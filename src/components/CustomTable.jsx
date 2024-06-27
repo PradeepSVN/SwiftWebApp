@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useRef } from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,12 +8,16 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel'
+import Button from '@mui/material/Button'
 import GlobalStyles from '../theme/GlobalStyles';
 import {useEffect} from 'react'
 import '../styles/table.css';
 import EnhancedTableHead from './EnhancedTableHead'
 import {stableSort,getComparator} from './EnhancedTableHead'
-
+import jsPDF from 'jspdf';
+import * as jsPDFAutoTable from 'jspdf-autotable';
+import html2canvas from 'html2canvas';
+import {generatePdfTable} from './GeneratePdfTable'
 
 
 const tableStyle = {
@@ -95,7 +99,9 @@ export default function StickyHeadTable({tableData,handleUserInfo,handlePaginati
   const [orderBy, setOrderBy] = React.useState('id');
   //cosnt [orderByList, setOrderByList] = React.useState()
   const [firstTimeOrderBy, setFirstTimeOrderBy] = React.useState(true);
+  const [dynamicTable, setDynamicTable] = React.useState(generatePdfTable(tableData))
  // const [rows, setRows] = React.useState([]);
+ const contentRef = useRef();
 
   useEffect(() => {
     console.log("==customtable useEffect=",tableData.rows);
@@ -164,12 +170,75 @@ export default function StickyHeadTable({tableData,handleUserInfo,handlePaginati
     //setData(updatedData);
 };
 
+const downloadPDF = async () => {
+  tableData.columns = columns; 
+  const tableHtml = generatePdfTable(tableData);
+  console.log("tablehtml=",tableHtml);
+  //const doc = new jsPDF();
+  //const docTitle = "My Dynamic Content"; // Set a title for the PDF
+  //doc.text(docTitle, 14, 16); // Add the title
+
+  const htmlString = generatePdfTable(tableData);
+
+  let iframe = document.createElement("iframe");
+  iframe.style.visibility = "hidden";
+  document.body.appendChild(iframe);
+  let iframedoc = iframe.contentDocument || iframe.contentWindow.document;
+  iframedoc.body.innerHTML = htmlString;
+  
+  let canvas = await html2canvas(iframedoc.body, {});
+  
+  // Convert the iframe into a PNG image using canvas.
+  let imgData = canvas.toDataURL("image/png");
+
+  // Create a PDF document and add the image as a page.
+  const doc = new jsPDF({
+    format: "a4",
+    unit: "mm",
+  });
+  doc.addImage(imgData, "PNG", 0, 0, 410, 497);
+
+  // Get the file as blob output.
+  let blob = doc.output("blob");
+
+
+  const pdf = new jsPDF();
+    pdf.addImage(imgData, 'PNG', 0, 0,200,0);
+    pdf.save('table.pdf');
+  // Remove the iframe from the document when the file is generated.
+  document.body.removeChild(iframe);
+
+  //doc.autoTable({ html: tableHtml, startY: 30 });
+  //doc.save("dynamic_table.pdf");
+  /*const input = document.getElementById('user-table');
+  const originalBackground = input.style.backgroundColor;
+
+  // Apply styles before capturing
+  input.style.backgroundColor = 'white';
+  input.style.color = 'black';
+  input.querySelectorAll('th,TableBody, TableRow,TableCell').forEach(cell => {
+    cell.style.padding = '8px';
+    cell.style.border = '1px solid #ccc';
+    cell.style.color = 'black';
+    cell.style.backgroundColor='white';
+  });
+  html2canvas(input).then((canvas) => {
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF();
+    pdf.addImage(imgData, 'PNG', 0, 0);
+    pdf.save('table.pdf');
+  });*/
+};
+
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden', marginTop:'71px' }}>
       <GlobalStyles />
       <TableContainer sx={{ maxHeight: 740 }}  variant={'solid'}>
-        <Table stickyHeader aria-label="sticky table" className='customTable'
-        style={{width:'99%', marginRight:'5px', justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+      {/* <Button variant="contained" color="primary" onClick={downloadPDF}>
+        Download as PDF
+      </Button> */}
+        <Table  id="user-table" stickyHeader aria-label="sticky table" className='customTable'
+        style={{ width:'99%', marginRight:'5px', justifyContent:'center',alignContent:'center',alignItems:'center'}}>
        
           {/* <TableHead>
             <TableRow className='table-header'
@@ -257,6 +326,11 @@ export default function StickyHeadTable({tableData,handleUserInfo,handlePaginati
         page={tableData.page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+       <div
+        ref={contentRef}
+        dangerouslySetInnerHTML={{ __html: dynamicTable }}
+        style={{ display: 'none' }}
       />
     </Paper>
   );
