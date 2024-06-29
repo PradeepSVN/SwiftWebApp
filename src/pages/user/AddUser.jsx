@@ -311,13 +311,14 @@ const handleSearchQuery = (serachValue) => {
     setFormError("");
     let errors = "Please fill the fields "
     let fields = "";
-    const optionalKeys = ['user_Fax','role_UID']; // Replace with your required keys
+    const optionalKeys = ['user_Fax','role_UID','user_role','user_entity','user_tin']; // Replace with your required keys
     addUserRequiredData.find(item => 
       {  
         let key = Object.keys(item)[0];
-          
-        if(!optionalKeys.includes(key) &&  payload[key] == "" || payload[key] == null || payload[key] == undefined)
+        
+         if(!optionalKeys.includes(key) &&  (payload[key] == "" || payload[key] == null || payload[key] == undefined))
           {  
+            console.log("=optionalKeys=Key==",key);  
             console.log("=optionalKeys=item==",item[key]);   
             showToast(item[key], ToastMessageType.Error);
             formRef.current[key].focus();             
@@ -348,6 +349,26 @@ const handleSearchQuery = (serachValue) => {
             status = true;
             return true;
           }
+
+          else if(key == "user_role" && (roleSelectedValue == null || roleSelectedValue == ""))  
+            {
+              console.log("======user_role=====",roleSelectedValue)
+              showToast(item[key], ToastMessageType.Error);
+              status = true;
+              return true;
+            }
+           else if(key == "user_entity" &&  entitySelectedOptions.length == 0)  
+              {
+                showToast(item[key], ToastMessageType.Error);
+                status = true;
+                return true;
+              }
+           else if(key == "user_tin" &&  tinSelectedOptions.length == 0)  
+                {
+                  showToast(item[key], ToastMessageType.Error);
+                  status = true;
+                  return true;
+                }
          
       });
       //setFormError(errors + fields);
