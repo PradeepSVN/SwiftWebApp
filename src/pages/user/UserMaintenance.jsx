@@ -279,7 +279,7 @@ const handleClick = (event) => {
             /> */}
             </Form.Group>
           
-            <Form.Group style={{margin:'14px',marginLeft:'95px' }}>
+            <Form.Group style={{margin:'10px 50px 87px 68px ' }}>
             <Button type="button"   onClick={handleClick} disabled={loading} 
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 40 }} /></Button>
             </Form.Group>

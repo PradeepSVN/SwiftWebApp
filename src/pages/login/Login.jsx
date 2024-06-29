@@ -176,7 +176,7 @@ const Login = () => {
           margin="normal"
           fullWidth
           onChange={handleChange} id="username"
-         style= {{ backgroundColor: '#f2f2f2', borderRadius: '26px',fontFamily:'DM Sans' }}      
+         style= {{ fontFamily:'DM Sans' }}      
           sx={{            
              '& .MuiOutlinedInput-root': {
               '& fieldset': {
@@ -196,7 +196,7 @@ const Login = () => {
           fullWidth
           onChange={handleChange} id="password"
           onKeyDown={handleKeyDown}
-          style= {{ backgroundColor: '#f2f2f2', borderRadius: '26px',fontFamily:'DM Sans' }}        
+          style= {{ fontFamily:'DM Sans' }}        
           sx={{            
             '& .MuiOutlinedInput-root': {
               '& fieldset': {

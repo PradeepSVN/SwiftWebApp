@@ -145,7 +145,7 @@ const UserInfo = ({data,changeNavLinkPath}) => {
           </Grid>
           <Grid item xs={4} >
           <Box className="user-info-box1" sx={{width:'100%', Height:'242px !importent',}}>
-          <Table>
+          {/* <Table>
              <TableBody sx={{border:'none'}}>
               <TableRow sx={{border:'none'}}>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>Created</TableCell>
@@ -158,6 +158,26 @@ const UserInfo = ({data,changeNavLinkPath}) => {
               <TableRow>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>Password Last Changed</TableCell>
                 <TableCell className="user-info-value1" sx={{border:'none'}}>{moment(data.updated_Date).format("MM/DD/YYYY HH:mm A")}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Password Expiring</TableCell>
+                <TableCell className="user-info-value1" sx={{border:'none'}}></TableCell>
+              </TableRow>
+             </TableBody>
+            </Table> */}
+             <Table>
+             <TableBody sx={{border:'none'}}>
+              <TableRow sx={{border:'none'}}>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Created</TableCell>
+                <TableCell className="user-info-value1" sx={{border:'none'}}>{data.created_Date}</TableCell>
+              </TableRow>
+              <TableRow sx={{border:'none'}}>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Last Login</TableCell>
+                <TableCell className="user-info-value1" sx={{border:'none'}}>{data.user_Last_Login_Date}</TableCell>
+              </TableRow>              
+              <TableRow>
+                <TableCell className="user-info-lable" sx={{border:'none'}}>Password Last Changed</TableCell>
+                <TableCell className="user-info-value1" sx={{border:'none'}}>{data.user_Password_Changed_Date}</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="user-info-lable" sx={{border:'none'}}>Password Expiring</TableCell>

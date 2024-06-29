@@ -73,7 +73,7 @@ const customStyles = {
     padding: '0px',
     fontSize: '16px',
     borderBottom: '1px solid #ccc',
-    display: 'inline-block',
+    display: 'flex',
     width: '100%',
     cursor: 'pointer',
     boxShadow: 'none', // state.isFocused ? 'none' : '0px 0px 0px rgba(0, 0, 0, 0.1)', // Remove focus shadow

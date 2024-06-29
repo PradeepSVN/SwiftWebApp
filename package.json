@@ -55,6 +55,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://172.203.66.19:82",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -76,4 +77,5 @@
   "devDependencies": {
     "cross-env": "^7.0.3"
   }
+  
 }
