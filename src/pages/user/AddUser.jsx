@@ -311,13 +311,14 @@ const handleSearchQuery = (serachValue) => {
     setFormError("");
     let errors = "Please fill the fields "
     let fields = "";
-    const optionalKeys = ['user_Fax','role_UID']; // Replace with your required keys
+    const optionalKeys = ['user_Fax','role_UID','user_role','user_entity','user_tin']; // Replace with your required keys
     addUserRequiredData.find(item => 
       {  
         let key = Object.keys(item)[0];
-          
-        if(!optionalKeys.includes(key) &&  payload[key] == "" || payload[key] == null || payload[key] == undefined)
+        
+         if(!optionalKeys.includes(key) &&  (payload[key] == "" || payload[key] == null || payload[key] == undefined))
           {  
+            console.log("=optionalKeys=Key==",key);  
             console.log("=optionalKeys=item==",item[key]);   
             showToast(item[key], ToastMessageType.Error);
             formRef.current[key].focus();             
@@ -348,6 +349,26 @@ const handleSearchQuery = (serachValue) => {
             status = true;
             return true;
           }
+
+          else if(key == "user_role" && (roleSelectedValue == null || roleSelectedValue == ""))  
+            {
+              console.log("======user_role=====",roleSelectedValue)
+              showToast(item[key], ToastMessageType.Error);
+              status = true;
+              return true;
+            }
+           else if(key == "user_entity" &&  entitySelectedOptions.length == 0)  
+              {
+                showToast(item[key], ToastMessageType.Error);
+                status = true;
+                return true;
+              }
+           else if(key == "user_tin" &&  tinSelectedOptions.length == 0)  
+                {
+                  showToast(item[key], ToastMessageType.Error);
+                  status = true;
+                  return true;
+                }
          
       });
       //setFormError(errors + fields);
@@ -442,19 +463,19 @@ const handleSearchQuery = (serachValue) => {
         <Grid container rowSpacing={1}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
           <Grid item xs={3}>
             <Form.Group >
-            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>User Name</label>
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>User Name<b style={{color:'red'}}>*</b></label>
             <input  className="input-line-style" placeholder="Enter your User Name" type="text" name="user_UserName" id="user_UserName" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
             <Form.Group >
-            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>First Name</label>
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>First Name<b style={{color:'red'}}>*</b></label>
             <input  className="input-line-style" placeholder="Enter your First Name" name="user_First_Name" id="user_First_Name" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
             <Form.Group >
-            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Last Name</label>
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Last Name<b style={{color:'red'}}>*</b></label>
             <input  className="input-line-style" placeholder="Enter your Last Name" min={2} id="user_Last_Name" name="user_Last_Name" onChange={handleChange} />
             </Form.Group>
           </Grid>
@@ -475,19 +496,19 @@ const handleSearchQuery = (serachValue) => {
         <Grid container rowSpacing={1}   columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>
          <Grid item xs={3}>
             <Form.Group>
-            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Title</label>
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Title<b style={{color:'red'}}>*</b></label>
             <input  className="input-line-style" placeholder="Enter your Title" id="user_Title" name="user_Title" onChange={handleChange} />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
             <Form.Group >
-            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Email</label>
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Email<b style={{color:'red'}}>*</b></label>
             <input  className="input-line-style" placeholder="Enter your Email"  id="user_Email"  onChange={handleChange} name="user_Email" />
             </Form.Group>
           </Grid>
           <Grid item xs={3}>
             <Form.Group >
-            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Phone</label>
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Phone<b style={{color:'red'}}>*</b></label>
             <InputMask mask="(999) 999-9999" className="input-line-style" placeholder="(XXX) XXX-XXXX" maxLength={15} id="user_Phone" name="user_Phone" onChange={handleChange} />
             {/* <input  className="input-line-style" placeholder="(XXX)-XXX-XXXX" maxLength={15} id="user_Phone" name="user_Phone" onChange={handleChange} /> */}
             </Form.Group>
@@ -524,7 +545,7 @@ const handleSearchQuery = (serachValue) => {
           
          <Grid item xs={3}>
           <Form.Group >
-            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Assign Roles </label>
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Assign Roles <b style={{color:'red'}}>*</b></label>
             <Select
             
         value={roleSelectedValue}
@@ -564,7 +585,7 @@ const handleSearchQuery = (serachValue) => {
           
           <Grid item xs={3}>
             <Form.Group>
-            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Entity</label>
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Entity<b style={{color:'red'}}>*</b></label>
             <Select
             isMulti
         value={entitySelectedOptions}
@@ -580,7 +601,7 @@ const handleSearchQuery = (serachValue) => {
           </Grid>
           <Grid item xs={3}>
             <Form.Group>
-            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Practice</label>
+            <label style={{marginLeft:'5px', paddingBottom:'5px'}}>Practice<b style={{color:'red'}}>*</b></label>
             <Select
             isMulti
         value={tinSelectedOptions}
@@ -594,7 +615,7 @@ const handleSearchQuery = (serachValue) => {
       />
             </Form.Group>
           </Grid>
-            <Grid item xs={3}>
+           <Grid item xs={3}>
           <Form.Group  className="form-date">
                  <label>Terminated Date</label><br></br>
                  <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -602,14 +623,15 @@ const handleSearchQuery = (serachValue) => {
                   name="user_Terminated_Date"
                   id="user_Terminated_Date"
                   onChange={handleDateChange}
+                  disabled={!payload.user_Terminated}
                  />                
                </LocalizationProvider>
                  
-                 {/* <span className="error">{errors.outletname}</span> */}
+                
                </Form.Group>
-          </Grid>
+          </Grid> 
 
-            <Grid item xs={3}>
+             <Grid item xs={3}>
           <Form.Group controlId="user_Terminated">
                     <Form.Check
                     aria-label="option 1" 
@@ -618,7 +640,7 @@ const handleSearchQuery = (serachValue) => {
                     id="user_Terminated"
                     onChange={handleChecked}/>
                   </Form.Group>
-          </Grid>    
+          </Grid>     
         </Grid>
 
         <Grid container rowSpacing={10}  columnSpacing={{ xs: 1, sm: 2, md: 4 }} paddingBottom={5}>

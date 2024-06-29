@@ -207,8 +207,6 @@ const handleClick = (event) => {
   //navigate("/")
 }
 
-
-
   return (
     <>
    <Container style={{marginLeft:'55px' , marginTop:'20px', maxWidth:'93%', width:'100%'}}>
