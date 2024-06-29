@@ -133,8 +133,10 @@ export const apiRequestData = {
         {user_Phone_Extn: "Please enter extension"},
         {user_Fax: "Please enter fax"},
         {user_Note: "Please enter note"},
-        {user_UserName: "Please enter username"},
-        {role_UID:"Please select role"}
+        {user_UserName: "Please enter username"},        
+        {user_role:"Please select role"}, 
+        {user_entity:"Please select entity"}, 
+        {user_tin:"Please select practice"} 
   ]
 
   export const roleAPIResponse =   {
