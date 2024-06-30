@@ -75,6 +75,10 @@ const UserInfo = ({data,changeNavLinkPath}) => {
    
   }
 
+  const handleNavLinks = (path) => {
+    changeNavLinkPath(path);
+  };
+
   const handleClick = (event) => {
     event.preventDefault();
     console.log("====handleClick====")
@@ -95,10 +99,12 @@ const UserInfo = ({data,changeNavLinkPath}) => {
         <header>
       <h1 className="page-title1"> User View</h1> 
       <nav>
-        <a href="/">Home</a> /
-        <a href="/">Administration</a> /
-        <a href="/">User Management</a> /
-        <a href="/">User List</a> /
+      <Button
+        style={{backgroundColor:'transparent'}}
+        onClick={ () => handleNavLinks("Home")}>Home</Button> /
+        &nbsp;<Button
+        style={{backgroundColor:'transparent'}}
+        onClick={ () => handleNavLinks("UserMaintenance")}>User List</Button> /       
         &nbsp;<label> User View</label>
       </nav>
     </header>

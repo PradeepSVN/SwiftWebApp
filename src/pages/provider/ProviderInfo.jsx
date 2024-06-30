@@ -4,11 +4,11 @@ import {getData, postData} from '../../services/rest-services';
 import '../../../src/global.css'
 import GlobalStyles from '../../theme/GlobalStyles';
 import {isObject} from '../../utils/utils';
-import {Grid,Box,Table, TableBody, TableRow, TableCell, List,ListItem,ListItemText} from '@mui/material';
+import {Grid,Box,Table, TableBody, TableRow, TableCell, List,ListItem,ListItemText,Button} from '@mui/material';
 import { Form, Container,InputGroup,FormControl } from "react-bootstrap";
 import moment from 'moment';
 
-const ProviderInfo = ({data}) => {
+const ProviderInfo = ({data,changeNavLinkPath}) => {
 
   const [loading,setLoading] = useState(false);
   const [providerInfo, setProviderInfo] = useState([]);
@@ -55,6 +55,10 @@ const ProviderInfo = ({data}) => {
    
   }
 
+  const handleNavLinks = (path) => {
+    changeNavLinkPath(path);
+  };
+
   return (
     <div>
     <Container  style={{marginLeft:'55px',marginTop:'20px', maxWidth:'95%', width:'100%'}}>
@@ -62,8 +66,12 @@ const ProviderInfo = ({data}) => {
        <header>
       <h1 className="page-title1" >Provider View</h1>
       <nav>
-        <a href="/">Home</a> /
-        <a href="/">Provider List</a> /
+      <Button
+        style={{backgroundColor:'transparent'}}
+        onClick={ () => handleNavLinks("Home")}>Home</Button>/     
+       &nbsp;<Button
+        style={{backgroundColor:'transparent'}}
+        onClick={ () => handleNavLinks("ProviderList")}>Provider List</Button>/ 
         &nbsp;<label> Provider View</label>
       </nav>
     </header>

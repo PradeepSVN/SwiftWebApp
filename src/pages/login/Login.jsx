@@ -2,7 +2,7 @@ import { useState,React,useEffect } from "react"
 import "./Login.css"
 import "../../global.css";
 import { useNavigate } from "react-router-dom"
-import {APIS} from '../../utils/apiList';
+import {APIS, APIMESSAGES} from '../../utils/apiList';
 import { postData} from '../../services/rest-services';
 import { clearLocalStorage } from "../../utils/utils"
 import { Spinner } from "react-bootstrap";
@@ -26,7 +26,9 @@ import {showToast,ToastMessageType} from '../../utils/toastMessage';
 import { ToastContainer, toast } from "react-toastify";
 import Loader from '../../components/LoaderComponent'
 import {isObject} from '../../utils/utils'
-import {Form} from "react-bootstrap"
+import {Form} from "react-bootstrap";
+import ForogtPasswordDialog from "../../components/ForgotPasswordPopup";
+import ResetPasswordDialog from "../../components/ResetPasswordPopup";
 
 
 
@@ -37,7 +39,9 @@ const Login = () => {
   const [credentials, setCredentials] = useState({ username: "", password: ""})
   const [loginError, setLoginError] = useState("")
   const [loading, setLoading] = useState(false);
-
+  const [openPopup, setOpenPopup] = useState({openDialog:false, showErrorMsg:false});
+  const [userId, setUserId] = useState("");
+  const passwordregx = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
   useEffect(() => {
     //console.log("===process env===",baseurl)
@@ -61,6 +65,34 @@ const Login = () => {
 
   const navigate = useNavigate()
 
+  const handleForgotPasswordClick = () =>{
+    //event.preventDefault();
+    setOpenPopup(true);
+  }
+
+  const handleResetPassword = (requestBody) =>{
+    console.log("===payload--",requestBody);
+    requestBody.user_UID = userId;
+    if(!passwordregx.test(requestBody.password))
+      {
+        showToast("Password must be at least 8 characters long, contain a digit, a lowercase letter, an uppercase letter, and a special character",ToastMessageType.Error);
+        setOpenPopup((popup) => ({ ...popup, ["showErrorMsg"]: true}))
+        return;
+      }
+
+    if(requestBody.password != requestBody.confirmPassword)
+      {
+        showToast("Password and confirm password should be same",ToastMessageType.Error);
+        return;
+      }
+    
+      resetPasswordAPI(requestBody);
+  }
+
+  const handleCloseOpenPopup = () => {
+     setOpenPopup(false);
+  }
+
   const handleClick = (event) => {
     event.preventDefault();
     /*if(credentials.username == undefined || credentials.username == '' || credentials.username == null)
@@ -77,6 +109,36 @@ const Login = () => {
     //localStorage.setItem("token", "23rasdfqwrwqerwqaerfq")
     //navigate("/")
   }
+
+  const resetPasswordAPI = async (resetPasswordPayload) => {   
+   
+    setLoading(true);
+    console.log("======getUserInfo==Start=====");
+    const res = await postData(APIS.RESETPASSWORD,resetPasswordPayload);
+    console.log("======res=======",res);
+    if(res &&  isObject(res.data)  && res.data.statusCode == 200)
+      {
+        setLoading(false);
+        //setUserId(res.data.result.userid);
+       // console.log("======res=======",res);
+       // localStorage.setItem(LocalStorageKey.token, res.data.result.token); 
+       // localStorage.setItem(LocalStorageKey.userId,res.data.result.userid);
+        setOpenPopup((popup) => ({ ...popup, ["openDialog"]: false}))
+        //setOpenPopup(true);  
+        showToast(APIMESSAGES.RESETPASSWORD,ToastMessageType.Success);    
+        //navigate("/");
+      }
+      else
+      {
+
+        setLoading(false);
+        showToast(APIMESSAGES.ERROR,ToastMessageType.Error);
+        // setOpenPopup(true);  
+        //setLoginError("Invalid credentials");
+      }
+    //isObject(res) && props.LoginUserDetails({ userInfo: res })
+  }
+
 
   const getUserInfo = async () => {
     
@@ -98,16 +160,28 @@ const Login = () => {
       {
         setLoading(false);
         console.log("======token=======",res.data.result.token);
+        setUserId(res.data.result.userid);
         localStorage.setItem(LocalStorageKey.token, res.data.result.token); 
-        localStorage.setItem(LocalStorageKey.userId,res.data.result.userid);  
-        showToast("The user has logged in successfully.",ToastMessageType.Success);    
-        navigate("/");
+        localStorage.setItem(LocalStorageKey.userId,res.data.result.userid);
+        if(!res.data.result.user_Change_Password)
+          {
+            setOpenPopup((popup) => ({ ...popup, ["openDialog"]: true}))
+          }
+          else
+          {
+              showToast("The user has logged in successfully.",ToastMessageType.Success);    
+              navigate("/");
+          }
+      
+        //showToast("The user has logged in successfully.",ToastMessageType.Success);    
+        //navigate("/");
       }
       else
       {
 
         setLoading(false);
         showToast("Invalid credentials",ToastMessageType.Error);
+        
         //setLoginError("Invalid credentials");
       }
     //isObject(res) && props.LoginUserDetails({ userInfo: res })
@@ -207,9 +281,10 @@ const Login = () => {
             },
           }}
         />
-           <Link href="#" variant="body2" className="login-link" fontFamily={'DM Sans'}>
+           <Button href="#" variant="body2" className="login-link" fontFamily={'DM Sans'}
+           onClick={handleForgotPasswordClick}>
                   Forgot password?
-                </Link>
+                </Button>
             {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -245,9 +320,9 @@ const Login = () => {
       </>
       }    
     </Grid>
-       
-    
-    <ToastContainer />
+   <ResetPasswordDialog openPopup={openPopup} handleCloseOpenPopup={handleCloseOpenPopup} handleResetPassword={handleResetPassword} />
+   {/* <ForogtPasswordDialog openPopup={openPopup} handleCloseOpenPopup={handleCloseOpenPopup} />  */}
+    <ToastContainer  />
     
   </ThemeProvider>
   
