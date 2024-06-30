@@ -126,7 +126,7 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
         setTableData((_payload) => ({ ..._payload, ["columns"]: columns }))
         if(res.data.result.length > 0)
           {          
-            setTableData((_payload) => ({ ..._payload, ["totalCount"]: res.data.result.length }))
+            setTableData((_payload) => ({ ..._payload, ["totalCount"]: res.data.result[0].totalCount }))
           }
         //let options = [];
         //res.data.result.forEach((item) => (options.push({label: item.role_Name,value:item.role_UID })));
