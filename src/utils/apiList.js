@@ -1,6 +1,7 @@
 export const APIS = {
   BASEURL:process.env.REACT_APP_API_URL, //http://localhost:5099/swagger/index.html
   LOGIN: "Login/Login",
+  RESETPASSWORD:"Login/ChangePassword",
   ADDUSERROLE: "Role/AddRole",
   GETUSERROLE:"Role/EditRoleDetails",
   GETROLES:"Role/GetAllRoleDetails",
@@ -30,5 +31,7 @@ export const APIS = {
 
 export const APIMESSAGES = {
   USERCREATRED:"User created successfully!",
-  ROLECREATED:"Role created successfully!"
+  ROLECREATED:"Role created successfully!",
+  RESETPASSWORD:"Your password has been reset successfully!",
+  ERROR:"SomSomething went wrong. Please try again."
 }

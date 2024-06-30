@@ -165,6 +165,12 @@ export const apiRequestData = {
     "updated_Date": "2024-05-25T10:19:47.973"
   };
 
+  export const resetPasswordObj ={
+    "user_UID": "",
+    "password": "",
+    "confirmPassword":""
+  }
+
 
 
 

@@ -4,11 +4,11 @@ import {getData, postData} from '../../services/rest-services';
 import '../../../src/global.css'
 import GlobalStyles from '../../theme/GlobalStyles';
 import {isObject} from '../../utils/utils';
-import {Grid,Box,Table, TableBody, TableRow, TableCell, List,ListItem,ListItemText} from '@mui/material';
+import {Grid,Box,Table, TableBody, TableRow, TableCell, List,ListItem,ListItemText, Button} from '@mui/material';
 import { Form, Container,InputGroup,FormControl } from "react-bootstrap";
 import moment from 'moment';
 
-const MemberInfo = ({data}) => {
+const MemberInfo = ({data,changeNavLinkPath}) => {
 
   const [loading,setLoading] = useState(false);
   const [memberInfo, setmemberInfo] = useState([]);
@@ -46,6 +46,10 @@ const MemberInfo = ({data}) => {
    
   }
 
+  const handleNavLinks = (path) => {
+    changeNavLinkPath(path);
+  };
+
   return (
     <div>
     <Container  style={{marginLeft:'55px', marginTop: '20px', maxWidth:'95%', width:'100%'}}>
@@ -53,9 +57,12 @@ const MemberInfo = ({data}) => {
        <header>
       <h1 className="page-title1" >Member View</h1>
       <nav>
-        <a href="/">Home</a> /
-        <a href="/">Membership</a> /
-        <a href="/">Member List</a> /
+      <Button
+        style={{backgroundColor:'transparent'}}
+        onClick={ () => handleNavLinks("Home")}>Home</Button>/    
+         <Button
+        style={{backgroundColor:'transparent'}}
+        onClick={ () => handleNavLinks("MemberList")}>Member List</Button>/
         &nbsp;<label> Member View</label>
       </nav>
     </header>
