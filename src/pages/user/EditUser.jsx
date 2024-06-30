@@ -74,7 +74,7 @@ const customStyles = {
     padding: '0px',
     fontSize: '16px',
     borderBottom: '1px solid #ccc',
-    display: 'inline-block',
+    display: 'flex',
     width: '100%',
     cursor: 'pointer',
     boxShadow: 'none', // state.isFocused ? 'none' : '0px 0px 0px rgba(0, 0, 0, 0.1)', // Remove focus shadow
@@ -386,7 +386,7 @@ const handleSearchQuery = (serachValue) => {
     setFormError("");
     let errors = "Please fill the fields "
     let fields = "";
-    const optionalKeys = ['user_Fax','role_UID','user_role','user_entity','user_tin']; // Replace with your required keys
+    const optionalKeys = ['user_Fax','role_UID','user_role','user_entity','user_tin','user_Note']; // Replace with your required keys
     addUserRequiredData.find(item => 
       {  
         let key = Object.keys(item)[0];
@@ -401,11 +401,19 @@ const handleSearchQuery = (serachValue) => {
             return true;
             //fields =fields+", "+key.replace("user_","");
           }
+          else if(key=="user_First_Name" && payload[key].length<2)
+            {
+              console.log("=user_First_Name=item==",item[key]);   
+              formRef.current[key].focus(); 
+              showToast("Enter first name atleast 2 characters", ToastMessageType.Error);            
+              status = true;
+              return true;
+            }
         else if(key=="user_Last_Name" && payload[key].length<2)
           {
             console.log("=user_Last_Name=item==",item[key]);   
             formRef.current[key].focus(); 
-            showToast("user_Last_Name enter atleast 2 characters", ToastMessageType.Error);            
+            showToast("Enter last name atleast 2 characters", ToastMessageType.Error);            
             status = true;
             return true;
           }
