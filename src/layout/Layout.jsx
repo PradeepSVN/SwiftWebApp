@@ -107,7 +107,7 @@ const Layout = ({navPathTo}) => {
         {contentPage == "Home"?<Home />:null}
         {contentPage == "AddUser"?<AddUser changeNavLinkPath={changeNavLinkPath} />:null}
         {contentPage == "BatchAdd"?<BatchAdd />:null}
-        {contentPage == "UserRoles"?<UserRoles />:null}
+        {contentPage == "UserRoles"?<UserRoles changeNavLinkPath={changeNavLinkPath} />:null}
         {contentPage == "UserMaintenance"?<UserMaintenance changeNavLinkPath={changeNavLinkPath} />:null}  
         {contentPage == "MemberList"?<MemberList changeNavLinkPath={changeNavLinkPath} />:null}   
         {contentPage == "MemberInfo"?<MemberInfo data={data} changeNavLinkPath={changeNavLinkPath} />:null}   
