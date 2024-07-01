@@ -19,7 +19,8 @@ import "bootstrap/dist/css/bootstrap.min.css"
 
 
 
-const Roles = () => {
+
+const Roles = ({changeNavLinkPath}) => {
   const [requestData, setRequestData] = useState(apiRequestData);
   const [payload, setPayload] = useState(apiRequestData);
   const [formError, setFormError] = useState("")
@@ -118,6 +119,10 @@ const Roles = () => {
     //isObject(res) && props.LoginUserDetails({ userInfo: res })
   }
 
+  const handleNavLinks = (path) => {
+    changeNavLinkPath(path);
+  };
+
   const resetForm = () => {
     console.log("====resetForm======")
     setPayload(null);
@@ -137,8 +142,9 @@ const Roles = () => {
     <header>
   <h1 className="page-title1">Roles Add</h1>
   <nav>
-    <a href="/">Home</a> /
-    <a href="/">Administration</a> / 
+  <Button
+        style={{backgroundColor:'transparent',color: '#1976d2', border:'none'}}
+        onClick={ () => handleNavLinks("Home")}>Home</Button> /
     &nbsp;<label> Roles</label> 
   </nav>
 </header>

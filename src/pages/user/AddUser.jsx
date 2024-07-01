@@ -450,14 +450,21 @@ const handleSearchQuery = (serachValue) => {
     //setLoading(false);
   }, 4000); // Hide spinner after 3 seconds
 
+  const handleNavLinks = (path) => {
+    changeNavLinkPath(path);
+  };
+
   return (    
     <Container style={{marginLeft:'55px' , marginTop:'20px', maxWidth:'95%', width:'100%'}}>
     <header>
   <h1 className="page-title1">Single User Add</h1>
   <nav>
-    <a href="/">Home</a> /
-    <a href="/">Administration</a> / 
-    <a href="/">User List</a> /
+  <Button
+        style={{backgroundColor:'transparent'}}
+        onClick={ () => handleNavLinks("Home")}>Home</Button> /    
+       &nbsp;<Button
+        style={{backgroundColor:'transparent'}}
+        onClick={ () => handleNavLinks("UserMaintenance")}>User List</Button> /  
     &nbsp;<label> Single User Add</label> 
   </nav>
 </header>
