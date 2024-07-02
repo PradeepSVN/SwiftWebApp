@@ -1049,7 +1049,7 @@ body{
   padding: 0px !important;
 }
 .css-dx096b {
-  padding: 16px !important;
+margin-left: 16px !important;
 }
 .css-ikzkeu {
   overflow-y: hidden !important;
@@ -1148,3 +1148,8 @@ input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:foc
   color: white !important;
   border-radius: 5px !important;
 }
+.customTable-td {
+  height: 45px !important;
+}
+.css-1ex1afd-MuiTableCell-root, .table-td {  color: #0157ab !important;}
+.css-kge0eu {scrollbar-width: thin !important};

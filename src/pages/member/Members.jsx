@@ -294,7 +294,7 @@ const handlePagination = (pagenation) => {
             {/* <label>Option</label> */}
             <TextField placeholder="Option" id="option" className="member-search-text"  onChange={handleChange} />
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' ,marginRight: '187px'}}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' ,marginRight: '145px '}}>
             {/* <label>Member ID</label> */}
             <TextField placeholder="Member ID" id="membeR_ID"  onChange={handleChange} 
             sx={{ height: '75px' }} />
@@ -336,11 +336,11 @@ const handlePagination = (pagenation) => {
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 40 }} /></Button>
 
             </Form.Group> */}
-             <Form.Group  style={{margin:'10px 0px 0px 20px ' }}>
+             <Form.Group  style={{margin:'10px 0px 0px 0px ' }}>
             <Button type="button" title="Search" className="search-button"  onClick={handleClick} disabled={loading} 
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 25 }} /></Button>
             </Form.Group>
-            <Form.Group style={{margin:'10px 10px 0px 20px ' }}>
+            <Form.Group style={{margin:'10px 6px 3px 2px' }}>
             <Button type="button" title="Clear" className="search-button"  onClick={handleClick} disabled={loading} 
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><ClearIcon sx={{ fontSize: 25 }} /></Button>
             </Form.Group>

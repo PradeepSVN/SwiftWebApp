@@ -286,11 +286,11 @@ const handleClick = (event) => {
             <Button type="button" className="search-button"  onClick={handleClick} disabled={loading} 
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><ClearIcon sx={{ fontSize: 25 }} /></Button>
             </Form.Group> */}
-             <Form.Group  style={{margin:'10px 0px 0px 20px ' }}>
+             <Form.Group  style={{margin:'10px 0px 0px 0px' }}>
             <Button type="button" title="Search" className="search-button"  onClick={handleClick} disabled={loading} 
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 25 }} /></Button>
             </Form.Group>
-            <Form.Group style={{margin:'10px 10px 0px 20px ' }}>
+            <Form.Group style={{margin:'10px 6px 3px 2px' }}>
             <Button type="button" title="Clear" className="search-button"  disabled={loading} 
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><ClearIcon sx={{ fontSize: 25 }} /></Button>
             </Form.Group>
