@@ -318,7 +318,7 @@ const handlePagination = (pagenation) => {
              {/* <TextField placeholder="Insurance" id="insurance" className="member-search-text"             
              onChange={handleChange} /> */}
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',marginRight: '187px',width:'100' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',marginRight: '145px ',width:'100' }}>
             {/* <label>Option</label> */}
             <Select            
               value={tinSelectedOptions}
@@ -356,11 +356,11 @@ const handlePagination = (pagenation) => {
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 40 }} /></Button>
 
             </Form.Group> */}
-             <Form.Group  style={{margin:'10px 0px 0px 20px ' }}>
+             <Form.Group  style={{margin:'10px 0px 0px 0px ' }}>
             <Button type="button" title="Search" className="search-button"  onClick={handleClick} disabled={loading} 
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 25 }} /></Button>
             </Form.Group>
-            <Form.Group style={{margin:'10px 10px 0px 20px ' }}>
+            <Form.Group style={{margin:'10px 6px 3px 2px' }}>
             <Button type="button" title="Clear" className="search-button"   disabled={loading} 
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><ClearIcon sx={{ fontSize: 25 }} /></Button>
             </Form.Group>
