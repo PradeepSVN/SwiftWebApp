@@ -16,7 +16,7 @@ import { Form } from "react-bootstrap"
 import Select from 'react-select';
 import SearchIcon from '@mui/icons-material/Search';
 import zIndex from "@mui/material/styles/zIndex";
-
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
@@ -209,6 +209,7 @@ const handleClick = (event) => {
 
   return (
     <>
+    <div className="col-sm-12">
    <Container style={{marginLeft:'55px' , marginTop:'20px', maxWidth:'93%', width:'100%'}}>
       {/* <Container className="px-4 py-3 my-2 center"> */}
         {/* <div className="col-md-10 offset-md-1"> */}
@@ -234,20 +235,20 @@ const handleClick = (event) => {
             <Form>
            <Grid className="frame-17" style={{marginTop:'50px'}}>
           
-            <Grid item xs={10} style={{ display:'flex'}}>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'150px' }}>
+            <Grid item xs={10} style={{ display:'flex',float: 'right'}}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100%' }}>
             {/* <label >User Name</label> */}
             <TextField placeholder="User Name" id="user_UserName" className="search-text" onChange={handleChange} />
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column' ,margin:'8px 8px 8px 8px',width:'150px' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column' ,margin:'8px 8px 8px 8px',width:'100%' }}>
             {/* <label >First Name</label> */}
             <TextField placeholder="First Name" id="user_First_Name" className="search-text" onChange={handleChange} />
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'150px'}}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100%'}}>
             {/* <label>Last Name</label> */}
             <TextField placeholder="Last Name" id="user_Last_Name" className="search-text"  onChange={handleChange} />
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px',width:'150px' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px',width:'100%' }}>
             {/* <label>Role Name</label> */}
             <Select
             
@@ -277,9 +278,21 @@ const handleClick = (event) => {
             /> */}
             </Form.Group>
           
-            <Form.Group style={{margin:'10px 50px 87px 68px ' }}>
-            <Button type="button"   onClick={handleClick} disabled={loading} 
+            {/* <Form.Group >
+            <Button type="button" className="search-button"   onClick={handleClick} disabled={loading} 
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 40 }} /></Button>
+            </Form.Group>
+            <Form.Group >
+            <Button type="button" className="search-button"  onClick={handleClick} disabled={loading} 
+            sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><ClearIcon sx={{ fontSize: 25 }} /></Button>
+            </Form.Group> */}
+             <Form.Group  style={{margin:'10px 0px 0px 0px' }}>
+            <Button type="button" title="Search" className="search-button"  onClick={handleClick} disabled={loading} 
+            sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 25 }} /></Button>
+            </Form.Group>
+            <Form.Group style={{margin:'10px 6px 3px 2px' }}>
+            <Button type="button" title="Clear" className="search-button"  disabled={loading} 
+            sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><ClearIcon sx={{ fontSize: 25 }} /></Button>
             </Form.Group>
             </Grid>
            </Grid>
@@ -293,6 +306,8 @@ const handleClick = (event) => {
         {/* </div> */}
       {/* </Container> */}
     </Container>
+   
+    </div>
     </>
   )
 }

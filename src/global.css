@@ -1049,7 +1049,7 @@ body{
   padding: 0px !important;
 }
 .css-dx096b {
-  padding: 16px !important;
+margin-left: 16px !important;
 }
 .css-ikzkeu {
   overflow-y: hidden !important;
@@ -1060,9 +1060,9 @@ body{
   width: 100%;
   height: 100%;
 }
-.css-lkld8c {
+/* .css-lkld8c {
   display: block !important;
-}
+} */
 .css-ikzkeu {
   width: 100%;
   overflow-x: auto;
@@ -1143,3 +1143,13 @@ select:-webkit-autofill:focus {
 input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
+.search-button{
+  background-color: #0a7fc3 !important;
+  color: white !important;
+  border-radius: 5px !important;
+}
+.customTable-td {
+  height: 45px !important;
+}
+.css-1ex1afd-MuiTableCell-root, .table-td {  color: #0157ab !important;}
+.css-kge0eu {scrollbar-width: thin !important};

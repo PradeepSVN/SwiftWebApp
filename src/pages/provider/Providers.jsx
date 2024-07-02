@@ -12,6 +12,7 @@ import Select from 'react-select';
 import SearchIcon from '@mui/icons-material/Search';
 import { Height } from "@mui/icons-material";
 import TestTable from '../../components/TestTable'
+import ClearIcon from '@mui/icons-material/Clear';
 
 const Providers = ({changeNavLinkPath}) => {
 
@@ -284,7 +285,7 @@ const handlePagination = (pagenation) => {
     </header>
             <Form>
            <Grid  className="member-frame1" style={{marginTop:'45px'}}>
-            <Grid item xs={10} style={{display:'flex'}}>
+            <Grid item xs={10} style={{display:'flex',float:'right'}}>
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100' }}>
             {/* <label >Entity</label> */}
             <Select            
@@ -317,7 +318,7 @@ const handlePagination = (pagenation) => {
              {/* <TextField placeholder="Insurance" id="insurance" className="member-search-text"             
              onChange={handleChange} /> */}
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',marginRight: '145px ',width:'100' }}>
             {/* <label>Option</label> */}
             <Select            
               value={tinSelectedOptions}
@@ -333,9 +334,9 @@ const handlePagination = (pagenation) => {
             /> 
             {/* <TextField placeholder="TIN" id="option" className="member-search-text"  onChange={handleChange} /> */}
             </Form.Group>
-           
+            
             </Grid>
-            <Grid item xs={10} style={{display:'flex', marginTop:'0px'}}>
+            <Grid item xs={10} style={{display:'flex', marginTop:'0px',float:'right'}}>
            
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100' }}>
             {/* <label>First Name</label> */}
@@ -350,10 +351,18 @@ const handlePagination = (pagenation) => {
             <TextField placeholder="NPI" id="npi"  onChange={handleChange} 
              />
             </Form.Group>         
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100' }}>           
+            {/* <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100' }}>           
             <Button type="button"   onClick={handleClick} disabled={loading} 
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 40 }} /></Button>
 
+            </Form.Group> */}
+             <Form.Group  style={{margin:'10px 0px 0px 0px ' }}>
+            <Button type="button" title="Search" className="search-button"  onClick={handleClick} disabled={loading} 
+            sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 25 }} /></Button>
+            </Form.Group>
+            <Form.Group style={{margin:'10px 6px 3px 2px' }}>
+            <Button type="button" title="Clear" className="search-button"   disabled={loading} 
+            sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><ClearIcon sx={{ fontSize: 25 }} /></Button>
             </Form.Group>
             </Grid>
                      

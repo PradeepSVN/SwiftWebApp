@@ -123,7 +123,7 @@ export default function StickyHeadTable({tableData,handleMemberInfo,handlePagina
       {/* <TableContainer sx={{ maxHeight: 740 }}> */}
       <TableContainer >
       <Table stickyHeader aria-label="sticky table" className='customTable'
-        style={{width:'99%', marginRight:'5px', justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+        style={{width:'100%', justifyContent:'center',alignContent:'center',alignItems:'center'}}>
           {/* <TableHead>
             <TableRow className='table-header'>
               {columns.map((column) => (
@@ -152,8 +152,8 @@ export default function StickyHeadTable({tableData,handleMemberInfo,handlePagina
             {tableData.rows && tableData.rows.length >0? stableSort(tableData.rows, getComparator(order, orderBy)).map((row,index) => 
               {
                 return (<>            
-                  <TableRow style={{height:'10px'}}></TableRow>
-                  <TableRow style={{height: '60px !important'}} role="checkbox" tabIndex={-1} key={row.user_ID} className='table-row1' onClick={(event) => handleRowChange(event, row)} >
+                  {/* <TableRow style={{height:'10px'}}></TableRow> */}
+                  <TableRow style={{height: '45px !important'}} role="checkbox" tabIndex={-1} key={row.user_ID} className='table-row1' onClick={(event) => handleRowChange(event, row)} >
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
