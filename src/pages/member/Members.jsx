@@ -16,6 +16,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const Members = ({changeNavLinkPath}) => {
 
@@ -255,7 +256,7 @@ const handlePagination = (pagenation) => {
     
             <Form>
            <Grid  className="member-frame" style={{marginTop:'45px'}}>
-            <Grid item xs={10} style={{display:'flex'}}>
+            <Grid item xs={10} style={{display:'flex',float:'right'}}>
            
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' }}>
             {/* <label >Entity</label> */}
@@ -293,13 +294,14 @@ const handlePagination = (pagenation) => {
             {/* <label>Option</label> */}
             <TextField placeholder="Option" id="option" className="member-search-text"  onChange={handleChange} />
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' ,marginRight: '187px'}}>
             {/* <label>Member ID</label> */}
             <TextField placeholder="Member ID" id="membeR_ID"  onChange={handleChange} 
             sx={{ height: '75px' }} />
             </Form.Group>
+          
             </Grid>
-            <Grid item xs={10} style={{display:'flex', marginTop:'-30px'}}>
+            <Grid item xs={10} style={{display:'flex', marginTop:'-30px' ,float:'right'}}>
             
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' }}>
             {/* <label>First Name</label> */}
@@ -329,10 +331,18 @@ const handlePagination = (pagenation) => {
             <TextField placeholder="PCP" id="pcp"   onChange={handleChange} />
             </Form.Group>
            
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' }}>           
+            {/* <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' }}>           
             <Button type="button"   onClick={handleClick} disabled={loading} 
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 40 }} /></Button>
 
+            </Form.Group> */}
+             <Form.Group  style={{margin:'10px 0px 0px 20px ' }}>
+            <Button type="button" title="Search" className="search-button"  onClick={handleClick} disabled={loading} 
+            sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 25 }} /></Button>
+            </Form.Group>
+            <Form.Group style={{margin:'10px 10px 0px 20px ' }}>
+            <Button type="button" title="Clear" className="search-button"  onClick={handleClick} disabled={loading} 
+            sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><ClearIcon sx={{ fontSize: 25 }} /></Button>
             </Form.Group>
           
             </Grid>

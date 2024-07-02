@@ -123,7 +123,7 @@ export default function StickyHeadTable({tableData,handleProviderInfo,handlePagi
 
       <TableContainer >
       <Table stickyHeader aria-label="sticky table" className='customTable'
-        style={{width:'99%', marginRight:'5px', justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+        style={{width:'100%',justifyContent:'center',alignContent:'center',alignItems:'center'}}>
           {/* <TableHead>
             <TableRow className='table-header'>
               {columns.map((column) => (

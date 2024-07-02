@@ -240,7 +240,7 @@ const downloadPDF = async () => {
       {/* <TableContainer sx={{ maxHeight: 740 }}  variant={'solid'}> */}
       <TableContainer >
         <Table stickyHeader aria-label="sticky table" className='customTable'
-        style={{width:'99%', marginRight:'5px', justifyContent:'center',alignContent:'center',alignItems:'center'}}>
+        style={{width:'100%', justifyContent:'center',alignContent:'center',alignItems:'center'}}>
 
        
           {/* <TableHead>
