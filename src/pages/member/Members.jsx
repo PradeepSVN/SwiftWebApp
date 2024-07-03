@@ -232,6 +232,19 @@ const handlePagination = (pagenation) => {
   getFilteredUserList(pagenation.page,pagenation.pageSize);
 }
 
+
+const handleClearSearchClick = (event) => {
+  event.preventDefault();
+  setSearchPayload(searchMemberRequestObject);
+  let options = [];
+  options.push({label: "   Select Entity",value:0 });
+  setEntitySelectedOptions(options);
+  setInsuranceSelectedOptions([]);
+  //setRoleSelectedValue(options);
+  
+
+}
+
   return (
     <Container style={{marginLeft:'55px' , marginTop:'20px', maxWidth:'93%', width:'100%'}}>
    {/* {isMemberInfo? <Button 
@@ -292,11 +305,11 @@ const handlePagination = (pagenation) => {
             </Form.Group>
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' }}>
             {/* <label>Option</label> */}
-            <TextField placeholder="Option" id="option" className="member-search-text"  onChange={handleChange} />
+            <TextField value={searchPayload.option} placeholder="Option" id="option" className="member-search-text"  onChange={handleChange} />
             </Form.Group>
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' ,marginRight: '145px '}}>
             {/* <label>Member ID</label> */}
-            <TextField placeholder="Member ID" id="membeR_ID"  onChange={handleChange} 
+            <TextField value={searchPayload.membeR_ID} placeholder="Member ID" id="membeR_ID"  onChange={handleChange} 
             sx={{ height: '75px' }} />
             </Form.Group>
           
@@ -306,12 +319,12 @@ const handlePagination = (pagenation) => {
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' }}>
             {/* <label>First Name</label> */}
            
-            <TextField placeholder="First Name" id="firsT_NAME"   onChange={handleChange} />
+            <TextField value={searchPayload.firsT_NAME} placeholder="First Name" id="firsT_NAME"   onChange={handleChange} />
             </Form.Group>
            
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 10px' }}>
             {/* <label>Last Name</label> */}
-            <TextField placeholder="Last Name" id="lasT_NAME"  onChange={handleChange} />
+            <TextField value={searchPayload.lasT_NAME} placeholder="Last Name" id="lasT_NAME"  onChange={handleChange} />
             </Form.Group>
            
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 13px' }}>
@@ -321,6 +334,7 @@ const handlePagination = (pagenation) => {
                   name="user_Terminated_Date"
                   id="dob"
                   onChange={handleDateChange}
+                  value={searchPayload.dob}
                  />                
                </LocalizationProvider>
             {/* <TextField placeholder="MM/DD/YYYY" id="dob"   onChange={handleChange} /> */}
@@ -328,7 +342,7 @@ const handlePagination = (pagenation) => {
            
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 13px' }}>
             {/* <label>PCP</label> */}
-            <TextField placeholder="PCP" id="pcp"   onChange={handleChange} />
+            <TextField value={searchPayload.pcp} placeholder="PCP" id="pcp"   onChange={handleChange} />
             </Form.Group>
            
             {/* <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px' }}>           
@@ -341,7 +355,7 @@ const handlePagination = (pagenation) => {
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 25 }} /></Button>
             </Form.Group>
             <Form.Group style={{margin:'10px 6px 3px 2px' }}>
-            <Button type="button" title="Clear" className="search-button"  onClick={handleClick} disabled={loading} 
+            <Button type="button" title="Clear" className="search-button"  onClick={handleClearSearchClick} disabled={loading} 
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><ClearIcon sx={{ fontSize: 25 }} /></Button>
             </Form.Group>
           

@@ -31,6 +31,7 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
   const [contextData, setContextData] = useState({});
   const pageContext = createContext({}); // Default value
   const [tableData, setTableData] = useState({columns:[],rows:[],totalCount:0,page:0,size:10});
+  const searchForm = useRef();
 
   const columns = [
     { id: 'user_First_Name', label: 'First Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
@@ -207,6 +208,16 @@ const handleClick = (event) => {
   //navigate("/")
 }
 
+const handleClearSearchClick = (event) => {
+  event.preventDefault();
+  setSearchPayload(searchRequestObject);
+  let options = [];
+  options.push({label: "   Select Role",value:0 });
+  setRoleSelectedValue(options);
+  
+
+}
+
   return (
     <>
     <div className="col-sm-12">
@@ -232,21 +243,21 @@ const handleClick = (event) => {
         &nbsp;<label> User List</label>
       </nav>
     </header>
-            <Form>
+            <Form >
            <Grid className="frame-17" style={{marginTop:'50px'}}>
           
             <Grid item xs={10} style={{ display:'flex',float: 'right'}}>
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100%' }}>
             {/* <label >User Name</label> */}
-            <TextField placeholder="User Name" id="user_UserName" className="search-text" onChange={handleChange} />
+            <TextField placeholder="User Name" id="user_UserName" value={searchPayload.user_UserName} className="search-text" onChange={handleChange} />
             </Form.Group>
             <Form.Group style={{display: 'flex', flexDirection: 'column' ,margin:'8px 8px 8px 8px',width:'100%' }}>
             {/* <label >First Name</label> */}
-            <TextField placeholder="First Name" id="user_First_Name" className="search-text" onChange={handleChange} />
+            <TextField placeholder="First Name" value={searchPayload.user_First_Name} id="user_First_Name" className="search-text" onChange={handleChange} />
             </Form.Group>
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100%'}}>
             {/* <label>Last Name</label> */}
-            <TextField placeholder="Last Name" id="user_Last_Name" className="search-text"  onChange={handleChange} />
+            <TextField value={searchPayload.user_Last_Name} placeholder="Last Name" id="user_Last_Name" className="search-text"  onChange={handleChange} />
             </Form.Group>
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px',width:'100%' }}>
             {/* <label>Role Name</label> */}
@@ -291,7 +302,7 @@ const handleClick = (event) => {
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 25 }} /></Button>
             </Form.Group>
             <Form.Group style={{margin:'10px 6px 3px 2px' }}>
-            <Button type="button" title="Clear" className="search-button"  disabled={loading} 
+            <Button type="button" title="Clear" className="search-button"  disabled={loading}   onClick={handleClearSearchClick}
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><ClearIcon sx={{ fontSize: 25 }} /></Button>
             </Form.Group>
             </Grid>
