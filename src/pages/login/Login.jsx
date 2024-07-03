@@ -40,6 +40,7 @@ const Login = () => {
   const [loginError, setLoginError] = useState("")
   const [loading, setLoading] = useState(false);
   const [openPopup, setOpenPopup] = useState({openDialog:false, showErrorMsg:false});
+  const [forgotPasswordDialog, setForgotPasswordDialog] = useState({openDialog:false, showErrorMsg:false});
   const [userId, setUserId] = useState("");
   const passwordregx = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
@@ -67,7 +68,7 @@ const Login = () => {
 
   const handleForgotPasswordClick = () =>{
     //event.preventDefault();
-    setOpenPopup(true);
+    setForgotPasswordDialog((popup) => ({ ...popup, ["openDialog"]: true}))
   }
 
   const handleResetPassword = (requestBody) =>{
@@ -90,8 +91,24 @@ const Login = () => {
   }
 
   const handleCloseOpenPopup = () => {
-     setOpenPopup(false);
+    setOpenPopup((popup) => ({ ...popup, ["openDialog"]: false}))
   }
+
+  const handleForgotPasswordCloseOpenPopup = () => {
+    setForgotPasswordDialog((popup) => ({ ...popup, ["openDialog"]: false}))
+ }
+
+ const handleForgotPassword = (requestBody) =>{
+  console.log("===payload--",requestBody);
+ 
+  if(requestBody.email == "")
+    {
+      showToast("Please enter email address",ToastMessageType.Error);
+      setOpenPopup((popup) => ({ ...popup, ["showErrorMsg"]: true}))
+      return;
+    }  
+    forgotPasswordAPI(requestBody);
+}
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -126,6 +143,40 @@ const Login = () => {
         setOpenPopup((popup) => ({ ...popup, ["openDialog"]: false}))
         //setOpenPopup(true);  
         showToast(APIMESSAGES.RESETPASSWORD,ToastMessageType.Success);    
+        //navigate("/");
+      }
+      else
+      {
+
+        setLoading(false);
+        showToast(APIMESSAGES.ERROR,ToastMessageType.Error);
+        // setOpenPopup(true);  
+        //setLoginError("Invalid credentials");
+      }
+    //isObject(res) && props.LoginUserDetails({ userInfo: res })
+  }
+
+  const forgotPasswordAPI = async (forgotPasswordPayload) => {   
+   
+    setLoading(true);
+    console.log("======getUserInfo==Start=====");
+    const res = await postData(APIS.FORGOTPASSWORD,forgotPasswordPayload);
+    console.log("======res=======",res);
+    setLoading(false);
+    if(res && res.data.status == "Failed")
+      {
+        showToast(res.data.message,ToastMessageType.Error);
+      }
+   else if(res &&  isObject(res.data)  && res.data.statusCode == 200)
+      {
+        
+        //setUserId(res.data.result.userid);
+       // console.log("======res=======",res);
+       // localStorage.setItem(LocalStorageKey.token, res.data.result.token); 
+       // localStorage.setItem(LocalStorageKey.userId,res.data.result.userid);
+        setForgotPasswordDialog((popup) => ({ ...popup, ["openDialog"]: false}))
+        //setOpenPopup(true);  
+        showToast(APIMESSAGES.FORGOTPASSWORD,ToastMessageType.Success);    
         //navigate("/");
       }
       else
@@ -281,7 +332,7 @@ const Login = () => {
             },
           }}
         />
-           <Button href="#" variant="body2" className="login-link" fontFamily={'DM Sans'}
+           <Button variant="body2"  fontFamily={'DM Sans'}
            onClick={handleForgotPasswordClick}>
                   Forgot password?
                 </Button>
@@ -321,7 +372,7 @@ const Login = () => {
       }    
     </Grid>
    <ResetPasswordDialog openPopup={openPopup} handleCloseOpenPopup={handleCloseOpenPopup} handleResetPassword={handleResetPassword} />
-   {/* <ForogtPasswordDialog openPopup={openPopup} handleCloseOpenPopup={handleCloseOpenPopup} />  */}
+   <ForogtPasswordDialog openPopup={forgotPasswordDialog} handleCloseOpenPopup={handleForgotPasswordCloseOpenPopup} handleForgotPassword={handleForgotPassword} /> 
     <ToastContainer  />
     
   </ThemeProvider>

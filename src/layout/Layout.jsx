@@ -23,6 +23,7 @@ import MemberInfo from '../pages/member/MemberInfo';
 import { isObject } from '../utils/utils';
 import ProviderList from '../pages/provider/Providers';
 import ProviderInfo from '../pages/provider/ProviderInfo';
+import RoleList from '../pages/user/RoleList';
 
 
 
@@ -108,6 +109,7 @@ const Layout = ({navPathTo}) => {
         {contentPage == "AddUser"?<AddUser changeNavLinkPath={changeNavLinkPath} />:null}
         {contentPage == "BatchAdd"?<BatchAdd />:null}
         {contentPage == "UserRoles"?<UserRoles changeNavLinkPath={changeNavLinkPath} />:null}
+        {contentPage == "RoleList"?<RoleList changeNavLinkPath={changeNavLinkPath} />:null}
         {contentPage == "UserMaintenance"?<UserMaintenance changeNavLinkPath={changeNavLinkPath} />:null}  
         {contentPage == "MemberList"?<MemberList changeNavLinkPath={changeNavLinkPath} />:null}   
         {contentPage == "MemberInfo"?<MemberInfo data={data} changeNavLinkPath={changeNavLinkPath} />:null}   

@@ -1,12 +1,12 @@
 import {React, useState,useEffect,useRef,createContext  } from "react"
 import Table from "react-bootstrap/Table"
 import { Container } from "react-bootstrap"
-import CustomTable from '../../components/CustomTable'
+import RoleTable from '../../components/RoleTable'
 import {APIS} from '../../utils/apiList';
 import {getData, postData} from '../../services/rest-services';
 import {isObject} from '../../utils/utils'
 import { userListAPIResponse } from "../../utils/apiRequestData";
-import UserInfo from '../user/UserInfo';
+import UserInfo from './UserInfo';
 import Layout from '../../layout/Layout';
 import { ArrowBack, Padding } from '@mui/icons-material';
 import { Button, TextField,Grid } from '@mui/material';
@@ -16,10 +16,10 @@ import { Form } from "react-bootstrap"
 import Select from 'react-select';
 import SearchIcon from '@mui/icons-material/Search';
 import zIndex from "@mui/material/styles/zIndex";
-import ClearIcon from '@mui/icons-material/Clear';
 
 
-const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
+
+const RoleList = ({isUserList,changeNavLinkPath}) => {
   const [loading, setLoading] = useState(true);
   const [userList, setUserList] = useState([]);
   const [userInfo, setUserInfo] = useState({});
@@ -31,16 +31,11 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
   const [contextData, setContextData] = useState({});
   const pageContext = createContext({}); // Default value
   const [tableData, setTableData] = useState({columns:[],rows:[],totalCount:0,page:0,size:10});
-  const searchForm = useRef();
 
   const columns = [
-    { id: 'user_First_Name', label: 'First Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
-    { id: 'user_Last_Name', label: 'Last Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
-    { id: 'user_Title', label: 'Title',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
-    { id: 'user_Email', label: 'Email',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
-    { id: 'user_Phone', label: 'Phone',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
-    { id: 'user_UserName', label: 'User Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
-    { id: 'user_Active', label: 'Active',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+    { id: 'role_ID', label: 'Role Id',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+    { id: 'role_Name', label: 'Role Name',numeric: false, disablePadding: true,orderBy:'asc', minWidth: 170 },
+   
   
   ];
 
@@ -74,7 +69,7 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
     //setContextData({pagePath:'UserMaintenance', isUserInfo:false});
     try{
       
-      getUserList(0,10);
+     // getRoleList(0,10);
       getAllRole();
       //getAllEnties();
     }catch (error) {
@@ -93,10 +88,22 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
     if(res && isObject(res.data) && res.data.result)
       {
         //setUserRoles(res.data.result);  
-        let options = [];
-        options.push({label: "   Select Role",value:0 });
-        res.data.result.forEach((item) => (options.push({label: item.role_Name,value:item.role_UID })));
-        setRoleOptions(options);    
+        //let options = [];
+        //options.push({label: "   Select Role",value:0 });
+       // res.data.result.forEach((item) => (options.push({label: item.role_Name,value:item.role_UID })));
+       // setRoleOptions(options);    
+       setLoading(false);    
+        setUserList(res.data.result);  
+        apiResponse = res.data.result;
+        console.log("====API Res Userlist====",apiResponse);        
+        setTableData((_payload) => ({ ..._payload, ["rows"]: res.data.result }));
+        setTableData((_payload) => ({ ..._payload, ["page"]: 0 }))
+        setTableData((_payload) => ({ ..._payload, ["size"]: 100 }))
+        setTableData((_payload) => ({ ..._payload, ["columns"]: columns }))
+        if(res.data.result.length > 0)
+          {          
+            setTableData((_payload) => ({ ..._payload, ["totalCount"]: res.data.result.length }))
+          }
       }
       else
       {
@@ -105,7 +112,7 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
    
   }
 
-  const getUserList = async (page,size) => {
+  const getRoleList = async (page,size) => {
     setLoading(true);
     let payload = searchPayload;
     payload.page = page;
@@ -161,7 +168,7 @@ const UserMaintenance = ({isUserList,changeNavLinkPath}) => {
     console.log("==handlePagination=",pagenation);
     setSearchPayload((_payload) => ({ ..._payload, ["page"]: pagenation.page }))
     setSearchPayload((_payload) => ({ ..._payload, ["size"]: pagenation.pageSize }))
-    getUserList(pagenation.page,pagenation.pageSize);
+    //getUserList(pagenation.page,pagenation.pageSize);
   }
 
   const handleRoleSelectOptions = (newValue) => {
@@ -203,24 +210,13 @@ const handleChange = (e) => {
 const handleClick = (event) => {
   event.preventDefault();
   
-  getUserList(tableData.page,tableData.size);
+  getRoleList(tableData.page,tableData.size);
   //localStorage.setItem("token", "23rasdfqwrwqerwqaerfq")
   //navigate("/")
 }
 
-const handleClearSearchClick = (event) => {
-  event.preventDefault();
-  setSearchPayload(searchRequestObject);
-  let options = [];
-  options.push({label: "   Select Role",value:0 });
-  setRoleSelectedValue(options);
-  
-
-}
-
   return (
     <>
-    <div className="col-sm-12">
    <Container style={{marginLeft:'55px' , marginTop:'20px', maxWidth:'93%', width:'100%'}}>
       {/* <Container className="px-4 py-3 my-2 center"> */}
         {/* <div className="col-md-10 offset-md-1"> */}
@@ -235,31 +231,31 @@ const handleClearSearchClick = (event) => {
          {/* { !isUserInfo ? */}
            <div>
                <header>
-      <h1 className="page-title1">User List</h1>
+      <h1 className="page-title1">Role List</h1>
       <nav>
       <Button
         style={{backgroundColor:'transparent'}}
         onClick={ () => handleNavLinks("Home")}>Home</Button> /
-        &nbsp;<label> User List</label>
+        &nbsp;<label> Role List</label>
       </nav>
     </header>
-            <Form >
+            <Form>
            <Grid className="frame-17" style={{marginTop:'50px'}}>
           
-            <Grid item xs={10} style={{ display:'flex',float: 'right'}}>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100%' }}>
+            <Grid item xs={10} style={{ display:'flex'}}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'150px' }}>
             {/* <label >User Name</label> */}
-            <TextField placeholder="User Name" id="user_UserName" value={searchPayload.user_UserName} className="search-text" onChange={handleChange} />
+            <TextField placeholder="User Name" id="user_UserName" className="search-text" onChange={handleChange} />
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column' ,margin:'8px 8px 8px 8px',width:'100%' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column' ,margin:'8px 8px 8px 8px',width:'150px' }}>
             {/* <label >First Name</label> */}
-            <TextField placeholder="First Name" value={searchPayload.user_First_Name} id="user_First_Name" className="search-text" onChange={handleChange} />
+            <TextField placeholder="First Name" id="user_First_Name" className="search-text" onChange={handleChange} />
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100%'}}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'150px'}}>
             {/* <label>Last Name</label> */}
-            <TextField value={searchPayload.user_Last_Name} placeholder="Last Name" id="user_Last_Name" className="search-text"  onChange={handleChange} />
+            <TextField placeholder="Last Name" id="user_Last_Name" className="search-text"  onChange={handleChange} />
             </Form.Group>
-            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px',width:'100%' }}>
+            <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px',width:'150px' }}>
             {/* <label>Role Name</label> */}
             <Select
             
@@ -289,26 +285,14 @@ const handleClearSearchClick = (event) => {
             /> */}
             </Form.Group>
           
-            {/* <Form.Group >
-            <Button type="button" className="search-button"   onClick={handleClick} disabled={loading} 
+            <Form.Group style={{margin:'10px 50px 87px 68px ' }}>
+            <Button type="button"   onClick={handleClick} disabled={loading} 
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 40 }} /></Button>
-            </Form.Group>
-            <Form.Group >
-            <Button type="button" className="search-button"  onClick={handleClick} disabled={loading} 
-            sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><ClearIcon sx={{ fontSize: 25 }} /></Button>
-            </Form.Group> */}
-             <Form.Group  style={{margin:'10px 0px 0px 0px' }}>
-            <Button type="button" title="Search" className="search-button"  onClick={handleClick} disabled={loading} 
-            sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 25 }} /></Button>
-            </Form.Group>
-            <Form.Group style={{margin:'10px 6px 3px 2px' }}>
-            <Button type="button" title="Clear" className="search-button"  disabled={loading}   onClick={handleClearSearchClick}
-            sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><ClearIcon sx={{ fontSize: 25 }} /></Button>
             </Form.Group>
             </Grid>
            </Grid>
            </Form>
-          <CustomTable tableData={tableData} handleUserInfo={handleUserInfo} handlePagination={handlePagination} ></CustomTable>  
+          <RoleTable tableData={tableData} handleUserInfo={handleUserInfo} handlePagination={handlePagination} ></RoleTable>  
           </div>
           {/* : null }  */}
          {/* { isUserInfo && userInfo? <UserInfo data={userInfo} handleNavigation={handleNavigation} />:null} */}
@@ -317,10 +301,8 @@ const handleClearSearchClick = (event) => {
         {/* </div> */}
       {/* </Container> */}
     </Container>
-   
-    </div>
     </>
   )
 }
 
-export default UserMaintenance
+export default RoleList

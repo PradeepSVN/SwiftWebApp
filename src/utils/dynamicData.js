@@ -11,7 +11,8 @@ export const DynamicHeader =(roleData) => {
     adminSubMenuItems.push({name:'User List',path: 'UserMaintenance',isSubmenu:true})
     adminSubMenuItems.push({name:'Single User',path: 'AddUser',isSubmenu:true})
     adminSubMenuItems.push({name:'Batch Add',path: 'BatchAdd',isSubmenu:true})
-    adminSubMenuItems.push({name:'Role',path: 'UserRoles',isSubmenu:true})
+    adminSubMenuItems.push({name:'Add Role',path: 'UserRoles',isSubmenu:true})
+    adminSubMenuItems.push({name:'RoleList',path: 'RoleList',isSubmenu:true})
     menuItems.push({name:'User Management',isSubmenu:true, subMenuItems:adminSubMenuItems});
     adminDropdown.menuItems = menuItems;           
     header.push(adminDropdown);

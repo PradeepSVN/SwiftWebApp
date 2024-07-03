@@ -7,15 +7,23 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function ForogtPasswordDialog({openPopup,handleCloseOpenPopup}) {
+export default function ForogtPasswordDialog({openPopup,handleCloseOpenPopup,handleForgotPassword}) {
   const [open, setOpen] = React.useState(openPopup);
+  const [payload, setPayload] = React.useState({email:""});
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+ 
+
+  const handleChange = (e) => {   
+    const target = e.target
+    setPayload((cre) => ({ ...cre, [target.id]: target.value }))
+  }
 
   const handleClose = () => {
     handleCloseOpenPopup();
+  };
+
+  const handleForgotPasswordClick = () => {
+    handleForgotPassword(payload);
   };
 
   return (
@@ -24,41 +32,34 @@ export default function ForogtPasswordDialog({openPopup,handleCloseOpenPopup}) {
         Open form dialog
       </Button> */}
       <Dialog
-        open={openPopup}
+        open={openPopup.openDialog}
         onClose={handleClose}
         PaperProps={{
-          component: 'form',
-          onSubmit: (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            const formJson = Object.fromEntries(formData.entries());
-            const email = formJson.email;
-            console.log(email);
-            handleClose();
-          },
+          component: 'form'        
         }}
       >
         <DialogTitle>Forgot Password</DialogTitle>
-        <DialogContent>
+        <DialogContent style={{width:'400px'}}>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here. We
-            will send updates occasionally.
+            {/* To subscribe to this website, please enter your email address here. We
+            will send updates occasionally. */}
           </DialogContentText>
           <TextField
             autoFocus
             required
             margin="dense"
-            id="name"
+            id="email"
             name="email"
             label="Email Address"
             type="email"
             fullWidth
             variant="standard"
+            onChange={handleChange} 
           />
         </DialogContent>
-        <DialogActions>
+        <DialogActions>        
+          <Button type="button" onClick={handleForgotPasswordClick} >Submit</Button>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit">Subscribe</Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>

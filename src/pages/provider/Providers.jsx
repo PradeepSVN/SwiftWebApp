@@ -269,6 +269,20 @@ const handlePagination = (pagenation) => {
   getFilteredProviderList(pagenation.page,pagenation.pageSize);
 }
 
+const handleClearSearchClick = (event) => {
+  event.preventDefault();
+  setSearchPayload(searchProviderRequestObject);
+  let options = [];
+  options.push({label: "   Select Entity",value:0 });
+  setEntitySelectedOptions(options);
+  setInsuranceSelectedOptions([]);
+  setTinSelectedOptions([]);
+  //setRoleSelectedValue(options);
+  
+
+}
+
+
   return (
     <Container style={{marginLeft:'55px' , marginTop:'20px', maxWidth:'93%', width:'100%'}}>
   
@@ -340,15 +354,15 @@ const handlePagination = (pagenation) => {
            
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100' }}>
             {/* <label>First Name</label> */}
-            <TextField placeholder="First Name" id="firsT_NAME"   onChange={handleChange} />
+            <TextField value={searchPayload.firsT_NAME} placeholder="First Name" id="firsT_NAME"   onChange={handleChange} />
             </Form.Group>
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 10px',width:'100' }}>
             {/* <label>Last Name</label> */}
-            <TextField placeholder="Last Name" id="lasT_NAME"  onChange={handleChange} />
+            <TextField value={searchPayload.lasT_NAME} placeholder="Last Name" id="lasT_NAME"  onChange={handleChange} />
             </Form.Group>  
             <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100' }}>
             {/* <label>Member ID</label> */}
-            <TextField placeholder="NPI" id="npi"  onChange={handleChange} 
+            <TextField value={searchPayload.npi} placeholder="NPI" id="npi"  onChange={handleChange} 
              />
             </Form.Group>         
             {/* <Form.Group style={{display: 'flex', flexDirection: 'column',margin:'8px 8px 8px 8px',width:'100' }}>           
@@ -361,7 +375,7 @@ const handlePagination = (pagenation) => {
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><SearchIcon sx={{ fontSize: 25 }} /></Button>
             </Form.Group>
             <Form.Group style={{margin:'10px 6px 3px 2px' }}>
-            <Button type="button" title="Clear" className="search-button"   disabled={loading} 
+            <Button type="button" title="Clear" className="search-button" onClick={handleClearSearchClick}  disabled={loading} 
             sx={{border:'none',backgroundColor:'transparent',borderRadius:'none'}}><ClearIcon sx={{ fontSize: 25 }} /></Button>
             </Form.Group>
             </Grid>

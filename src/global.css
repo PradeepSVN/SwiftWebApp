@@ -608,6 +608,15 @@ nav a {
   padding-left: 10px;
 }
 
+
+button {  
+  text-transform: capitalize!important;  
+}
+
+
+
+
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
 
